@@ -1,0 +1,46 @@
+﻿@using FloorBallOldBoysWEB.Controllers
+@using FloorBallOldBoysWEB.ViewModels
+@model FloorBallOldBoysWEB.ViewModels.CreateTrainingViewModel
+
+
+<h1>Lägg till ny träning</h1>
+<div>
+    <form metod="post" asp-antiforgery="true">
+        <div asp-validation-summary="ModelOnly"></div>
+
+        <div>
+            <label asp-for="Location"></label>
+            <input asp-for="Location" />
+            <span asp-validation-for="Location"></span>
+        </div>
+        <div>
+            <label asp-for="StartTime"></label>
+            <input asp-for="StartTime" />
+            <span asp-validation-for="StartTime"></span>
+        </div>
+        <div>
+            <label asp-for="EndTime"></label>
+            <input asp-for="EndTime" />
+            <span asp-validation-for="EndTime"></span>
+        </div>
+        <div>
+            <label asp-for="Date"></label>
+            <input asp-for="Date" />
+            <span asp-validation-for="EndTime"></span>
+        </div>
+
+        <div>
+            <h4>Info</h4>
+            <textarea rows="4" cols="50" asp-for="Info"></textarea>
+            <span asp-validation-for="Info"></span>
+        </div>
+        <div>
+            <input type="submit" value="Spara"/>
+        </div>
+    </form>
+</div>
+
+
+<div>
+    <a asp-controller="@nameof(HomeController).Replace("Controller","")" asp-action="@nameof(HomeController.Index)">Back</a>
+</div>

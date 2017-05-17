@@ -1,0 +1,13 @@
+﻿@model Domain.Entities.Training
+
+<section>
+    <h3>Dagens träning är klockan mellan @Model.StartTime.Hour : @Model.StartTime.Minute - @Model.EndTime.Hour : @Model.EndTime.Minute </h3>
+    <div>@Model.Info</div>
+    <h4>Anmälda deltagare:</h4>
+    @foreach (var userTraningEnrollment in Model.EnrolledUsers)
+    {
+        @Html.Partial("_UserSummary", userTraningEnrollment)
+    }
+</section>
+
+
