@@ -13,7 +13,7 @@ namespace Domain.Entities
         [MaxLength(45), MinLength(2)]
         public string Lastname { get; set; }
         [Required]
-        [MaxLength(12), MinLength(12)]
+        [MaxLength(13), MinLength(13)]
         public string SocialSecurityNumber { get; set; }
         [MinLength(11)]
         public string Phonenumber { get; set; }
@@ -21,6 +21,7 @@ namespace Domain.Entities
         public string Email { get; set; }
         [Required]
         public Address Address { get; set; }
+        public bool IsAdmin { get; set; }
         public DateTime RegistrationDate { get; set; } = DateTime.Now;
         public IEnumerable<UserTraningEnrollment> EnrolledTranings { get; set; } = new List<UserTraningEnrollment>();
         public IEnumerable<UserTraningAttendance> AttendedTranings { get; set; } = new List<UserTraningAttendance>();

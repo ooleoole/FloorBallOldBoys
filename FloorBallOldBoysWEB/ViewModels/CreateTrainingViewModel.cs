@@ -23,7 +23,7 @@ namespace FloorBallOldBoysWEB.ViewModels
         public DateTime Date { get; set; }
         [DataType(DataType.MultilineText)]
         public string Info { get; set; }
-        public Admin Creator { get; set; }
+        public User Creator { get; set; }
 
     }
 }

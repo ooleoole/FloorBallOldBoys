@@ -1,4 +1,4 @@
-﻿@model object
+﻿@model RegisterUserViewModel
 
 @{
     Layout = null;
@@ -8,11 +8,65 @@
 
 <html>
 <head>
-    <title>title</title>
+    <title>Register</title>
 </head>
 <body>
-<div>
-      
-</div>
+    <div>
+        <h1>Skapa konto</h1>
+        <form method="post" asp-antiforgery="true">
+            <div asp-validation-summary="ModelOnly"></div>
+            <div style="border: 5px blueviolet; width:50%; margin: 10px">
+                <div>
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" value="ola@gmail.com" />
+                    <span asp-validation-for="Email"></span>
+                </div>
+                <div>
+                    <label asp-for="Password"></label>
+                    <input asp-for="Password" value="8505201"/>
+                    <span asp-validation-for="Password"></span>
+                </div>
+
+                <div>
+                    <label asp-for="ConfirmPassword"></label>
+                    <input asp-for="ConfirmPassword" value="8505201"/>
+                    <span asp-validation-for="ConfirmPassword"></span>
+                </div>
+            </div>
+            <div>
+                <label asp-for="Firstname"></label>
+                <input asp-for="Firstname" value="Ola"/>
+                <span asp-validation-for="Firstname"></span>
+            </div>
+            <div>
+                <label asp-for="Lastname"></label>
+                <input asp-for="Lastname" value="Popp"/>
+                <span asp-validation-for="Lastname"></span>
+            </div>
+            <div>
+                <label asp-for="SocialSecurityNumber"></label>
+                <input asp-for="SocialSecurityNumber" value="19850520-4910" />
+                <span asp-validation-for="SocialSecurityNumber"></span>
+            </div>
+            <div>
+                <label asp-for="City"></label>
+                <input asp-for="City" value="Nösund"/>
+                <span asp-validation-for="City"></span>
+            </div>
+            <div>
+                <label asp-for="Street"></label>
+                <input asp-for="Street" value="Lunden 447" />
+                <span asp-validation-for="Street"></span>
+            </div>
+            <div>
+                <label asp-for="ZipCode"></label>
+                <input asp-for="ZipCode" value="474 96" />
+                <span asp-validation-for="ZipCode"></span>
+            </div>
+            <div>
+                <input type="submit" value="Spara" />
+            </div>
+        </form>
+    </div>
 </body>
 </html>

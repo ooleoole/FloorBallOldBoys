@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Domain.Entities;
 using Domain.Services;
 using FloorBallOldBoysWEB.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FloorBallOldBoysWEB.Controllers
@@ -10,7 +12,7 @@ namespace FloorBallOldBoysWEB.Controllers
     public class TraningController : Controller
     {
         private readonly ITraningService _traningService;
-        private IUserService _userService
+        private readonly IUserService _userService
             ;
 
         public TraningController(ITraningService traningService, IUserService userService)
@@ -43,7 +45,7 @@ namespace FloorBallOldBoysWEB.Controllers
             }
             return View();
         }
-
+        [Authorize]
         public IActionResult TodaysTranings()
         {
             var model = new HomePageViewModel
@@ -52,6 +54,7 @@ namespace FloorBallOldBoysWEB.Controllers
                     .Where(t => t.StartTime.Date == DateTime.Today)
 
             };
+           
             foreach (var traning in model.TodaysTranings)
             {
                 traning.EnrolledUsers.ToList().ForEach(eu => eu.User = _userService.Find(eu.UserId));

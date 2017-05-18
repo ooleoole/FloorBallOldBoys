@@ -2,10 +2,13 @@
 using Domain.Entities;
 using Domain.Interfaces;
 using Domain.Services;
+using FloorBallOldBoysWEB.IdentitUser;
 using FloorBallOldBoysWEB.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -34,7 +37,18 @@ namespace FloorBallOldBoysWEB
             services.AddScoped<IUserService,UserService>();
             services.AddScoped<ITraningService, TraningService>();
             services.AddSingleton(Configuration);
-            
+            services.AddDbContext<UserAccountContext>(options => options.UseSqlServer(Configuration.GetConnectionString("OldBoys")));
+            services.AddIdentity<UserAccount, IdentityRole>(io =>
+            {
+                io.Password.RequireDigit = false;
+                io.Password.RequireLowercase = false;
+                io.Password.RequireNonAlphanumeric = false;
+                io.Password.RequireUppercase = false;
+                io.Password.RequiredLength = 6;
+                io.User.AllowedUserNameCharacters =
+                    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+            }).AddEntityFrameworkStores<UserAccountContext>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,6 +67,7 @@ namespace FloorBallOldBoysWEB
             });
             app.UseDefaultFiles();
             app.UseStaticFiles();
+            app.UseIdentity();
             app.UseMvc(routes => routes.MapRoute("default", "{controller=Home}/{Action=Index}/{id?}"));
             app.Run(async (context) => await context.Response.WriteAsync("Hello World!"));
         }

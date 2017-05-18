@@ -46,5 +46,10 @@ namespace Domain.Services
         {
             _repo.Update(user);
         }
+
+        public void Delete(User user)
+        {
+            _repo.Delete(user);
+        }
     }
 }

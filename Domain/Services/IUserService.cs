@@ -13,5 +13,6 @@ namespace Domain.Services
         IEnumerable<User> FindAll(Expression<Func<User, bool>> predicate);
         IEnumerable<User> AllInclude(params Expression<Func<User, object>>[] predicate);
         void Update(User user);
+        void Delete(User user);
     }
 }

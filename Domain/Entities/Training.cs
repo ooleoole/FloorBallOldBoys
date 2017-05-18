@@ -14,7 +14,7 @@ namespace Domain.Entities
         public bool IsCancelled { get; set; }
         public string Info { get; set; }
         public int CreatorId { get; set; }
-        public Admin Creator { get; set; }
+        public User Creator { get; set; }
         public IEnumerable<UserTraningEnrollment> EnrolledUsers { get; set; }= new List<UserTraningEnrollment>();
         public IEnumerable<UserTraningAttendance> ActualAttendance { get; set; } = new List<UserTraningAttendance>();
     }

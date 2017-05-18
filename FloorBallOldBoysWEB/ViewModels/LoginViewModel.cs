@@ -6,7 +6,7 @@ namespace FloorBallOldBoysWEB.ViewModels
     {
 
         [Required, EmailAddress, Display(Name = "Användarnamn")]
-        public string Login { get; set; }
+        public string Username { get; set; }
         [Required, DataType(DataType.Password), Display(Name = "Lösenord")]
         public string Password { get; set; }
         [Display(Name = "Remember Me")]

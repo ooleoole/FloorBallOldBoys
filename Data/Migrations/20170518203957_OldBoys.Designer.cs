@@ -8,7 +8,7 @@ using Data.Context;
 namespace Data.Migrations
 {
     [DbContext(typeof(EllosOldBoysContext))]
-    [Migration("20170517172259_OldBoys")]
+    [Migration("20170518203957_OldBoys")]
     partial class OldBoys
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,7 +33,7 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Addresses");
+                    b.ToTable("Address");
                 });
 
             modelBuilder.Entity("Domain.Entities.Training", b =>
@@ -55,7 +55,7 @@ namespace Data.Migrations
 
                     b.HasIndex("CreatorId");
 
-                    b.ToTable("Tranings");
+                    b.ToTable("Training");
                 });
 
             modelBuilder.Entity("Domain.Entities.User", b =>
@@ -65,15 +65,14 @@ namespace Data.Migrations
 
                     b.Property<int>("AddressId");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired();
-
                     b.Property<string>("Email")
                         .IsRequired();
 
                     b.Property<string>("Firstname")
                         .IsRequired()
                         .HasMaxLength(45);
+
+                    b.Property<bool>("IsAdmin");
 
                     b.Property<string>("Lastname")
                         .HasMaxLength(45);
@@ -84,15 +83,15 @@ namespace Data.Migrations
 
                     b.Property<string>("SocialSecurityNumber")
                         .IsRequired()
-                        .HasMaxLength(12);
+                        .HasMaxLength(13);
 
                     b.HasKey("Id");
 
+                    b.HasAlternateKey("Email");
+
                     b.HasIndex("AddressId");
 
-                    b.ToTable("Users");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("User");
+                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("Domain.Entities.UserTraningAttendance", b =>
@@ -101,11 +100,15 @@ namespace Data.Migrations
 
                     b.Property<int>("UserId");
 
+                    b.Property<int?>("TrainingId");
+
                     b.HasKey("TraningId", "UserId");
+
+                    b.HasIndex("TrainingId");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserTraningAttendances");
+                    b.ToTable("UserTraningAttendance");
                 });
 
             modelBuilder.Entity("Domain.Entities.UserTraningEnrollment", b =>
@@ -114,27 +117,21 @@ namespace Data.Migrations
 
                     b.Property<int>("UserId");
 
+                    b.Property<int?>("TrainingId");
+
                     b.HasKey("TraningId", "UserId");
+
+                    b.HasIndex("TrainingId");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserTraningEnrollments");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Admin", b =>
-                {
-                    b.HasBaseType("Domain.Entities.User");
-
-
-                    b.ToTable("Admin");
-
-                    b.HasDiscriminator().HasValue("Admin");
+                    b.ToTable("UserTraningEnrollment");
                 });
 
             modelBuilder.Entity("Domain.Entities.Training", b =>
                 {
-                    b.HasOne("Domain.Entities.Admin", "Creator")
-                        .WithMany("CreatedTranings")
+                    b.HasOne("Domain.Entities.User", "Creator")
+                        .WithMany()
                         .HasForeignKey("CreatorId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -151,8 +148,7 @@ namespace Data.Migrations
                 {
                     b.HasOne("Domain.Entities.Training", "Training")
                         .WithMany("ActualAttendance")
-                        .HasForeignKey("TraningId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("TrainingId");
 
                     b.HasOne("Domain.Entities.User", "User")
                         .WithMany("AttendedTranings")
@@ -164,8 +160,7 @@ namespace Data.Migrations
                 {
                     b.HasOne("Domain.Entities.Training", "Training")
                         .WithMany("EnrolledUsers")
-                        .HasForeignKey("TraningId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("TrainingId");
 
                     b.HasOne("Domain.Entities.User", "User")
                         .WithMany("EnrolledTranings")
