@@ -15,7 +15,7 @@ namespace Domain.Interfaces
         IEnumerable<TEntity> AllInclude(params Expression<Func<TEntity, object>>[] includeProperties);
         void Update(TEntity entity);
 
-        IEnumerable<TEntity> ChainInclude<TChain>(Expression<Func<TEntity, object>> includeProperty,
-            Expression<Func<TChain, object>>chainedProprty);
+        IEnumerable<TEntity> AllInclude(string includeProperties);
+
     }
 }

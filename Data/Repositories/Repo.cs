@@ -40,7 +40,7 @@ namespace Data.Repositories
 
         public IEnumerable<TEntity> FindAll(Expression<Func<TEntity, bool>> predicate)
         {
-            return _set.Where(predicate);
+            return _set.Where(predicate).ToList();
         }
 
         public void Delete(TEntity entity)
@@ -54,18 +54,17 @@ namespace Data.Repositories
         }
         public void Update(TEntity entity)
         {
-            _set.Attach(entity);
-            var entry = _context.Entry(entity);
-            entry.State = EntityState.Modified;
+            _context.Entry(entity).State = EntityState.Modified;
+            _set.Update(entity);
+            _context.SaveChanges();
         }
 
-        public IEnumerable<TEntity> ChainInclude<TChain>(Expression<Func<TEntity, object>> includeProperty,
-            Expression<Func<TChain, object>> chainedProprty)
+        public IEnumerable<TEntity> AllInclude(string includeProperties)
         {
-
-            return _set.Include(includeProperty).Include(includeProperty);
+            return _set.Include(includeProperties).ToList();
         }
 
+        
         private IQueryable<TEntity> GetAllIncluding(params Expression<Func<TEntity, object>>[] includeProperties)
         {
             var queryable = _set as IQueryable<TEntity>;

@@ -1,0 +1,23 @@
+﻿@model MenuBarViewModel
+
+
+<div>
+    <table style="width: 20%; margin: 0px auto; ">
+        <tr>
+            <th><input type="submit" asp-action="MyAccount" asp-controller="Account" /></th>
+            <th><input type="submit" asp-action="Tr" asp-controller="Traning" /></th>
+            <th>
+                @if (Model.IsAdmin)
+                {
+                    <form method="get" asp-controller="Training" asp-action="Create">
+                        <input type="submit" value="Skapa träning" />
+                    </form>
+                }
+
+            </th>
+        </tr>
+    </table>
+
+
+
+</div>

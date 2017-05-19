@@ -15,7 +15,7 @@ namespace Domain.Entities
         public string Info { get; set; }
         public int CreatorId { get; set; }
         public User Creator { get; set; }
-        public IEnumerable<UserTraningEnrollment> EnrolledUsers { get; set; }= new List<UserTraningEnrollment>();
-        public IEnumerable<UserTraningAttendance> ActualAttendance { get; set; } = new List<UserTraningAttendance>();
+        public ICollection<UserTraningEnrollment> EnrolledUsers { get; set; }= new List<UserTraningEnrollment>();
+        public ICollection<UserTraningAttendance> ActualAttendance { get; set; } = new List<UserTraningAttendance>();
     }
 }

@@ -13,9 +13,8 @@ namespace Domain.Services
         IEnumerable<Training> FindAll(Expression<Func<Training, bool>> predicate);
         IEnumerable<Training> AllInclude(params Expression<Func<Training, object>>[] predicate);
         void Update(Training training);
-
-        IEnumerable<Training> ChainInclude<TChain>(Expression<Func<Training, object>> includeProperty,
-            Expression<Func<TChain, object>> chainedProprty);
+        void Delete(Training training);
+        IEnumerable<Training> AllInclude(string includeProperties);
 
     }
 }

@@ -19,8 +19,8 @@ namespace Data.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<UserTraningAttendance>().HasKey(k => new { k.TraningId, k.UserId });
-            modelBuilder.Entity<UserTraningEnrollment>().HasKey(k => new { k.TraningId, k.UserId });
+            modelBuilder.Entity<UserTraningAttendance>().HasKey(k => new { k.TrainingId, k.UserId });
+            modelBuilder.Entity<UserTraningEnrollment>().HasKey(k => new { k.TrainingId, k.UserId });
             modelBuilder.Entity<User>().HasAlternateKey(k => k.Email);
 
         }

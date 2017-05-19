@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using FloorBallOldBoysWEB.IdentitUser;
+using FloorBallOldBoysWEB.IdentityUser;
 
 namespace FloorBallOldBoysWEB.Migrations
 {
@@ -95,15 +95,11 @@ namespace FloorBallOldBoysWEB.Migrations
 
             modelBuilder.Entity("Domain.Entities.UserTraningAttendance", b =>
                 {
-                    b.Property<int>("TraningId");
+                    b.Property<int>("TrainingId");
 
                     b.Property<int>("UserId");
 
-                    b.Property<int?>("TrainingId");
-
-                    b.HasKey("TraningId", "UserId");
-
-                    b.HasIndex("TrainingId");
+                    b.HasKey("TrainingId", "UserId");
 
                     b.HasIndex("UserId");
 
@@ -112,22 +108,18 @@ namespace FloorBallOldBoysWEB.Migrations
 
             modelBuilder.Entity("Domain.Entities.UserTraningEnrollment", b =>
                 {
-                    b.Property<int>("TraningId");
+                    b.Property<int>("TrainingId");
 
                     b.Property<int>("UserId");
 
-                    b.Property<int?>("TrainingId");
-
-                    b.HasKey("TraningId", "UserId");
-
-                    b.HasIndex("TrainingId");
+                    b.HasKey("TrainingId", "UserId");
 
                     b.HasIndex("UserId");
 
                     b.ToTable("UserTraningEnrollment");
                 });
 
-            modelBuilder.Entity("FloorBallOldBoysWEB.IdentitUser.UserAccount", b =>
+            modelBuilder.Entity("FloorBallOldBoysWEB.IdentityUser.UserAccount", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -308,27 +300,29 @@ namespace FloorBallOldBoysWEB.Migrations
                 {
                     b.HasOne("Domain.Entities.Training", "Training")
                         .WithMany("ActualAttendance")
-                        .HasForeignKey("TrainingId");
+                        .HasForeignKey("TrainingId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Domain.Entities.User", "User")
                         .WithMany("AttendedTranings")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Domain.Entities.UserTraningEnrollment", b =>
                 {
                     b.HasOne("Domain.Entities.Training", "Training")
                         .WithMany("EnrolledUsers")
-                        .HasForeignKey("TrainingId");
+                        .HasForeignKey("TrainingId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Domain.Entities.User", "User")
                         .WithMany("EnrolledTranings")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("FloorBallOldBoysWEB.IdentitUser.UserAccount", b =>
+            modelBuilder.Entity("FloorBallOldBoysWEB.IdentityUser.UserAccount", b =>
                 {
                     b.HasOne("Domain.Entities.User", "User")
                         .WithMany()
@@ -346,7 +340,7 @@ namespace FloorBallOldBoysWEB.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("FloorBallOldBoysWEB.IdentitUser.UserAccount")
+                    b.HasOne("FloorBallOldBoysWEB.IdentityUser.UserAccount")
                         .WithMany("Claims")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -354,7 +348,7 @@ namespace FloorBallOldBoysWEB.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("FloorBallOldBoysWEB.IdentitUser.UserAccount")
+                    b.HasOne("FloorBallOldBoysWEB.IdentityUser.UserAccount")
                         .WithMany("Logins")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -367,7 +361,7 @@ namespace FloorBallOldBoysWEB.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("FloorBallOldBoysWEB.IdentitUser.UserAccount")
+                    b.HasOne("FloorBallOldBoysWEB.IdentityUser.UserAccount")
                         .WithMany("Roles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);

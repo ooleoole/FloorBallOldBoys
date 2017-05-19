@@ -8,8 +8,8 @@ using Data.Context;
 namespace Data.Migrations
 {
     [DbContext(typeof(EllosOldBoysContext))]
-    [Migration("20170518203957_OldBoys")]
-    partial class OldBoys
+    [Migration("20170519130835_OldBoysData")]
+    partial class OldBoysData
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -96,15 +96,11 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Domain.Entities.UserTraningAttendance", b =>
                 {
-                    b.Property<int>("TraningId");
+                    b.Property<int>("TrainingId");
 
                     b.Property<int>("UserId");
 
-                    b.Property<int?>("TrainingId");
-
-                    b.HasKey("TraningId", "UserId");
-
-                    b.HasIndex("TrainingId");
+                    b.HasKey("TrainingId", "UserId");
 
                     b.HasIndex("UserId");
 
@@ -113,15 +109,11 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Domain.Entities.UserTraningEnrollment", b =>
                 {
-                    b.Property<int>("TraningId");
+                    b.Property<int>("TrainingId");
 
                     b.Property<int>("UserId");
 
-                    b.Property<int?>("TrainingId");
-
-                    b.HasKey("TraningId", "UserId");
-
-                    b.HasIndex("TrainingId");
+                    b.HasKey("TrainingId", "UserId");
 
                     b.HasIndex("UserId");
 
@@ -148,24 +140,26 @@ namespace Data.Migrations
                 {
                     b.HasOne("Domain.Entities.Training", "Training")
                         .WithMany("ActualAttendance")
-                        .HasForeignKey("TrainingId");
+                        .HasForeignKey("TrainingId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Domain.Entities.User", "User")
                         .WithMany("AttendedTranings")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Domain.Entities.UserTraningEnrollment", b =>
                 {
                     b.HasOne("Domain.Entities.Training", "Training")
                         .WithMany("EnrolledUsers")
-                        .HasForeignKey("TrainingId");
+                        .HasForeignKey("TrainingId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Domain.Entities.User", "User")
                         .WithMany("EnrolledTranings")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
         }
     }

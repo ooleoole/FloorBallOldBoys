@@ -2,7 +2,7 @@
 using Domain.Entities;
 using Domain.Interfaces;
 using Domain.Services;
-using FloorBallOldBoysWEB.IdentitUser;
+using FloorBallOldBoysWEB.IdentityUser;
 using FloorBallOldBoysWEB.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -48,6 +48,7 @@ namespace FloorBallOldBoysWEB
                 io.User.AllowedUserNameCharacters =
                     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
             }).AddEntityFrameworkStores<UserAccountContext>();
+           
 
         }
 
@@ -68,7 +69,7 @@ namespace FloorBallOldBoysWEB
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseIdentity();
-            app.UseMvc(routes => routes.MapRoute("default", "{controller=Home}/{Action=Index}/{id?}"));
+            app.UseMvc(routes => routes.MapRoute("default", "{controller=Account}/{Action=Login}/{id?}"));
             app.Run(async (context) => await context.Response.WriteAsync("Hello World!"));
         }
     }

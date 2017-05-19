@@ -45,10 +45,14 @@ namespace Domain.Services
             _repo.Update(training);
         }
 
-        public IEnumerable<Training> ChainInclude<TChain>(Expression<Func<Training, object>> includeProperty, 
-            Expression<Func<TChain, object>> chainedProprty)
+        public void Delete(Training training)
         {
-           return _repo.ChainInclude(includeProperty, chainedProprty);
+            _repo.Delete(training);
+        }
+
+        public IEnumerable<Training> AllInclude(string includeProperties)
+        {
+            return _repo.AllInclude(includeProperties);
         }
     }
 }

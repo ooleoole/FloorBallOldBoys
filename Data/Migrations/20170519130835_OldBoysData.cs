@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Data.Migrations
 {
-    public partial class OldBoys : Migration
+    public partial class OldBoysData : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -78,50 +78,48 @@ namespace Data.Migrations
                 name: "UserTraningAttendance",
                 columns: table => new
                 {
-                    TraningId = table.Column<int>(nullable: false),
-                    UserId = table.Column<int>(nullable: false),
-                    TrainingId = table.Column<int>(nullable: true)
+                    TrainingId = table.Column<int>(nullable: false),
+                    UserId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserTraningAttendance", x => new { x.TraningId, x.UserId });
+                    table.PrimaryKey("PK_UserTraningAttendance", x => new { x.TrainingId, x.UserId });
                     table.ForeignKey(
                         name: "FK_UserTraningAttendance_Training_TrainingId",
                         column: x => x.TrainingId,
                         principalTable: "Training",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_UserTraningAttendance_User_UserId",
                         column: x => x.UserId,
                         principalTable: "User",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
                 name: "UserTraningEnrollment",
                 columns: table => new
                 {
-                    TraningId = table.Column<int>(nullable: false),
-                    UserId = table.Column<int>(nullable: false),
-                    TrainingId = table.Column<int>(nullable: true)
+                    TrainingId = table.Column<int>(nullable: false),
+                    UserId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserTraningEnrollment", x => new { x.TraningId, x.UserId });
+                    table.PrimaryKey("PK_UserTraningEnrollment", x => new { x.TrainingId, x.UserId });
                     table.ForeignKey(
                         name: "FK_UserTraningEnrollment_Training_TrainingId",
                         column: x => x.TrainingId,
                         principalTable: "Training",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_UserTraningEnrollment_User_UserId",
                         column: x => x.UserId,
                         principalTable: "User",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateIndex(
@@ -135,19 +133,9 @@ namespace Data.Migrations
                 column: "AddressId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserTraningAttendance_TrainingId",
-                table: "UserTraningAttendance",
-                column: "TrainingId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_UserTraningAttendance_UserId",
                 table: "UserTraningAttendance",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserTraningEnrollment_TrainingId",
-                table: "UserTraningEnrollment",
-                column: "TrainingId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserTraningEnrollment_UserId",

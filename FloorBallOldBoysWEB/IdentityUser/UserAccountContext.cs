@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace FloorBallOldBoysWEB.IdentitUser
+namespace FloorBallOldBoysWEB.IdentityUser
 {
     public class UserAccountContext : IdentityDbContext<UserAccount>
     {
@@ -15,8 +15,8 @@ namespace FloorBallOldBoysWEB.IdentitUser
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<UserAccount>().HasOne(x => x.User);
-            modelBuilder.Entity<UserTraningAttendance>().HasKey(k => new { k.TraningId, k.UserId });
-            modelBuilder.Entity<UserTraningEnrollment>().HasKey(k => new { k.TraningId, k.UserId });
+            modelBuilder.Entity<UserTraningAttendance>().HasKey(k => new { k.TrainingId, k.UserId });
+            modelBuilder.Entity<UserTraningEnrollment>().HasKey(k => new { k.TrainingId, k.UserId });
             modelBuilder.Entity<User>().HasAlternateKey(k => k.Email);
         }
     }
