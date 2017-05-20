@@ -17,5 +17,21 @@ namespace FloorBallOldBoysWEB.Utilites
 
             };
         }
+
+        public EditTrainingViewModel TrainingToTrainingViewModel(Training training)
+        {
+            return new EditTrainingViewModel
+            {
+               Id=training.Id,
+               Date = training.StartTime.Date,
+               StartTime = training.StartTime,
+               EndTime = training.EndTime,
+               Info = training.Info,
+               Location = "ellös",
+               IsCancelled = training.IsCancelled
+            };
+        }
     }
+
+
 }

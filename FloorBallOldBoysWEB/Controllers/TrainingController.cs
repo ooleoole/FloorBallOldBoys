@@ -9,6 +9,7 @@ using FloorBallOldBoysWEB.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace FloorBallOldBoysWEB.Controllers
 {
@@ -62,12 +63,12 @@ namespace FloorBallOldBoysWEB.Controllers
             return View("TodayTranings", model);
         }
 
-        
+
 
         [Authorize]
-        public IActionResult EnrollTraining(Training model)
+        public IActionResult EnrollTraining(int trainingId)
         {
-            var training = _traningService.Find(model.Id);
+            var training = _traningService.Find(trainingId);
 
             var user = GetLoggedInUser();
             training.EnrolledUsers.Add(new UserTraningEnrollment
@@ -81,16 +82,16 @@ namespace FloorBallOldBoysWEB.Controllers
 
 
         [Authorize]
-        public IActionResult DismissTraining(Training model)
+        public IActionResult DismissTraining(int trainingId)
         {
-            var training = _traningService.AllInclude("EnrolledUsers.User").FirstOrDefault(t=>t.Id==model.Id);
+            var training = _traningService.AllInclude("EnrolledUsers.User").FirstOrDefault(t => t.Id == trainingId);
             var user = GetLoggedInUser();
             var deleteEnrollments = training.EnrolledUsers.Where(ute => ute.UserId == user.Id).ToList();
             deleteEnrollments.ForEach(de => training.EnrolledUsers.Remove(de));
             _traningService.Update(training);
             return RedirectToAction("TodaysTrainings");
         }
-        
+
         private User GetLoggedInUser()
         {
             var loggedInUserId = _userManager.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).UserId;
@@ -101,6 +102,32 @@ namespace FloorBallOldBoysWEB.Controllers
             return _traningService.AllInclude("EnrolledUsers.User")
                 .Where(t => t.StartTime.Date == DateTime.Today);
         }
+        [HttpGet]
+        [Authorize]
+        public IActionResult Edit(int trainingId)
+        {
+            var training = _traningService.Find(trainingId);
+            var model = Mapper.ModelToViewModelMapping.TrainingToTrainingViewModel(training);
+            if (model is null)
+            {
+                return RedirectToAction(nameof(TodaysTrainings));
+            }
+            return View(model);
+        }
 
+        [HttpPost]
+        [Authorize]
+        public IActionResult Edit(int trainingId, EditTrainingViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var traning = _traningService.Find(trainingId);
+                traning = Mapper.ViewModelToModelMapping.EditTrainingViewModelToTraining(model, traning);
+                _traningService.Update(traning);
+                return RedirectToAction("TodaysTrainings");
+            }
+
+            return View(model);
+        }
     }
 }
