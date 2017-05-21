@@ -1,6 +1,7 @@
 ﻿
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Data.Context
 {
@@ -22,6 +23,7 @@ namespace Data.Context
             modelBuilder.Entity<UserTraningAttendance>().HasKey(k => new { k.TrainingId, k.UserId });
             modelBuilder.Entity<UserTraningEnrollment>().HasKey(k => new { k.TrainingId, k.UserId });
             modelBuilder.Entity<User>().HasAlternateKey(k => k.Email);
+            modelBuilder.Entity<Address>().HasAlternateKey(k => new {k.City, k.Street, k.ZipCode});
 
         }
     }

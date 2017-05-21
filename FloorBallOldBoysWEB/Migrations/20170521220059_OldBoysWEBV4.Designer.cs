@@ -8,9 +8,10 @@ using FloorBallOldBoysWEB.IdentityUser;
 namespace FloorBallOldBoysWEB.Migrations
 {
     [DbContext(typeof(UserAccountContext))]
-    partial class UserAccountContextModelSnapshot : ModelSnapshot
+    [Migration("20170521220059_OldBoysWEBV4")]
+    partial class OldBoysWEBV4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")

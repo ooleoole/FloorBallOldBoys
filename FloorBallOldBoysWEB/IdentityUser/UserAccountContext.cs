@@ -18,6 +18,7 @@ namespace FloorBallOldBoysWEB.IdentityUser
             modelBuilder.Entity<UserTraningAttendance>().HasKey(k => new { k.TrainingId, k.UserId });
             modelBuilder.Entity<UserTraningEnrollment>().HasKey(k => new { k.TrainingId, k.UserId });
             modelBuilder.Entity<User>().HasAlternateKey(k => k.Email);
+            modelBuilder.Entity<Address>().HasAlternateKey(k => new { k.City, k.Street, k.ZipCode });
         }
     }
 }
