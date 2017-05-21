@@ -1,37 +1,46 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Domain.Entities;
 using Domain.Services;
 using FloorBallOldBoysWEB.IdentityUser;
+using FloorBallOldBoysWEB.Utilites;
 using FloorBallOldBoysWEB.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FloorBallOldBoysWEB.Controllers
 {
+    [Authorize]
     public class AccountController : Controller
     {
         private readonly UserManager<UserAccount> _userManger;
         private readonly SignInManager<UserAccount> _signInManager;
         private readonly IUserService _userService;
+        private readonly ISession _session;
+        private User _loggedInUser;
+        private User LoggedInUser => _loggedInUser ?? (_loggedInUser = _session.GetLoggedInUser(User.Identity.Name));
 
         public AccountController(UserManager<UserAccount> userManager,
             SignInManager<UserAccount> signInManager,
-            IUserService userService)
+            IUserService userService, ISession session)
         {
-
+            _session = session;
             _userManger = userManager;
             _signInManager = signInManager;
             _userService = userService;
 
         }
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Login()
         {
 
             return View();
         }
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (ModelState.IsValid)
@@ -52,11 +61,13 @@ namespace FloorBallOldBoysWEB.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Register()
         {
             return View();
         }
         [HttpPost, ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public async Task<IActionResult> Register(RegisterUserViewModel model)
         {
             if (ModelState.IsValid)
@@ -80,10 +91,11 @@ namespace FloorBallOldBoysWEB.Controllers
                 }
                 catch (Exception)
                 {
-                    _userService.Delete(user);
-                    ModelState.AddModelError("","Email upptagen");
+
+                    ModelState.AddModelError("", "Email upptagen");
+                    return View(model);
                 }
-                
+
 
                 var userAccount = new UserAccount
                 {
@@ -93,9 +105,9 @@ namespace FloorBallOldBoysWEB.Controllers
                 IdentityResult createResult;
                 try
                 {
-                   
+
                     createResult = await _userManger.CreateAsync(userAccount, model.Password);
-                    
+
                 }
                 catch (Exception)
                 {
@@ -112,7 +124,10 @@ namespace FloorBallOldBoysWEB.Controllers
                     await _signInManager.SignInAsync(userAccount, false);
                     return RedirectToAction("TodaysTrainings", "Training");
                 }
-                _userService.Delete(user);
+                if (user.Id != 0)
+                    _userService.Delete(user);
+                
+                
                 foreach (var error in createResult.Errors)
                     ModelState.AddModelError("", error.Description);
 
@@ -123,8 +138,36 @@ namespace FloorBallOldBoysWEB.Controllers
 
         public IActionResult MyAccount()
         {
-            var model = _userManger;
-            return null;
+            var model = Mapper.ModelToViewModelMapping.UserToMyAccountViewModel(LoggedInUser);
+            return View(model);
+        }
+        [HttpGet]
+        public IActionResult Edit()
+        {
+            var model = Mapper.ModelToViewModelMapping.UserToEditUserViewModel(LoggedInUser);
+            return View(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditUserViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var userAccount = _userManger.Users.FirstOrDefault(u => u.UserId == LoggedInUser.Id);
+
+                await _userManger.RemovePasswordAsync(userAccount);
+                var result = await _userManger.AddPasswordAsync(userAccount, model.Password);
+                if (!result.Succeeded)
+                {
+                    foreach (var error in result.Errors)
+                        ModelState.AddModelError("", error.Description);
+
+                    return View(model);
+                }
+                var user = Mapper.ViewModelToModelMapping.EditUserViewModelToUser(model, LoggedInUser);
+                _userService.Update(user);
+                return RedirectToAction(nameof(MyAccount));
+            }
+            return View(model);
         }
     }
 }

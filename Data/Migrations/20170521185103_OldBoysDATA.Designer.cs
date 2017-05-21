@@ -8,8 +8,8 @@ using Data.Context;
 namespace Data.Migrations
 {
     [DbContext(typeof(EllosOldBoysContext))]
-    [Migration("20170519130835_OldBoysData")]
-    partial class OldBoysData
+    [Migration("20170521185103_OldBoysDATA")]
+    partial class OldBoysDATA
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -43,11 +43,16 @@ namespace Data.Migrations
 
                     b.Property<int>("CreatorId");
 
+                    b.Property<DateTime>("Date");
+
                     b.Property<DateTime>("EndTime");
 
                     b.Property<string>("Info");
 
                     b.Property<bool>("IsCancelled");
+
+                    b.Property<string>("Location")
+                        .IsRequired();
 
                     b.Property<DateTime>("StartTime");
 
@@ -141,12 +146,12 @@ namespace Data.Migrations
                     b.HasOne("Domain.Entities.Training", "Training")
                         .WithMany("ActualAttendance")
                         .HasForeignKey("TrainingId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Domain.Entities.User", "User")
                         .WithMany("AttendedTranings")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Domain.Entities.UserTraningEnrollment", b =>
@@ -154,12 +159,12 @@ namespace Data.Migrations
                     b.HasOne("Domain.Entities.Training", "Training")
                         .WithMany("EnrolledUsers")
                         .HasForeignKey("TrainingId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Domain.Entities.User", "User")
                         .WithMany("EnrolledTranings")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
         }
     }

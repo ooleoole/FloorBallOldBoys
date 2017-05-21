@@ -11,6 +11,8 @@
             {
                 <a asp-action="Edit" asp-controller="Training" 
                    asp-route-trainingId="@training.Id"  asp-route-returnUrl="@Model.ReturnUrl">Ändra</a>
+                <a asp-action="Delete" asp-controller="Training" 
+                   asp-route-trainingId="@training.Id"  asp-route-returnUrl="@Model.ReturnUrl">Ta bort</a>
 
             }
         </div>

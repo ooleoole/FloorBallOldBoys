@@ -22,6 +22,7 @@ namespace Domain.Entities
         public string Email { get; set; }
         [Required]
         public Address Address { get; set; }
+        public int AddressId { get; set; }
         public bool IsAdmin { get; set; }
         public DateTime RegistrationDate { get; set; } = DateTime.Now;
         public IEnumerable<UserTraningEnrollment> EnrolledTranings { get; set; } = new List<UserTraningEnrollment>();

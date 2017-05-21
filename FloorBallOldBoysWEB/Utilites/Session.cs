@@ -13,7 +13,8 @@ namespace FloorBallOldBoysWEB.Utilites
 
         private readonly IUserService _userService;
         private readonly UserManager<UserAccount> _userManager;
-        
+
+
 
         public Session(IUserService userService, UserManager<UserAccount> userManager)
         {
@@ -24,7 +25,7 @@ namespace FloorBallOldBoysWEB.Utilites
         public User GetLoggedInUser(string userName)
         {
             var loggedInUserId = _userManager.Users.FirstOrDefault(u => u.UserName == userName).UserId;
-            return _userService.Find(loggedInUserId);
+            return _userService.AllInclude(p => p.Address).FirstOrDefault(u => u.Id == loggedInUserId);
         }
     }
 }

@@ -16,5 +16,17 @@ namespace FloorBallOldBoysWEB.Utilites
             trainingToBeEdited.IsCancelled = model.IsCancelled;
             return trainingToBeEdited;
         }
+
+        public User EditUserViewModelToUser(EditUserViewModel model,User userToBeEdited)
+        {
+            userToBeEdited.Address.City = model.City;
+            userToBeEdited.Address.Street = model.Street;
+            userToBeEdited.Address.ZipCode = model.ZipCode;
+            userToBeEdited.Firstname = model.Firstname;
+            userToBeEdited.Lastname = model.Lastname;
+            userToBeEdited.SocialSecurityNumber = model.SocialSecurityNumber;
+            return userToBeEdited;
+
+        }
     }
 }

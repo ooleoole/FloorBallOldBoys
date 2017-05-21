@@ -45,7 +45,9 @@ namespace Data.Repositories
 
         public void Delete(TEntity entity)
         {
+            _context.Entry(entity).State = EntityState.Deleted;
             _set.Remove(entity);
+            _context.SaveChanges();
         }
 
         public IEnumerable<TEntity> AllInclude(params Expression<Func<TEntity, object>>[] includeProperties)

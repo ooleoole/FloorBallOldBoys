@@ -39,6 +39,7 @@ namespace FloorBallOldBoysWEB
             services.AddScoped<IMessagesService, MessagesService>();
             services.AddScoped<IRepo<Training>, Repo<Training>>();
             services.AddScoped<IRepo<User>, Repo<User>>();
+            services.AddScoped<IRepo<Address>, Repo<Address>>();
             services.AddScoped<IUserService,UserService>();
             services.AddScoped<ITraningService, TraningService>();
             services.AddSingleton(Configuration);

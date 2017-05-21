@@ -107,9 +107,11 @@ namespace FloorBallOldBoysWEB.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CreatorId = table.Column<int>(nullable: false),
+                    Date = table.Column<DateTime>(nullable: false),
                     EndTime = table.Column<DateTime>(nullable: false),
                     Info = table.Column<string>(nullable: true),
                     IsCancelled = table.Column<bool>(nullable: false),
+                    Location = table.Column<string>(nullable: false),
                     StartTime = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
@@ -170,7 +172,7 @@ namespace FloorBallOldBoysWEB.Migrations
                         column: x => x.TrainingId,
                         principalTable: "Training",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_UserTraningAttendance_User_UserId",
                         column: x => x.UserId,
@@ -194,7 +196,7 @@ namespace FloorBallOldBoysWEB.Migrations
                         column: x => x.TrainingId,
                         principalTable: "Training",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_UserTraningEnrollment_User_UserId",
                         column: x => x.UserId,

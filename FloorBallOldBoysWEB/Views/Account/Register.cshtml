@@ -13,54 +13,54 @@
 <body>
     <div>
         <h1>Skapa konto</h1>
-        <form method="post" asp-antiforgery="true">
+        <form method="post" asp-antiforgery="true" asp-controller="Account" asp-action="Register">
             <div asp-validation-summary="ModelOnly"></div>
             <div style="border: 5px blueviolet; width:50%; margin: 10px">
                 <div>
                     <label asp-for="Email"></label>
-                    <input asp-for="Email" value="ola@gmail.com" />
+                    <input asp-for="Email"  />
                     <span asp-validation-for="Email"></span>
                 </div>
                 <div>
                     <label asp-for="Password"></label>
-                    <input asp-for="Password" value="8505201"/>
+                    <input asp-for="Password" />
                     <span asp-validation-for="Password"></span>
                 </div>
 
                 <div>
                     <label asp-for="ConfirmPassword"></label>
-                    <input asp-for="ConfirmPassword" value="8505201"/>
+                    <input asp-for="ConfirmPassword"/>
                     <span asp-validation-for="ConfirmPassword"></span>
                 </div>
             </div>
             <div>
                 <label asp-for="Firstname"></label>
-                <input asp-for="Firstname" value="Ola"/>
+                <input asp-for="Firstname"/>
                 <span asp-validation-for="Firstname"></span>
             </div>
             <div>
                 <label asp-for="Lastname"></label>
-                <input asp-for="Lastname" value="Popp"/>
+                <input asp-for="Lastname"/>
                 <span asp-validation-for="Lastname"></span>
             </div>
             <div>
                 <label asp-for="SocialSecurityNumber"></label>
-                <input asp-for="SocialSecurityNumber" value="19850520-4910" />
+                <input asp-for="SocialSecurityNumber"/>
                 <span asp-validation-for="SocialSecurityNumber"></span>
             </div>
             <div>
                 <label asp-for="City"></label>
-                <input asp-for="City" value="Nösund"/>
+                <input asp-for="City"/>
                 <span asp-validation-for="City"></span>
             </div>
             <div>
                 <label asp-for="Street"></label>
-                <input asp-for="Street" value="Lunden 447" />
+                <input asp-for="Street"/>
                 <span asp-validation-for="Street"></span>
             </div>
             <div>
                 <label asp-for="ZipCode"></label>
-                <input asp-for="ZipCode" value="474 96" />
+                <input asp-for="ZipCode"/>
                 <span asp-validation-for="ZipCode"></span>
             </div>
             <div>

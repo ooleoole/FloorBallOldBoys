@@ -8,7 +8,7 @@ using FloorBallOldBoysWEB.IdentityUser;
 namespace FloorBallOldBoysWEB.Migrations
 {
     [DbContext(typeof(UserAccountContext))]
-    [Migration("20170519130907_OldBoysWEB")]
+    [Migration("20170521185442_OldBoysWEB")]
     partial class OldBoysWEB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -43,11 +43,16 @@ namespace FloorBallOldBoysWEB.Migrations
 
                     b.Property<int>("CreatorId");
 
+                    b.Property<DateTime>("Date");
+
                     b.Property<DateTime>("EndTime");
 
                     b.Property<string>("Info");
 
                     b.Property<bool>("IsCancelled");
+
+                    b.Property<string>("Location")
+                        .IsRequired();
 
                     b.Property<DateTime>("StartTime");
 
@@ -302,12 +307,12 @@ namespace FloorBallOldBoysWEB.Migrations
                     b.HasOne("Domain.Entities.Training", "Training")
                         .WithMany("ActualAttendance")
                         .HasForeignKey("TrainingId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Domain.Entities.User", "User")
                         .WithMany("AttendedTranings")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Domain.Entities.UserTraningEnrollment", b =>
@@ -315,12 +320,12 @@ namespace FloorBallOldBoysWEB.Migrations
                     b.HasOne("Domain.Entities.Training", "Training")
                         .WithMany("EnrolledUsers")
                         .HasForeignKey("TrainingId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Domain.Entities.User", "User")
                         .WithMany("EnrolledTranings")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("FloorBallOldBoysWEB.IdentityUser.UserAccount", b =>

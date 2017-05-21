@@ -1,24 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using Domain.Entities;
 using Domain.Interfaces;
 
 namespace Domain.Services
 {
-   
+
 
     public class UserService : IUserService
     {
         private readonly IRepo<User> _repo;
+        private IRepo<Address> _addressRepo;
 
-        public UserService(IRepo<User> repo)
+        public UserService(IRepo<User> repo, IRepo<Address> addressRepo)
         {
             _repo = repo;
+            _addressRepo = addressRepo;
         }
 
         public void Add(User user)
         {
+
+            var address = _addressRepo.FindAll(a => a.City == user.Address.City &&
+                                                    a.Street == user.Address.Street &&
+                                                    a.ZipCode == user.Address.ZipCode).FirstOrDefault();
+
+            if (address != null)
+            {
+                user.AddressId = address.Id;
+                user.Address = null;
+            }
             _repo.Add(user);
         }
 
@@ -32,12 +45,12 @@ namespace Domain.Services
             return _repo.Find(id);
         }
 
-        public IEnumerable<User> FindAll(Expression<Func<User,bool>> predicate)
+        public IEnumerable<User> FindAll(Expression<Func<User, bool>> predicate)
         {
             return _repo.FindAll(predicate);
         }
 
-        public IEnumerable<User> AllInclude(params Expression<Func<User, object>> []predicate)
+        public IEnumerable<User> AllInclude(params Expression<Func<User, object>>[] predicate)
         {
             return _repo.AllInclude(predicate);
         }

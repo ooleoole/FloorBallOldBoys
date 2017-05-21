@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Domain.Entities;
 using Domain.Services;
-using FloorBallOldBoysWEB.IdentityUser;
 using FloorBallOldBoysWEB.Utilites;
 using FloorBallOldBoysWEB.ViewModels;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FloorBallOldBoysWEB.Controllers
@@ -41,8 +39,10 @@ namespace FloorBallOldBoysWEB.Controllers
             {
                 var newTraning = new Training
                 {
+                    Location = model.Location,
                     StartTime = new DateTime(model.Date.Year, model.Date.Month, model.Date.Day, model.StartTime.Hour, model.StartTime.Minute, 0),
                     EndTime = new DateTime(model.Date.Year, model.Date.Month, model.Date.Day, model.EndTime.Hour, model.EndTime.Minute, 0),
+                    Date = model.Date,
                     Info = model.Info,
                     CreatorId = 1
 
@@ -55,7 +55,7 @@ namespace FloorBallOldBoysWEB.Controllers
         [Authorize]
         public IActionResult TodaysTrainings()
         {
-            
+
             var todaysTranings = GetTodaysTranings();
             var model = Mapper.ModelToViewModelMapping
                 .TrainingsToTrainingsViewModel(todaysTranings, LoggedInUser);
@@ -66,7 +66,7 @@ namespace FloorBallOldBoysWEB.Controllers
         [Authorize]
         public IActionResult GetAllTrainings()
         {
-            
+
             var allTrainings = _traningService.AllInclude("EnrolledUsers.User", "ActualAttendance.User");
             var model = Mapper.ModelToViewModelMapping
                 .TrainingsToTrainingsViewModel(allTrainings, LoggedInUser);
@@ -102,14 +102,13 @@ namespace FloorBallOldBoysWEB.Controllers
 
         [HttpGet]
         [Authorize]
-        public IActionResult Edit(int trainingId)
+        public IActionResult Edit(int trainingId, string returnUrl)
         {
             var training = _traningService.Find(trainingId);
             var model = Mapper.ModelToViewModelMapping.TrainingToTrainingViewModel(training);
             if (model is null)
-            {
-                return RedirectToAction(nameof(TodaysTrainings));
-            }
+                return Redirect(returnUrl);
+
             return View(model);
         }
 
@@ -135,5 +134,14 @@ namespace FloorBallOldBoysWEB.Controllers
         }
 
 
+        public IActionResult Delete(int trainingId, string returnUrl)
+        {
+            var training = _traningService.Find(trainingId);
+            if (training is null)
+                return Redirect(returnUrl);
+
+            _traningService.Delete(training);
+            return Redirect(returnUrl);
+        }
     }
 }

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Data.Migrations
 {
-    public partial class OldBoysData : Migration
+    public partial class OldBoysDATA : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -58,9 +58,11 @@ namespace Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CreatorId = table.Column<int>(nullable: false),
+                    Date = table.Column<DateTime>(nullable: false),
                     EndTime = table.Column<DateTime>(nullable: false),
                     Info = table.Column<string>(nullable: true),
                     IsCancelled = table.Column<bool>(nullable: false),
+                    Location = table.Column<string>(nullable: false),
                     StartTime = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
@@ -89,13 +91,13 @@ namespace Data.Migrations
                         column: x => x.TrainingId,
                         principalTable: "Training",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_UserTraningAttendance_User_UserId",
                         column: x => x.UserId,
                         principalTable: "User",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -113,13 +115,13 @@ namespace Data.Migrations
                         column: x => x.TrainingId,
                         principalTable: "Training",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_UserTraningEnrollment_User_UserId",
                         column: x => x.UserId,
                         principalTable: "User",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

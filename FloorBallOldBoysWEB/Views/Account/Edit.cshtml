@@ -1,0 +1,61 @@
+﻿@model EditUserViewModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+<div>
+    <form method="post" asp-antiforgery="true">
+        <div asp-validation-summary="ModelOnly"></div>
+        <div>
+            <label asp-for="Email"></label>
+            <input asp-for="Email"/>
+            <span asp-validation-for="Email"></span>
+        </div>
+        <div>
+            <label asp-for="Password"></label>
+            <input asp-for="Password"/>
+            <span asp-validation-for="Password"></span>
+        </div>
+
+        <div>
+            <label asp-for="ConfirmPassword"></label>
+            <input asp-for="ConfirmPassword"/>
+            <span asp-validation-for="ConfirmPassword"></span>
+        </div>
+        <div>
+            <label asp-for="Firstname"></label>
+            <input asp-for="Firstname" />
+            <span asp-validation-for="Firstname"></span>
+        </div>
+        <div>
+            <label asp-for="Lastname"></label>
+            <input asp-for="Lastname"/>
+            <span asp-validation-for="Lastname"></span>
+        </div>
+        <div>
+            <label asp-for="SocialSecurityNumber"></label>
+            <input asp-for="SocialSecurityNumber" />
+            <span asp-validation-for="SocialSecurityNumber"></span>
+        </div>
+        <div>
+            <label asp-for="City"></label>
+            <input asp-for="City"/>
+            <span asp-validation-for="City"></span>
+        </div>
+        <div>
+            <label asp-for="Street"></label>
+            <input asp-for="Street" />
+            <span asp-validation-for="Street"></span>
+        </div>
+        <div>
+            <label asp-for="ZipCode"></label>
+            <input asp-for="ZipCode" />
+            <span asp-validation-for="ZipCode"></span>
+        </div>
+        <div>
+            <input type="submit" value="Spara" />
+        </div>
+    </form>
+</div>
