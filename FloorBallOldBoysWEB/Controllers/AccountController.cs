@@ -121,5 +121,10 @@ namespace FloorBallOldBoysWEB.Controllers
             return View(model);
         }
 
+        public IActionResult MyAccount()
+        {
+            var model = _userManger;
+            return null;
+        }
     }
 }

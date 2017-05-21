@@ -10,6 +10,8 @@ namespace FloorBallOldBoysWEB.Utilites
         {
             trainingToBeEdited.EndTime = model.EndTime;
             trainingToBeEdited.StartTime = model.StartTime;
+            trainingToBeEdited.Date = model.Date;
+            trainingToBeEdited.Location = model.Location;
             trainingToBeEdited.Info = model.Info;
             trainingToBeEdited.IsCancelled = model.IsCancelled;
             return trainingToBeEdited;

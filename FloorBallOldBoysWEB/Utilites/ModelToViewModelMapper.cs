@@ -7,12 +7,12 @@ namespace FloorBallOldBoysWEB.Utilites
 {
     internal class ModelToViewModelMapper
     {
-        public TodaysTrainingsViewModel TrainingsToTodaysTrainingsViewModel(
+        public TrainingsViewModel TrainingsToTrainingsViewModel(
             IEnumerable<Training> todaysTranings, User loggedInUser)
         {
-            return new TodaysTrainingsViewModel
+            return new TrainingsViewModel
             {
-                TodaysTranings = todaysTranings,
+                Tranings = todaysTranings,
                 IsAdmin = loggedInUser.IsAdmin
 
             };
@@ -23,11 +23,11 @@ namespace FloorBallOldBoysWEB.Utilites
             return new EditTrainingViewModel
             {
                Id=training.Id,
-               Date = training.StartTime.Date,
+               Date = training.Date.Date,
                StartTime = training.StartTime,
                EndTime = training.EndTime,
                Info = training.Info,
-               Location = "ellös",
+               Location = training.Location,
                IsCancelled = training.IsCancelled
             };
         }

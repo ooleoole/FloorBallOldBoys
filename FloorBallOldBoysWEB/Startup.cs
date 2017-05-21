@@ -4,14 +4,18 @@ using Domain.Interfaces;
 using Domain.Services;
 using FloorBallOldBoysWEB.IdentityUser;
 using FloorBallOldBoysWEB.Services;
+using FloorBallOldBoysWEB.Utilites;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using ISession = FloorBallOldBoysWEB.Utilites.ISession;
+
 
 namespace FloorBallOldBoysWEB
 {
@@ -19,12 +23,13 @@ namespace FloorBallOldBoysWEB
     {
 
         public IConfiguration Configuration { get; set; }
-
         public Startup(IHostingEnvironment env)
         {
 
             var builder = new ConfigurationBuilder().SetBasePath(env.ContentRootPath).AddJsonFile("wwwroot/appsettings.json");
             Configuration = builder.Build();
+            
+
         }
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
@@ -37,6 +42,7 @@ namespace FloorBallOldBoysWEB
             services.AddScoped<IUserService,UserService>();
             services.AddScoped<ITraningService, TraningService>();
             services.AddSingleton(Configuration);
+            services.AddScoped<ISession, Session>();
             services.AddDbContext<UserAccountContext>(options => options.UseSqlServer(Configuration.GetConnectionString("OldBoys")));
             services.AddIdentity<UserAccount, IdentityRole>(io =>
             {

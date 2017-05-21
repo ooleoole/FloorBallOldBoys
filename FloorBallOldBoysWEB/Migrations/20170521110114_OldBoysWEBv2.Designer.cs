@@ -8,9 +8,10 @@ using FloorBallOldBoysWEB.IdentityUser;
 namespace FloorBallOldBoysWEB.Migrations
 {
     [DbContext(typeof(UserAccountContext))]
-    partial class UserAccountContextModelSnapshot : ModelSnapshot
+    [Migration("20170521110114_OldBoysWEBv2")]
+    partial class OldBoysWEBv2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
@@ -306,12 +307,12 @@ namespace FloorBallOldBoysWEB.Migrations
                     b.HasOne("Domain.Entities.Training", "Training")
                         .WithMany("ActualAttendance")
                         .HasForeignKey("TrainingId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Domain.Entities.User", "User")
                         .WithMany("AttendedTranings")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Domain.Entities.UserTraningEnrollment", b =>
@@ -319,12 +320,12 @@ namespace FloorBallOldBoysWEB.Migrations
                     b.HasOne("Domain.Entities.Training", "Training")
                         .WithMany("EnrolledUsers")
                         .HasForeignKey("TrainingId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Domain.Entities.User", "User")
                         .WithMany("EnrolledTranings")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("FloorBallOldBoysWEB.IdentityUser.UserAccount", b =>

@@ -1,0 +1,36 @@
+﻿@model TrainingsViewModel
+
+<section>
+    @foreach (var training in Model.Tranings)
+    {
+
+        <h3>Tid @training.StartTime.Hour : @training.StartTime.Minute - @training.EndTime.Hour : @training.EndTime.Minute </h3>
+        <div>@training.Info</div>
+        <div>
+            @if (Model.IsAdmin)
+            {
+                <a asp-action="Edit" asp-controller="Training" 
+                   asp-route-trainingId="@training.Id"  asp-route-returnUrl="@Model.ReturnUrl">Ändra</a>
+
+            }
+        </div>
+        <h4>Anmälda deltagare:</h4>
+        foreach (var userTraningEnrollment in training.EnrolledUsers)
+        {
+            @Html.Partial("_UserSummary", userTraningEnrollment)
+        }
+        <form asp-controller="Training" onsubmit="return checkBeforeSubmit()">
+            @if (training.EnrolledUsers.Any(ute => ute.User.Email == User.Identity.Name))
+            {
+                <input type="submit" value="Ångra anmälan" asp-action="DismissTraining" 
+                       asp-route-trainingId="@training.Id" asp-route-returnUrl="@Model.ReturnUrl" />
+            }
+            else
+            {
+                <input type="submit" value="Kommer" asp-action="EnrollTraining" 
+                       asp-route-trainingId="@training.Id" asp-route-returnUrl="@Model.ReturnUrl" />
+            }
+        </form>
+    }
+</section>
+

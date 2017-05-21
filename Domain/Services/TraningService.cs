@@ -50,7 +50,7 @@ namespace Domain.Services
             _repo.Delete(training);
         }
 
-        public IEnumerable<Training> AllInclude(string includeProperties)
+        public IEnumerable<Training> AllInclude(params string[] includeProperties)
         {
             return _repo.AllInclude(includeProperties);
         }

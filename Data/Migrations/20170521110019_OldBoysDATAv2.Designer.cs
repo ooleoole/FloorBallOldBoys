@@ -8,9 +8,10 @@ using Data.Context;
 namespace Data.Migrations
 {
     [DbContext(typeof(EllosOldBoysContext))]
-    partial class EllosOldBoysContextModelSnapshot : ModelSnapshot
+    [Migration("20170521110019_OldBoysDATAv2")]
+    partial class OldBoysDATAv2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")

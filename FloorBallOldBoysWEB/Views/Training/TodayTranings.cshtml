@@ -1,12 +1,12 @@
-﻿@model TodaysTrainingsViewModel
+﻿@model TrainingsViewModel
 
 @{
-    ViewBag.Title = "title";
+    ViewBag.Title = "Dagens träningar";
 
 }
 
 <h2>Dagens träningar</h2>
-@if (!Model.TodaysTranings.Any())
+@if (!Model.Tranings.Any())
 {
     <div>
         Ingen träning idag
@@ -14,34 +14,8 @@
 }
 else
 {
-    foreach (var training in Model.TodaysTranings)
-    {
-        <section>
-            <h3>Tid @training.StartTime.Hour : @training.StartTime.Minute - @training.EndTime.Hour : @training.EndTime.Minute </h3>
-            <div>@training.Info</div>
-            <h4>Anmälda deltagare:</h4>
-            @foreach (var userTraningEnrollment in training.EnrolledUsers)
-            {
-                @Html.Partial("_UserSummary", userTraningEnrollment)
-            }
-            <form asp-controller="Training" onsubmit="return checkBeforeSubmit()">
-                @if (training.EnrolledUsers.Any(ute => ute.User.Email == User.Identity.Name))
-                {
-                    <input type="submit" value="Ångra" asp-action="DismissTraining" asp-route-trainingId="@training.Id"/>
-                }
-                else
-                {
-                    <input type="submit" value="Kommer" asp-action="EnrollTraining" asp-route-trainingId="@training.Id"/>
-                }
-                @if (Model.IsAdmin)
-                { <a asp-action="Edit" asp-controller="Training" asp-route-trainingId="@training.Id">Ändra</a>}
-            </form>
-        </section>
-
-
-    }
+    @Html.Partial("_TrainingSummary",Model)
 }
-
 <script type="text/javascript">
     var wasSubmitted = false;
     function checkBeforeSubmit() {

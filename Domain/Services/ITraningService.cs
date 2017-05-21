@@ -14,7 +14,7 @@ namespace Domain.Services
         IEnumerable<Training> AllInclude(params Expression<Func<Training, object>>[] predicate);
         void Update(Training training);
         void Delete(Training training);
-        IEnumerable<Training> AllInclude(string includeProperties);
+        IEnumerable<Training> AllInclude(params string[] includeProperties);
 
     }
 }

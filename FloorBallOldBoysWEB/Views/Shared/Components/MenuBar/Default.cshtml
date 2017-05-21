@@ -4,8 +4,16 @@
 <div>
     <table style="width: 20%; margin: 0px auto; ">
         <tr>
-            <th><input type="submit" asp-action="MyAccount" asp-controller="Account" /></th>
-            <th><input type="submit" asp-action="Tr" asp-controller="Traning" /></th>
+            <th>
+                <form method="get" asp-action="MyAccount" asp-controller="Account">
+                    <input type="submit"  value="Mitt konto" />
+                </form>
+            </th>
+            <th>
+                <form method="get" asp-action="GetAllTrainings" asp-controller="Training">
+                    <input type="submit"  value="Alla träningnar" />
+                </form>
+            </th>
             <th>
                 @if (Model.IsAdmin)
                 {

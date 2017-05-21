@@ -52,20 +52,26 @@ namespace Data.Repositories
         {
             return GetAllIncluding(includeProperties).ToList();
         }
+        
+        public IEnumerable<TEntity> AllInclude(params string[] includeProperties)
+        {
+            return GetAllIncluding(includeProperties).ToList();
+        }
+
         public void Update(TEntity entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
             _set.Update(entity);
             _context.SaveChanges();
         }
-
-        public IEnumerable<TEntity> AllInclude(string includeProperties)
-        {
-            return _set.Include(includeProperties).ToList();
-        }
-
-        
         private IQueryable<TEntity> GetAllIncluding(params Expression<Func<TEntity, object>>[] includeProperties)
+        {
+            var queryable = _set as IQueryable<TEntity>;
+
+            return includeProperties.Aggregate
+                (queryable, (current, includeProperty) => current.Include(includeProperty));
+        }
+        private IQueryable<TEntity> GetAllIncluding(params string[] includeProperties)
         {
             var queryable = _set as IQueryable<TEntity>;
 

@@ -11,6 +11,10 @@ namespace Domain.Entities
         public DateTime StartTime { get; set; }
         [Required]
         public DateTime EndTime { get; set; }
+        [Required]
+        public DateTime Date { get; set; }
+        [Required]
+        public string Location { get; set; }
         public bool IsCancelled { get; set; }
         public string Info { get; set; }
         public int CreatorId { get; set; }
