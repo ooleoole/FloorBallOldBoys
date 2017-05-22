@@ -74,7 +74,7 @@ namespace FloorBallOldBoysWEB
                 EnableDirectoryBrowsing = false,
             });
             app.UseDefaultFiles();
-            app.UseStaticFiles();
+            app.UseNodeModules(env.ContentRootPath);
             app.UseIdentity();
             app.UseMvc(routes => routes.MapRoute("default", "{controller=Account}/{Action=Login}/{id?}"));
             app.Run(async (context) => await context.Response.WriteAsync("Hello World!"));

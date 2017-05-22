@@ -9,6 +9,7 @@
 <html>
 <head>
     <title>Login</title>
+    <link href="/node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
 </head>
 <body>
     <div>
@@ -31,7 +32,7 @@
                 <span asp-validation-for="RememberMe"></span>
             </div>
             <div>
-                <input type="submit" value="Login" asp-controller="Account" asp-action="Login" />
+                <input class="btn btn-default"  type="submit" value="Login" asp-controller="Account" asp-action="Login" />
                 <a asp-action="Register" asp-controller="Account">Skapa konto</a>
             </div>
         </form>

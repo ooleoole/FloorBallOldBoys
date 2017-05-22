@@ -2,13 +2,15 @@
 
 <html>
 <head>
+    <meta name="viewport" content="width=device-width"/>
     <title>@ViewBag.Title</title>
+    <link href="~/bootstrap.css" rel="stylesheet" />
 </head>
 <body>
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="/">Dagens träning</a>
+                <a class="navbar-brand"  asp-controller="Training" asp-action="TodaysTrainings" >Dagens träning</a>
             </div>
         </div>
         <div align="right" style="padding:0px 35px 15px 5px">

@@ -1,38 +1,43 @@
 ﻿@model TrainingsViewModel
 
-<section>
+<section class="panel panel-default">
     @foreach (var training in Model.Tranings)
     {
 
-        <h3>Tid @training.StartTime.Hour : @training.StartTime.Minute - @training.EndTime.Hour : @training.EndTime.Minute </h3>
-        <div>@training.Info</div>
-        <div>
-            @if (Model.IsAdmin)
-            {
-                <a asp-action="Edit" asp-controller="Training" 
-                   asp-route-trainingId="@training.Id"  asp-route-returnUrl="@Model.ReturnUrl">Ändra</a>
-                <a asp-action="Delete" asp-controller="Training" 
-                   asp-route-trainingId="@training.Id"  asp-route-returnUrl="@Model.ReturnUrl">Ta bort</a>
+        <h3 class="panel-heading">Tid @training.StartTime.Hour : @training.StartTime.Minute - @training.EndTime.Hour : @training.EndTime.Minute </h3>
+        <div class="panel-body">
+            <div class="panel-info">@training.Info</div>
+            <div class="panel-collapse">
+                @if (Model.IsAdmin)
+                {
+                    <a asp-action="Edit" asp-controller="Training"
+                       asp-route-trainingId="@training.Id" asp-route-returnUrl="@Model.ReturnUrl">Ändra</a>
+                    <a asp-action="Delete" asp-controller="Training"
+                       asp-route-trainingId="@training.Id" asp-route-returnUrl="@Model.ReturnUrl">Ta bort</a>
 
+                }
+            </div>
+            <div  class="well">
+            <h4 class="panel-heading">Anmälda deltagare</h4>
+            @foreach (var userTraningEnrollment in training.EnrolledUsers)
+            {
+                @Html.Partial("_UserSummary", userTraningEnrollment)
             }
+            </div>
         </div>
-        <h4>Anmälda deltagare:</h4>
-        foreach (var userTraningEnrollment in training.EnrolledUsers)
-        {
-            @Html.Partial("_UserSummary", userTraningEnrollment)
-        }
-        <form asp-controller="Training" onsubmit="return checkBeforeSubmit()">
-            @if (training.EnrolledUsers.Any(ute => ute.User.Email == User.Identity.Name))
-            {
-                <input type="submit" value="Ångra anmälan" asp-action="DismissTraining" 
-                       asp-route-trainingId="@training.Id" asp-route-returnUrl="@Model.ReturnUrl" />
-            }
-            else
-            {
-                <input type="submit" value="Kommer" asp-action="EnrollTraining" 
-                       asp-route-trainingId="@training.Id" asp-route-returnUrl="@Model.ReturnUrl" />
-            }
-        </form>
+        <div class="panel-footer">
+            <form asp-controller="Training" onsubmit="return checkBeforeSubmit()">
+                @if (training.EnrolledUsers.Any(ute => ute.User.Email == User.Identity.Name))
+                {
+                    <input class="btn-primary" type="submit" value="Ångra anmälan" asp-action="DismissTraining"
+                           asp-route-trainingId="@training.Id" asp-route-returnUrl="@Model.ReturnUrl" />
+                }
+                else
+                {
+                    <input class="btn-primary" type="submit" value="Kommer" asp-action="EnrollTraining"
+                           asp-route-trainingId="@training.Id" asp-route-returnUrl="@Model.ReturnUrl" />
+                }
+            </form>
+        </div>
     }
 </section>
-

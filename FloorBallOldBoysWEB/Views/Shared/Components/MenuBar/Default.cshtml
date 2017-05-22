@@ -6,19 +6,19 @@
         <tr>
             <th>
                 <form method="get" asp-action="MyAccount" asp-controller="Account">
-                    <input type="submit"  value="Mitt konto" />
+                    <input class="btn btn-default" type="submit"  value="Mitt konto" />
                 </form>
             </th>
             <th>
                 <form method="get" asp-action="GetAllTrainings" asp-controller="Training">
-                    <input type="submit"  value="Alla träningnar" />
+                    <input class="btn btn-default"  type="submit"  value="Alla träningnar" />
                 </form>
             </th>
             <th>
                 @if (Model.IsAdmin)
                 {
                     <form method="get" asp-controller="Training" asp-action="Create">
-                        <input type="submit" value="Skapa träning" />
+                        <input class="btn btn-default"  type="submit" value="Skapa träning" />
                     </form>
                 }
 
