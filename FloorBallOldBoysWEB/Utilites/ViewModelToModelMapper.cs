@@ -28,5 +28,22 @@ namespace FloorBallOldBoysWEB.Utilites
             return userToBeEdited;
 
         }
+
+        public User RegisterUserViewModelToUser(RegisterUserViewModel model)
+        {
+            return new User
+            {
+                Address = new Address
+                {
+                    City = model.City,
+                    Street = model.Street,
+                    ZipCode = model.ZipCode
+                },
+                Email = model.Email,
+                Firstname = model.Firstname,
+                Lastname = model.Lastname,
+                SocialSecurityNumber = model.SocialSecurityNumber,
+            };
+        }
     }
 }

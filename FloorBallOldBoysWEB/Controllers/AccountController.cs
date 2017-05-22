@@ -72,19 +72,8 @@ namespace FloorBallOldBoysWEB.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new User
-                {
-                    Address = new Address
-                    {
-                        City = model.City,
-                        Street = model.Street,
-                        ZipCode = model.ZipCode
-                    },
-                    Email = model.Email,
-                    Firstname = model.Firstname,
-                    Lastname = model.Lastname,
-                    SocialSecurityNumber = model.SocialSecurityNumber,
-                };
+                var user = Mapper.ViewModelToModelMapping.RegisterUserViewModelToUser(model);
+                
                 try
                 {
                     _userService.Add(user);

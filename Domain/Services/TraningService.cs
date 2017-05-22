@@ -17,6 +17,7 @@ namespace Domain.Services
 
         public void Add(Training training)
         {
+            if (training == null) throw new ArgumentNullException(nameof(training));
             _repo.Add(training);
         }
 
@@ -32,32 +33,46 @@ namespace Domain.Services
 
         public IEnumerable<Training> FindAll(Expression<Func<Training, bool>> predicate)
         {
+            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
             return _repo.FindAll(predicate);
         }
-
-        public IEnumerable<Training> AllInclude(params Expression<Func<Training, object>>[] includeProperties)
+        public IEnumerable<Training> FindAll(Expression<Func<Training, bool>> predicate, params Expression<Func<Training, object>>[] includeProperties)
         {
-            return _repo.AllInclude(includeProperties);
-        }
-
-        public IEnumerable<Training> FindAll(Expression<Func<Training, bool>> predicate, params string[] includeProperties)
-        {
+            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+            if (includeProperties == null) throw new ArgumentNullException(nameof(includeProperties));
+           
             return _repo.FindAll(predicate, includeProperties);
         }
-
+        public IEnumerable<Training> FindAll(Expression<Func<Training, bool>> predicate, params string[] includeProperties)
+        {
+            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+            if (includeProperties == null) throw new ArgumentNullException(nameof(includeProperties));
+           
+            return _repo.FindAll(predicate, includeProperties);
+        }
+        
 
         public void Update(Training training)
         {
+            if (training == null) throw new ArgumentNullException(nameof(training));
             _repo.Update(training);
         }
 
         public void Delete(Training training)
         {
+            if (training == null) throw new ArgumentNullException(nameof(training));
             _repo.Delete(training);
         }
 
         public IEnumerable<Training> AllInclude(params string[] includeProperties)
         {
+            if (includeProperties == null) throw new ArgumentNullException(nameof(includeProperties));
+          
+            return _repo.AllInclude(includeProperties);
+        }
+        public IEnumerable<Training> AllInclude(params Expression<Func<Training, object>>[] includeProperties)
+        {
+            if (includeProperties == null) throw new ArgumentNullException(nameof(includeProperties));
             return _repo.AllInclude(includeProperties);
         }
     }

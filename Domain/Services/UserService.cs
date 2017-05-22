@@ -22,16 +22,13 @@ namespace Domain.Services
 
         public void Add(User user)
         {
+            if (user == null) throw new ArgumentNullException(nameof(user));
 
-            var address = _addressRepo.FindAll(a => a.City == user.Address.City &&
-                                                    a.Street == user.Address.Street &&
-                                                    a.ZipCode == user.Address.ZipCode).FirstOrDefault();
-
+            var address = GetExistingAddress(user);
             if (address != null)
-            {
-                user.AddressId = address.Id;
-                user.Address = null;
-            }
+                SetUserAddressToExistingAddress(user, address);
+            
+
             _repo.Add(user);
         }
 
@@ -47,32 +44,58 @@ namespace Domain.Services
 
         public IEnumerable<User> FindAll(Expression<Func<User, bool>> predicate)
         {
+            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
             return _repo.FindAll(predicate);
         }
         public IEnumerable<User> FindAll(Expression<Func<User, bool>> predicate, params Expression<Func<User, object>>[] includeProperties)
         {
+            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+            if (includeProperties == null) throw new ArgumentNullException(nameof(includeProperties));
             return _repo.FindAll(predicate, includeProperties);
         }
         public IEnumerable<User> FindAll(Expression<Func<User, bool>> predicate, params string[] includeProperties)
         {
+            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+            if (includeProperties == null) throw new ArgumentNullException(nameof(includeProperties));
             return _repo.FindAll(predicate, includeProperties);
         }
         public IEnumerable<User> AllInclude(params Expression<Func<User, object>>[] incluedProperties)
         {
+            if (incluedProperties == null) throw new ArgumentNullException(nameof(incluedProperties));
+            if (incluedProperties.Length == 0)
+                throw new ArgumentException("Value cannot be an empty collection.", nameof(incluedProperties));
             return _repo.AllInclude(incluedProperties);
         }
         public IEnumerable<User> AllInclude(params string[] incluedProperties)
         {
+            if (incluedProperties == null) throw new ArgumentNullException(nameof(incluedProperties));
+            if (incluedProperties.Length == 0)
+                throw new ArgumentException("Value cannot be an empty collection.", nameof(incluedProperties));
             return _repo.AllInclude(incluedProperties);
         }
         public void Update(User user)
         {
+            if (user == null) throw new ArgumentNullException(nameof(user));
             _repo.Update(user);
         }
 
         public void Delete(User user)
         {
+            if (user == null) throw new ArgumentNullException(nameof(user));
             _repo.Delete(user);
+        }
+
+        private static void SetUserAddressToExistingAddress(User user, Address address)
+        {
+            user.AddressId = address.Id;
+            user.Address = null;
+        }
+
+        private Address GetExistingAddress(User user)
+        {
+            return _addressRepo.FindAll(a => a.City == user.Address.City &&
+                                             a.Street == user.Address.Street &&
+                                             a.ZipCode == user.Address.ZipCode).FirstOrDefault();
         }
     }
 }

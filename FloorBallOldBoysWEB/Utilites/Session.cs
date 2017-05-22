@@ -25,7 +25,7 @@ namespace FloorBallOldBoysWEB.Utilites
         public User GetLoggedInUser(string userName)
         {
             var loggedInUserId = _userManager.Users.FirstOrDefault(u => u.UserName == userName).UserId;
-            return _userService.AllInclude(p => p.Address).FirstOrDefault(u => u.Id == loggedInUserId);
+            return _userService.FindAll(u => u.Id == loggedInUserId, p => p.Address).FirstOrDefault();
         }
     }
 }
