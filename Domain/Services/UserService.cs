@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using Domain.Entities;
 using Domain.Interfaces;
+using Domain.Utilities;
 
 namespace Domain.Services
 {
@@ -22,12 +23,11 @@ namespace Domain.Services
 
         public void Add(User user)
         {
-            if (user == null) throw new ArgumentNullException(nameof(user));
-
+            NullCheck.ThrowArgumentNullEx(user);
             var address = GetExistingAddress(user);
             if (address != null)
                 SetUserAddressToExistingAddress(user, address);
-            
+
 
             _repo.Add(user);
         }
@@ -44,44 +44,39 @@ namespace Domain.Services
 
         public IEnumerable<User> FindAll(Expression<Func<User, bool>> predicate)
         {
-            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+            NullCheck.ThrowArgumentNullEx(predicate);
             return _repo.FindAll(predicate);
         }
         public IEnumerable<User> FindAll(Expression<Func<User, bool>> predicate, params Expression<Func<User, object>>[] includeProperties)
         {
-            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
-            if (includeProperties == null) throw new ArgumentNullException(nameof(includeProperties));
+            NullCheck.ThrowArgumentNullEx(predicate, includeProperties);
             return _repo.FindAll(predicate, includeProperties);
         }
         public IEnumerable<User> FindAll(Expression<Func<User, bool>> predicate, params string[] includeProperties)
         {
-            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
-            if (includeProperties == null) throw new ArgumentNullException(nameof(includeProperties));
+            NullCheck.ThrowArgumentNullEx(predicate, includeProperties);
             return _repo.FindAll(predicate, includeProperties);
         }
         public IEnumerable<User> AllInclude(params Expression<Func<User, object>>[] incluedProperties)
         {
-            if (incluedProperties == null) throw new ArgumentNullException(nameof(incluedProperties));
-            if (incluedProperties.Length == 0)
-                throw new ArgumentException("Value cannot be an empty collection.", nameof(incluedProperties));
+            NullCheck.ThrowArgumentNullEx(incluedProperties);
+                
             return _repo.AllInclude(incluedProperties);
         }
         public IEnumerable<User> AllInclude(params string[] incluedProperties)
         {
-            if (incluedProperties == null) throw new ArgumentNullException(nameof(incluedProperties));
-            if (incluedProperties.Length == 0)
-                throw new ArgumentException("Value cannot be an empty collection.", nameof(incluedProperties));
+            NullCheck.ThrowArgumentNullEx(incluedProperties);
             return _repo.AllInclude(incluedProperties);
         }
         public void Update(User user)
         {
-            if (user == null) throw new ArgumentNullException(nameof(user));
+            NullCheck.ThrowArgumentNullEx(user);
             _repo.Update(user);
         }
 
         public void Delete(User user)
         {
-            if (user == null) throw new ArgumentNullException(nameof(user));
+            NullCheck.ThrowArgumentNullEx(user);
             _repo.Delete(user);
         }
 
