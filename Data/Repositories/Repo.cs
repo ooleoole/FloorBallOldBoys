@@ -42,6 +42,14 @@ namespace Data.Repositories
         {
             return _set.Where(predicate).ToList();
         }
+        public IEnumerable<TEntity> FindAll(Expression<Func<TEntity, bool>> predicate, params string[] includeProperties)
+        {
+            return GetAllIncluding(includeProperties).Where(predicate).ToList();
+        }
+        public IEnumerable<TEntity> FindAll(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] includeProperties)
+        {
+            return GetAllIncluding(includeProperties).Where(predicate).ToList();
+        }
 
         public void Delete(TEntity entity)
         {

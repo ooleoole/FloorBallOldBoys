@@ -6,7 +6,7 @@ using Domain.Interfaces;
 
 namespace Domain.Services
 {
-    public  class TraningService:ITraningService
+    public class TraningService : ITraningService
     {
         private readonly IRepo<Training> _repo;
 
@@ -35,10 +35,16 @@ namespace Domain.Services
             return _repo.FindAll(predicate);
         }
 
-        public IEnumerable<Training> AllInclude(params Expression<Func<Training, object>>[] predicate)
+        public IEnumerable<Training> AllInclude(params Expression<Func<Training, object>>[] includeProperties)
         {
-            return _repo.AllInclude(predicate);
+            return _repo.AllInclude(includeProperties);
         }
+
+        public IEnumerable<Training> FindAll(Expression<Func<Training, bool>> predicate, params string[] includeProperties)
+        {
+            return _repo.FindAll(predicate, includeProperties);
+        }
+
 
         public void Update(Training training)
         {

@@ -12,7 +12,7 @@ namespace Domain.Services
     public class UserService : IUserService
     {
         private readonly IRepo<User> _repo;
-        private IRepo<Address> _addressRepo;
+        private readonly IRepo<Address> _addressRepo;
 
         public UserService(IRepo<User> repo, IRepo<Address> addressRepo)
         {
@@ -49,12 +49,22 @@ namespace Domain.Services
         {
             return _repo.FindAll(predicate);
         }
-
-        public IEnumerable<User> AllInclude(params Expression<Func<User, object>>[] predicate)
+        public IEnumerable<User> FindAll(Expression<Func<User, bool>> predicate, params Expression<Func<User, object>>[] includeProperties)
         {
-            return _repo.AllInclude(predicate);
+            return _repo.FindAll(predicate, includeProperties);
         }
-
+        public IEnumerable<User> FindAll(Expression<Func<User, bool>> predicate, params string[] includeProperties)
+        {
+            return _repo.FindAll(predicate, includeProperties);
+        }
+        public IEnumerable<User> AllInclude(params Expression<Func<User, object>>[] incluedProperties)
+        {
+            return _repo.AllInclude(incluedProperties);
+        }
+        public IEnumerable<User> AllInclude(params string[] incluedProperties)
+        {
+            return _repo.AllInclude(incluedProperties);
+        }
         public void Update(User user)
         {
             _repo.Update(user);
