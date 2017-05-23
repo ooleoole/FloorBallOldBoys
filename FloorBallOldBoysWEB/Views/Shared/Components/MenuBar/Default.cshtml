@@ -1,31 +1,52 @@
 ﻿@model MenuBarViewModel
 
 
-<div>
-    <table style="width: 20%; margin: 0px auto; ">
-        <tr>
-            <th>
-                <form method="get" asp-action="MyAccount" asp-controller="Account">
-                    <input class="btn btn-default" type="submit"  value="Mitt konto" />
-                </form>
-            </th>
-            <th>
-                <form method="get" asp-action="GetAllTrainings" asp-controller="Training">
-                    <input class="btn btn-default"  type="submit"  value="Alla träningnar" />
-                </form>
-            </th>
-            <th>
-                @if (Model.IsAdmin)
-                {
-                    <form method="get" asp-controller="Training" asp-action="Create">
-                        <input class="btn btn-default"  type="submit" value="Skapa träning" />
-                    </form>
-                }
-
-            </th>
-        </tr>
-    </table>
+<nav class="navbar navbar-fixed-top">
+    <div class="navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" asp-controller="Training" asp-action="TodaysTrainings">EllösOldBoys</a>
+            </div>
+            <div align="right">
+                <table>
+                    <tr>
+                        <td><a class="btn-link pull-right" asp-controller="Account" asp-action="MyAccount">@Model.Email</a></td>
+                    </tr>
+                    <tr>
+                        <td><a class="navbar-btn pull-right" asp-controller="Account" asp-action="Logout">Logga ut</a></td>
+                    </tr>
+                </table>
 
 
+            </div>
+        </div>
+        <div class="navbar-inverse" align="right" style="padding: 0px 35px 15px 5px">
+            <table style="margin: 0px auto;">
+                <tr>
+                    <th>
+                        <form method="get" asp-action="MyAccount" asp-controller="Account">
+                            <input class="navbar-btn" type="submit" value="Mitt konto" />
+                        </form>
+                    </th>
+                    <th>
+                        <form method="get" asp-action="GetAllTrainings" asp-controller="Training">
+                            <input class="navbar-btn" type="submit" value="Alla träningar" />
+                        </form>
+                    </th>
+                    <th>
+                        @if (Model.IsAdmin)
+                        {
+                            <form method="get" asp-controller="Training" asp-action="Create">
+                                <input class="navbar-btn" type="submit" value="Skapa träning" />
+                            </form>
+                        }
 
-</div>
+                    </th>
+                </tr>
+            </table>
+
+
+        </div>
+
+    </div>
+</nav>

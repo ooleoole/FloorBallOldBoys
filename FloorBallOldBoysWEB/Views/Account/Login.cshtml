@@ -9,34 +9,42 @@
 <html>
 <head>
     <title>Login</title>
-    <link href="/node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="bootstrap.css" rel="stylesheet" />
+    <link href="Style.css" rel="stylesheet" />
 </head>
 <body>
-    <div>
-        <h1>Ellös OldBoys</h1>
-        <div asp-validation-summary="ModelOnly"></div>
-        <form method="post" asp-antiforgery="true" action="">
+
+    <div class="container">
+        <div class="col-md-5 col-md-offset-4 text-center">
             <div>
-                <label asp-for="Username"></label>
-                <input asp-for="Username" />
-                <span asp-validation-for="Username"></span>
+                <h1 id="headLine">Ellös Oldboys</h1>
             </div>
             <div>
-                <label asp-for="Password"></label>
-                <input asp-for="Password" />
-                <span asp-validation-for="Password"></span>
+                <h2>Logga in</h2>
             </div>
-            <div>
-                <label asp-for="RememberMe"></label>
-                <input asp-for="RememberMe" />
-                <span asp-validation-for="RememberMe"></span>
-            </div>
-            <div>
-                <input class="btn btn-default"  type="submit" value="Login" asp-controller="Account" asp-action="Login" />
-                <a asp-action="Register" asp-controller="Account">Skapa konto</a>
-            </div>
-        </form>
-        
+            <div asp-validation-summary="ModelOnly"></div>
+            <form method="post" asp-antiforgery="true" action="">
+                <div class="input-lg">
+                    <input asp-for="Username" placeholder="Användarnamn" />
+                    <span asp-validation-for="Username"></span>
+                </div>
+                <div class="input-lg">
+                    <input asp-for="Password" placeholder="Lösenord" />
+                    <span asp-validation-for="Password"></span>
+                </div>
+                <div >
+                    <label>Kom ihåg mig</label>
+                    <input asp-for="RememberMe"/>
+                    <span asp-validation-for="RememberMe"></span>
+                </div>
+                <div id="loginBtn">
+                    <input class="btn-group-justified" type="submit" value="Login" asp-controller="Account" asp-action="Login" />
+                    <a asp-action="Register" asp-controller="Account">Skapa konto</a>
+                </div>
+
+            </form>
+        </div>
     </div>
+
 </body>
 </html>
