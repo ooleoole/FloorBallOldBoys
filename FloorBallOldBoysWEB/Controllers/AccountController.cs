@@ -136,7 +136,7 @@ namespace FloorBallOldBoysWEB.Controllers
         public IActionResult MyAccount()
         {
             var model = Mapper.ModelToViewModelMapping.UserToMyAccountViewModel(LoggedInUser);
-            return View(model);
+            return View("AccountDetails", model);
         }
         [HttpGet]
         public IActionResult Edit()

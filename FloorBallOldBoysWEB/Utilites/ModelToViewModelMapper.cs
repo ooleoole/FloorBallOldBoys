@@ -48,9 +48,9 @@ namespace FloorBallOldBoysWEB.Utilites
             };
         }
 
-        public MyAccountViewModel UserToMyAccountViewModel(User user)
+        public AccountDetailsViewModel UserToMyAccountViewModel(User user)
         {
-            return new MyAccountViewModel
+            return new AccountDetailsViewModel
             {
                 Email = user.Email,
                 Firstname = user.Firstname,

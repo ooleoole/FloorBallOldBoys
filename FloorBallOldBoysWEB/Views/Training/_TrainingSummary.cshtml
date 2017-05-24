@@ -3,7 +3,7 @@
 
 @foreach (var training in Model.Tranings)
 {
-    <section class="panel panel-primary">
+    <section class="panel panel-primary panelTopMargin100">
         <div class="panel-heading">
             <h2>@training.Location</h2>
             <h4>@training.Date.DayOfWeek  @training.StartTime.Hour:@training.StartTime.Minute - @training.EndTime.Hour:@training.EndTime.Minute</h4>
@@ -66,5 +66,17 @@
 
         </div>
     </section>
+
 }
+
+<script type="text/javascript">
+    var wasSubmitted = false;
+    function checkBeforeSubmit() {
+        if (!wasSubmitted) {
+            wasSubmitted = true;
+            return wasSubmitted;
+        }
+        return false;
+    }
+</script>
 

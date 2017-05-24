@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FloorBallOldBoysWEB.ViewModels
 {
-    public class MyAccountViewModel
+    public class AccountDetailsViewModel
     {
 
         [Required, EmailAddress(ErrorMessage = "Vänligen fyll i en giltlig epost"), Display(Name = "Email")]

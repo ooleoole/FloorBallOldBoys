@@ -5,7 +5,7 @@
 
 }
 
-<h2>Dagens träningar</h2>
+
 @if (!Model.Tranings.Any())
 {
     <div>
@@ -16,13 +16,4 @@ else
 {
     @Html.Partial("_TrainingSummary",Model)
 }
-<script type="text/javascript">
-    var wasSubmitted = false;
-    function checkBeforeSubmit() {
-        if (!wasSubmitted) {
-            wasSubmitted = true;
-            return wasSubmitted;
-        }
-        return false;
-    }
-</script>
+
