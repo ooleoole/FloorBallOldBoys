@@ -4,7 +4,29 @@
     padding-top: 50px;
     padding-bottom: 70px;
 }
+
+#headlLineForm {
+    font-family: monospace;
+    
+}
+
 #loginBtn {
-    padding-left: 120px;
-    padding-right: 120px
+    right: 0;
+    left: 0;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 15px;
+    min-height: 25px;
+    max-height: 125px;
+    width: 206px;
+}
+
+#navBar {
+    height: 50px;
+}
+
+.lrMargin5px {
+    margin-left: 5px;
+    margin-right: 5px;
+   
 }

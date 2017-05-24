@@ -5,14 +5,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="node_modules\bootstrap\dist\css\fonts\**" />
+    <Compile Remove="node_modules\bootstrap\dist\fonts\**" />
     <Compile Remove="Views\Home\**" />
+    <Content Remove="node_modules\bootstrap\dist\css\fonts\**" />
+    <Content Remove="node_modules\bootstrap\dist\fonts\**" />
     <Content Remove="Views\Home\**" />
+    <EmbeddedResource Remove="node_modules\bootstrap\dist\css\fonts\**" />
+    <EmbeddedResource Remove="node_modules\bootstrap\dist\fonts\**" />
     <EmbeddedResource Remove="Views\Home\**" />
+    <None Remove="node_modules\bootstrap\dist\css\fonts\**" />
+    <None Remove="node_modules\bootstrap\dist\fonts\**" />
     <None Remove="Views\Home\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="node_modules\bootstrap\dist\css\bootstrap.css" />
     <Content Include="wwwroot\appsettings.json" />
+    <Content Include="wwwroot\bootstrap.css" />
     <Content Include="wwwroot\Style.css" />
   </ItemGroup>
   <ItemGroup>
@@ -25,9 +35,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Data\Data.csproj" />
     <ProjectReference Include="..\Domain\Domain.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="node_modules\bootstrap\dist\css\" />
   </ItemGroup>
 
 </Project>

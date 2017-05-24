@@ -12,21 +12,21 @@
         <div class="panel-body">
 
             <div>
-                <table class="table table-striped">
-                    <tr>
-                        <th><h4 class="h3">Anmälda deltagare</h4></th>
-                    </tr>
-                    <tr>
-                        <td>
-                            @foreach (var userTraningEnrollment in training.EnrolledUsers)
-                            {
-                                
-                                @Html.Partial("_UserSummary", userTraningEnrollment)
-                            }
-                        </td>
-                    </tr>
-                </table>
-                <hr class="divider" />
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4>Anmälda deltagare</h4>
+                    </div>
+
+                    <div class="panel-body">
+                        @foreach (var userTraningEnrollment in training.EnrolledUsers)
+                        {
+
+                            @Html.Partial("_UserSummary", userTraningEnrollment)
+                        }
+
+                    </div>
+                </div>
+                
                 <div>@training.Info</div>
 
             </div>
