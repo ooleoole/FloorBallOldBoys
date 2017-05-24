@@ -37,20 +37,12 @@ namespace FloorBallOldBoysWEB.Controllers
         {
             if (ModelState.IsValid)
             {
-                var newTraning = new Training
-                {
-                    Location = model.Location,
-                    StartTime = new DateTime(model.Date.Year, model.Date.Month, model.Date.Day, model.StartTime.Hour, model.StartTime.Minute, 0),
-                    EndTime = new DateTime(model.Date.Year, model.Date.Month, model.Date.Day, model.EndTime.Hour, model.EndTime.Minute, 0),
-                    Date = model.Date,
-                    Info = model.Info,
-                    CreatorId = LoggedInUser.Id
-
-                };
+                model.Creator = LoggedInUser;
+                var newTraning = Mapper.ViewModelToModelMapping.CreateTrainingViewModelToTraining(model);
                 _traningService.Add(newTraning);
                 return RedirectToAction("TodaysTrainings");
             }
-            return View();
+            return View(model);
         }
         [Authorize]
         public IActionResult TodaysTrainings()

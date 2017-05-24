@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography.X509Certificates;
+﻿using System;
+using System.Security.Cryptography.X509Certificates;
 using Domain.Entities;
 using FloorBallOldBoysWEB.ViewModels;
 
@@ -43,6 +44,20 @@ namespace FloorBallOldBoysWEB.Utilites
                 Firstname = model.Firstname,
                 Lastname = model.Lastname,
                 SocialSecurityNumber = model.SocialSecurityNumber,
+            };
+        }
+
+        public Training CreateTrainingViewModelToTraining(CreateTrainingViewModel model)
+        {
+            return new Training
+            {
+                Location = model.Location,
+                StartTime = new DateTime(model.Date.Year, model.Date.Month, model.Date.Day, model.StartTime.Hour, model.StartTime.Minute, 0),
+                EndTime = new DateTime(model.Date.Year, model.Date.Month, model.Date.Day, model.EndTime.Hour, model.EndTime.Minute, 0),
+                Date = model.Date,
+                Info = model.Info,
+                CreatorId = model.Creator.Id;
+
             };
         }
     }
