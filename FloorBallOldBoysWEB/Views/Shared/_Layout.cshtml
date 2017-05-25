@@ -4,25 +4,45 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
-   
+
     <link href="~/node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
     <link href="~/Style.css" rel="stylesheet" />
 
 </head>
 <body>
 
-    <div>
-        @await Component.InvokeAsync("MenuBar")
-    </div>
+    @if (ViewBag.HideNavBar == null)
+    {
+        <div>
+            @await Component.InvokeAsync("MenuBar")
+        </div>
+
+    }
 
     <div class="container">
-        <div style="padding-top: 100px">
+        @if (ViewBag.ContentSpacingTop == null)
+        {
+            <div class="contentSpacingTop"></div>
+        }
+
+        <div>
             @RenderBody()
         </div>
-        <footer>
-            @RenderSection("footer", required: false)
-            @await Component.InvokeAsync("Messages")
-        </footer>
+        @if (ViewBag.CenterFooter == true)
+        {
+            <footer id="footer">
+                @RenderSection("footer", required: false)
+                @await Component.InvokeAsync("Messages")
+            </footer>
+        }
+        else
+        {
+            <footer>
+                @RenderSection("footer", required: false)
+                @await Component.InvokeAsync("Messages")
+            </footer>
+        }
+
     </div>
 </body>
 </html>

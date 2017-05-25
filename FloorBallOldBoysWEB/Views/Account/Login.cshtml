@@ -1,52 +1,47 @@
 ﻿@model LoginViewModel
 
 @{
-    Layout = null;
+    ViewBag.HideNavBar = true;
+    ViewBag.ContentSpacingTop = true;
+    ViewBag.CenterFooter = true;
 }
 
-<!DOCTYPE html>
 
-<html>
-<head>
-    <title>Login</title>
-    <link href="bootstrap.css" rel="stylesheet" />
-    <link href="Style.css" rel="stylesheet" />
-</head>
-<body>
 
-    <div class="container-fluid" align="center">
-        <div class="col-lg-4 col-lg-offset-4 text-center">
-            <div class="input-group" style="float: none; margin: 0 auto;">
-                <div>
-                    <h1 id="headLine">Ellös Oldboys</h1>
-                </div>
-                <section class="panel panel-default" style="width: 300px; margin: auto ">
-                    <div>
-                        <h2>Logga in</h2>
-                    </div>
-
-                    <div asp-validation-summary="All"></div>
-                    <form method="post" asp-antiforgery="true" action="">
-                        <div class="input-lg">
-                            <input asp-for="Username" placeholder="Användarnamn" />
-                        </div>
-                        <div class="input-lg">
-                            <input asp-for="Password" placeholder="Lösenord" />
-                        </div>
-                        <div>
-                            <label>Kom ihåg mig</label>
-                            <input asp-for="RememberMe" />
-                        </div>
-                        <div id="loginBtn">
-                            <input class="btn btn-success btn-block" type="submit" value="Login" asp-controller="Account" asp-action="Login" />
-                            <a asp-action="Register" asp-controller="Account">Skapa konto</a>
-                        </div>
-
-                    </form>
-                </section>
-            </div>
-        </div>
+<div class="container container-fluid col-sm-12 text-center">
+    <div>
+        <h1 id="headLine">Ellös Oldboys</h1>
     </div>
+    <section class="panel panel-default size">
+        <div>
+            <h2 id="headlLineForm">Logga in</h2>
+        </div>
 
-</body>
-</html>
+        <div asp-validation-summary="All"></div>
+
+        <form method="post" asp-antiforgery="true">
+            <div class="panel-body">
+                <div class="input-lg">
+                    <input type="email" asp-for="Username" placeholder="Användarnamn" />
+                </div>
+                <div class="input-lg">
+                    <input asp-for="Password" placeholder="Lösenord" />
+                </div>
+                <div>
+                    <label>Kom ihåg mig</label>
+                    <input asp-for="RememberMe" />
+                </div>
+            </div>
+
+            <div id="loginBtn">
+                <input class="btn btn-success btn-block" type="submit" value="Login" asp-controller="Account" asp-action="Login" />
+                <a asp-action="Register" asp-controller="Account">Skapa konto</a>
+            </div>
+
+        </form>
+
+    </section>
+</div>
+
+
+
