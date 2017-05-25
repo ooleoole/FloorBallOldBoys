@@ -30,5 +30,6 @@ namespace FloorBallOldBoysWEB.ViewModels
         public string Info { get; set; }
         [Display(Name = "Inställd")]
         public bool IsCancelled { get; set; }
+        public string ReturnUrl { get; set; }
     }
 }

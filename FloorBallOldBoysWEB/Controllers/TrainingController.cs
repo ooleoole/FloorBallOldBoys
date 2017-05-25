@@ -98,22 +98,24 @@ namespace FloorBallOldBoysWEB.Controllers
         {
             var training = _traningService.Find(trainingId);
             var model = Mapper.ModelToViewModelMapping.TrainingToTrainingViewModel(training);
+            
             if (model is null)
                 return Redirect(returnUrl);
 
+            model.ReturnUrl = returnUrl;
             return View(model);
         }
 
         [HttpPost]
         [Authorize]
-        public IActionResult Edit(int trainingId, string returnUrl, EditTrainingViewModel model)
+        public IActionResult Edit(int trainingId, EditTrainingViewModel model)
         {
             if (ModelState.IsValid)
             {
                 var traning = _traningService.Find(trainingId);
                 traning = Mapper.ViewModelToModelMapping.EditTrainingViewModelToTraining(model, traning);
                 _traningService.Update(traning);
-                return Redirect(returnUrl);
+                return Redirect(model.ReturnUrl);
             }
 
             return View(model);
