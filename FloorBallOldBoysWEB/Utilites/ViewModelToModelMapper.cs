@@ -56,7 +56,7 @@ namespace FloorBallOldBoysWEB.Utilites
                 EndTime = new DateTime(model.Date.Year, model.Date.Month, model.Date.Day, model.EndTime.Hour, model.EndTime.Minute, 0),
                 Date = model.Date,
                 Info = model.Info,
-                CreatorId = model.Creator.Id;
+                CreatorId = model.Creator.Id
 
             };
         }

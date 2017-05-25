@@ -42,3 +42,11 @@
 .panelTopMargin100 {
     margin-top: 100px;
 }
+.lrPaddingOverride {
+    padding-right: 0!important;
+    padding-left: 0 !important;
+} 
+.borderOverride {
+    border: none;
+
+}

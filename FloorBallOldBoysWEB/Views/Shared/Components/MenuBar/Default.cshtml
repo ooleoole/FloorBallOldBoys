@@ -2,12 +2,12 @@
 
 
 <nav id="navBar" class="navbar navbar-fixed-top navbar-default" style="height:50px">
-    <div class="navbar-default col-md-12">
+    <div class="navbar-default col-md-12 lrPaddingOverride" style="padding-left: 0px; padding-right: 0px;">
         <div class="container-fluid">
-            <div cla>
+            <div>
                 <a class="navbar-brand" asp-controller="Training" asp-action="TodaysTrainings">EllösOldBoys</a>
             </div>
-            <div align="right">
+            <div class="pull-right">
                 <table>
                     <tr>
                         <td><a class="btn-link pull-right" asp-controller="Account" asp-action="MyAccount">@Model.Email</a></td>
@@ -19,7 +19,7 @@
             </div>
         </div>
         <div align="right">
-            <div class="table-responsive">
+            <div class="table-responsive borderOverride">
                 <table style="margin: 0px auto;">
                     <tr>
                         <th>
