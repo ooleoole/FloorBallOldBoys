@@ -2,11 +2,13 @@
 @{
     ViewBag.Title = "Skapa träning";
 }
+
 <div class="panel panel-default panelTopMargin100">
     <div class="panel-heading">
-       <h2>Skapa träning</h2> 
+        <h2 id="tableTitle">Skapa träning</h2>
     </div>
-    <div class="container" style="margin-top: 20px">
+
+    <div class="panel-body">
         <form class="form-horizontal" metod="post" asp-antiforgery="true">
             <div class="form-group">
                 <label class="control-label col-sm-1" for="location-input" asp-for="Location"></label>
@@ -29,7 +31,7 @@
             <div class="form-group">
                 <label class="control-label col-sm-1" for="date-input" asp-for="Date"></label>
                 <div class="col-sm-4">
-                    <input class="form-control" id="date-input" asp-for="Date"/>
+                    <input class="form-control" id="date-input" asp-for="Date" />
                 </div>
             </div>
             <div class="form-group">
@@ -46,4 +48,5 @@
             </div>
         </form>
     </div>
+    <div class="panel-footer"></div>
 </div>

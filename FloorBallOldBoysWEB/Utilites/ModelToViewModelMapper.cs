@@ -22,13 +22,13 @@ namespace FloorBallOldBoysWEB.Utilites
         {
             return new EditTrainingViewModel
             {
-               Id=training.Id,
-               Date = training.Date.Date,
-               StartTime = training.StartTime,
-               EndTime = training.EndTime,
-               Info = training.Info,
-               Location = training.Location,
-               IsCancelled = training.IsCancelled
+                Id = training.Id,
+                Date = training.Date.Date,
+                StartTime = training.StartTime,
+                EndTime = training.EndTime,
+                Info = training.Info,
+                Location = training.Location,
+                IsCancelled = training.IsCancelled
             };
         }
 
@@ -39,12 +39,12 @@ namespace FloorBallOldBoysWEB.Utilites
                 Email = user.Email,
                 Firstname = user.Firstname,
                 Lastname = user.Lastname,
-                City =user.Address.City,
+                City = user.Address.City,
                 Street = user.Address.Street,
                 ZipCode = user.Address.ZipCode,
                 SocialSecurityNumber = user.SocialSecurityNumber
-                
-                
+
+
             };
         }
 
@@ -52,6 +52,7 @@ namespace FloorBallOldBoysWEB.Utilites
         {
             return new AccountDetailsViewModel
             {
+                Id = user.Id,
                 Email = user.Email,
                 Firstname = user.Firstname,
                 Lastname = user.Lastname,

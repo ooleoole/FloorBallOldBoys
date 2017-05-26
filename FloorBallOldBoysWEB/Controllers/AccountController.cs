@@ -60,7 +60,7 @@ namespace FloorBallOldBoysWEB.Controllers
             return View(model);
         }
 
-        
+
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
@@ -81,7 +81,7 @@ namespace FloorBallOldBoysWEB.Controllers
             if (ModelState.IsValid)
             {
                 var user = Mapper.ViewModelToModelMapping.RegisterUserViewModelToUser(model);
-                
+
                 try
                 {
                     _userService.Add(user);
@@ -123,8 +123,8 @@ namespace FloorBallOldBoysWEB.Controllers
                 }
                 if (user.Id != 0)
                     _userService.Delete(user);
-                
-                
+
+
                 foreach (var error in createResult.Errors)
                     ModelState.AddModelError("", error.Description);
 
@@ -139,9 +139,10 @@ namespace FloorBallOldBoysWEB.Controllers
             return View("AccountDetails", model);
         }
         [HttpGet]
-        public IActionResult Edit()
+        public IActionResult Edit(int id)
         {
-            var model = Mapper.ModelToViewModelMapping.UserToEditUserViewModel(LoggedInUser);
+            var user = _userService.FindAll(u => u.Id == id, "Address").FirstOrDefault();
+            var model = Mapper.ModelToViewModelMapping.UserToEditUserViewModel(user);
             return View(model);
         }
         [HttpPost]

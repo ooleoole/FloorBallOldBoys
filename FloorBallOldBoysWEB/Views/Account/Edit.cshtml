@@ -9,56 +9,29 @@
     <div class="panel-heading">
         <h2>@Model.Firstname @Model.Lastname</h2>
     </div>
+
+
     <div class="panel-body">
-        <form method="post" asp-action="Edit" asp-antiforgery="true">
-            <div>
-                <label>Email:</label>
-                <input class="lineInput" asp-for="Email"/>
-                <span asp-validation-for="Email"></span>
+        <div class="row">
+            <div class=" col-sm-6 col-sm-6">
+                <form method="post">
+                    <table class="table-responsive" id="table-override">
+                        <tbody>
+                            <tr><td><label class="control-label" asp-for="SocialSecurityNumber"></label></td><td><input asp-for="SocialSecurityNumber" class="lineInput" /></td></tr>
+                            <tr><td><label class="control-label" asp-for="Firstname"></label></td><td><input asp-for="Firstname" class="lineInput" /></td></tr>
+                            <tr><td><label class="control-label" asp-for="Lastname"></label></td><td><input asp-for="Lastname" class="lineInput" /></td></tr>
+                            <tr><td><label class="control-label" asp-for="Street"></label></td><td><input asp-for="Street" class="lineInput" /></td></tr>
+                            <tr><td><label class="control-label" asp-for="ZipCode"></label></td><td><input asp-for="ZipCode" class="lineInput" /></td></tr>
+                            <tr><td><label class="control-label" asp-for="City"></label></td><td><input asp-for="City" class="lineInput" /></td></tr>
+                            <tr><td><label class="control-label" asp-for="Email"></label></td><td><input asp-for="Email" class="lineInput" /></td></tr>
+                        </tbody>
+                    </table>
+                </form>
             </div>
-            <div>
-                <label>Lösenord:</label>
-                <input class="lineInput" asp-for="Password"/>
-                <span asp-validation-for="Password"></span>
-            </div>
-            <div>
-                <label>Bekräfta lösenord</label>
-                <input class="lineInput" asp-for="ConfirmPassword"/>
-                <span asp-validation-for="ConfirmPassword"></span>
-            </div>
-            <div>
-                <label>Förnamn:</label>
-                <input class="lineInput" asp-for="Firstname"/>
-                <span asp-validation-for="Firstname"></span>
-            </div>
-            <div>
-                <label>Efternamn:</label>
-                <input class="lineInput" asp-for="Lastname"/>
-                <span asp-validation-for="Lastname"></span>
-            </div>
-            <div>
-                <label>Personnummer:</label>
-                <input class="lineInput" asp-for="SocialSecurityNumber"/>
-                <span asp-validation-for="SocialSecurityNumber"></span>
-            </div>
-            <div>
-                <label>Ort:</label>
-                <input class="lineInput" asp-for="City"/>
-                <span asp-validation-for="City"></span>
-            </div>
-            <div>
-                <label>Address:</label>
-                <input class="lineInput" asp-for="Street"/>
-                <span asp-validation-for="Street"></span>
-            </div>
-            <div>
-                <label>Postnummer:</label>
-                <input class="lineInput" asp-for="ZipCode"/>
-                <span asp-validation-for="ZipCode"></span>
-            </div>
-            <div>
-                <input class="btn btn-info" type="submit" value="Spara" />
-            </div>
-        </form>
+        </div>
     </div>
+    <div class="panel-footer">
+        <a class="btn btn-info" asp-controller="Account" asp-action="Edit">Spara</a>
+    </div>
+
 </div>

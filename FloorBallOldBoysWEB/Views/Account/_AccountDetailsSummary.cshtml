@@ -1,35 +1,30 @@
 ﻿@model AccountDetailsViewModel
 
-<div class="panel panel-info" style="margin-top: 100px">
+<div class="panel panel-info panelTopMargin100">
     <div class="panel-heading">
         <h2>@Model.Firstname @Model.Lastname</h2>
     </div>
+
     <div class="panel-body">
-        <form method="get" asp-antiforgery="true">
-            <div>
-                <label>Email: @Model.Email</label>
+        <div class="row">
+            <div class=" col-sm-6 col-sm-6">
+                <table class="table-responsive" id="table-override">
+                    <tbody>
+                        <tr><td><label class="control-label" asp-for="SocialSecurityNumber"></label></td><td>@Model.SocialSecurityNumber</td></tr>
+                        <tr><td><label class="control-label" asp-for="Firstname"></label></td><td>@Model.Firstname</td></tr>
+                        <tr><td><label class="control-label" asp-for="Lastname"></label></td><td>@Model.Lastname</td></tr>
+                        <tr><td><label class="control-label" asp-for="Street"></label></td><td>@Model.Street</td></tr>
+                        <tr><td><label class="control-label" asp-for="ZipCode"></label></td><td>@Model.ZipCode</td></tr>
+                        <tr><td><label class="control-label" asp-for="City"></label></td><td>@Model.City</td></tr>
+                        <tr><td><label class="control-label" asp-for="Email"></label></td><td>@Model.Email</td></tr>
+
+                    </tbody>
+                </table>
+
             </div>
-            <div>
-                <label>Förnamn: @Model.Firstname</label>
-            </div>
-            <div>
-                <label>Efternamn: @Model.Lastname</label>
-            </div>
-            <div>
-                <label>Personnummer: @Model.SocialSecurityNumber</label>
-            </div>
-            <div>
-                <label>Ort: @Model.City</label>
-            </div>
-            <div>
-                <label>Address: @Model.Street</label>
-            </div>
-            <div>
-                <label>Postnummer: @Model.ZipCode</label>
-            </div>
-            <div>
-                <input class="btn btn-info" type="submit" value="Edit" asp-action="Edit" />
-            </div>
-        </form>
+        </div>
+    </div>
+    <div class="panel-footer">
+        <a class="btn btn-info" asp-controller="Account" asp-action="Edit" asp-route-id="@Model.Id">Ändra</a>
     </div>
 </div>

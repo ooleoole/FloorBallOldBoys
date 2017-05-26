@@ -7,7 +7,6 @@
 
 #headlLineForm {
     font-family: monospace;
-    
 }
 
 #loginBtn {
@@ -28,64 +27,92 @@
 .lrMargin5px {
     margin-left: 5px;
     margin-right: 5px;
-   
 }
-.lineInput {
 
+.lineInput {
     border: 0;
     outline: 0;
     background: transparent;
     border-bottom: 1px solid black;
-
 }
 
 .panelTopMargin100 {
     margin-top: 100px;
 }
+
 .lrPaddingOverride {
-    padding-right: 0!important;
+    padding-right: 0 !important;
     padding-left: 0 !important;
-} 
+}
+
 .borderOverride {
     border: none;
-
 }
 
 @media only screen and (max-width: 480px) {
-    #your_id {
-        width: 000px;
-        height: 000px;
+    #tableTitle {
+        padding-left: 0px;
+    }
+    #table-override {
+        width: 100%;
+        margin-bottom: 15px;
+        overflow-y: hidden;
+        -ms-overflow-style: -ms-autohiding-scrollbar;
+        border: none;
     }
 }
 
 @media only screen and (min-width: 480px) and (max-width: 768px) {
-    #your_id {
-        width: 000px;
-        height: 000px;
+    #tableTitle {
+        padding-left: 0px;
+    }
+    #table-override {
+        width: 100% ;
+        margin-bottom: 75px;
+        overflow-y: hidden;
+        -ms-overflow-style: -ms-autohiding-scrollbar;
+        border: none;
     }
 }
 
 @media only screen and (min-width: 768px) and (max-width: 959px) {
-    #your_id {
-        width: 000px;
-        height: 000px;
+    #tableTitle {
+        padding-left: 0px;
+    }
+
+    #table-override {
+        width: 100%;
+        margin-bottom: 15px;
+        overflow-y: hidden;
+        -ms-overflow-style: -ms-autohiding-scrollbar;
+        border: none;
     }
 }
 
 @media only screen and (min-width: 959px) {
-    #your_id {
-        width: 000px;
-        height: 000px;
+    #tableTitle {
+        padding-left: 17px;
+    }
+
+    #table-override {
+        width: 100% !important;
+        margin-bottom: 15px;
+        overflow-y: hidden;
+        -ms-overflow-style: -ms-autohiding-scrollbar;
+        border: none;
     }
 }
+
 .contentSpacingTop {
     padding-top: 100px !important;
 }
+
 .size {
-    min-width: 300px!important;
-    max-width: 300px!important;
+    min-width: 300px !important;
+    max-width: 300px !important;
     margin: auto;
 }
+
 #footer {
     display: table;
     text-align: center;
