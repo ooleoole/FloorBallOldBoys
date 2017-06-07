@@ -10,32 +10,28 @@
             <h6>@training.Date.Year/@training.Date.Month/@training.Date.Day</h6>
         </div>
         <div class="panel-body">
+            <div>@training.Info</div>
 
-            <div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4>Anmälda deltagare</h4>
-                    </div>
-
-                    <div class="panel-body">
-                        @foreach (var userTraningEnrollment in training.EnrolledUsers)
-                        {
-
-                            @Html.Partial("_UserSummary", userTraningEnrollment)
-                        }
-
-                    </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4>Anmälda deltagare</h4>
                 </div>
-                
-                <div>@training.Info</div>
 
+                <div class="panel-body">
+                    @foreach (var userTraningEnrollment in training.EnrolledUsers)
+                    {
+
+                        @Html.Partial("_UserSummary", userTraningEnrollment)
+                    }
+
+                </div>
             </div>
         </div>
         <div class="panel-footer">
             <table>
                 <tr>
                     <th>
-                        <form asp-controller="Training" onsubmit="return checkBeforeSubmit()">
+                        <form asp-controller="Training" >
                             @if (training.EnrolledUsers.Any(ute => ute.User.Email == User.Identity.Name))
                             {
                                 <input class="btn-primary" type="submit" value="Ångra anmälan" asp-action="DismissTraining"
@@ -69,14 +65,5 @@
 
 }
 
-<script type="text/javascript">
-    var wasSubmitted = false;
-    function checkBeforeSubmit() {
-        if (!wasSubmitted) {
-            wasSubmitted = true;
-            return wasSubmitted;
-        }
-        return false;
-    }
-</script>
+
 

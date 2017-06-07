@@ -133,11 +133,11 @@ namespace FloorBallOldBoysWEB.Controllers
             return View(model);
         }
 
-        public IActionResult MyAccount()
-        {
-            var model = Mapper.ModelToViewModelMapping.UserToMyAccountViewModel(LoggedInUser);
-            return View("AccountDetails", model);
-        }
+        //public IActionResult MyAccount()
+        //{
+        //    var model = Mapper.ModelToViewModelMapping.UserToMyAccountViewModel(LoggedInUser);
+        //    return View("AccountDetails", model);
+        //}
         [HttpGet]
         public IActionResult Edit(int id)
         {
@@ -150,20 +150,20 @@ namespace FloorBallOldBoysWEB.Controllers
         {
             if (ModelState.IsValid)
             {
-                var userAccount = _userManger.Users.FirstOrDefault(u => u.UserId == LoggedInUser.Id);
+                // var userAccount = _userManger.Users.FirstOrDefault(u => u.UserId == LoggedInUser.Id);
 
-                await _userManger.RemovePasswordAsync(userAccount);
-                var result = await _userManger.AddPasswordAsync(userAccount, model.Password);
-                if (!result.Succeeded)
-                {
-                    foreach (var error in result.Errors)
-                        ModelState.AddModelError("", error.Description);
+                //await _userManger.RemovePasswordAsync(userAccount);
+                //var result = await _userManger.AddPasswordAsync(userAccount, model.Password);
+                //if (!result.Succeeded)
+                //{
+                //    foreach (var error in result.Errors)
+                //        ModelState.AddModelError("", error.Description);
 
-                    return View(model);
-                }
+                //    return View(model);
+                //}
                 var user = Mapper.ViewModelToModelMapping.EditUserViewModelToUser(model, LoggedInUser);
                 _userService.Update(user);
-                return RedirectToAction(nameof(MyAccount));
+                return RedirectToAction("MyAccount","AccountControllerApi");
             }
             return View(model);
         }

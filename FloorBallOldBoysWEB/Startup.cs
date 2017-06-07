@@ -26,7 +26,7 @@ namespace FloorBallOldBoysWEB
         public Startup(IHostingEnvironment env)
         {
 
-            var builder = new ConfigurationBuilder().SetBasePath(env.ContentRootPath).AddJsonFile("wwwroot/appsettings.json");
+            var builder = new ConfigurationBuilder().SetBasePath(env.ContentRootPath).AddJsonFile("appsettings.json");
             Configuration = builder.Build();
             
 
@@ -41,7 +41,7 @@ namespace FloorBallOldBoysWEB
             services.AddScoped<IRepo<User>, Repo<User>>();
             services.AddScoped<IRepo<Address>, Repo<Address>>();
             services.AddScoped<IUserService,UserService>();
-            services.AddScoped<ITraningService, TraningService>();
+            services.AddScoped<ITrainingService, TrainingService>();
             services.AddSingleton(Configuration);
             services.AddScoped<ISession, Session>();
             services.AddDbContext<UserAccountContext>(options => options.UseSqlServer(Configuration.GetConnectionString("OldBoys")));
@@ -74,7 +74,7 @@ namespace FloorBallOldBoysWEB
                 EnableDirectoryBrowsing = false,
             });
             app.UseDefaultFiles();
-            app.UseNodeModules(env.ContentRootPath);
+            //app.UseNodeModules(env.ContentRootPath);
             app.UseIdentity();
             app.UseMvc(routes => routes.MapRoute("default", "{controller=Account}/{Action=Login}/{id?}"));
             app.Run(async (context) => await context.Response.WriteAsync("Hello World!"));

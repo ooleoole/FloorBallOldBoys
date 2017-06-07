@@ -14,14 +14,14 @@ namespace FloorBallOldBoysWEB.Controllers
 
     public class TrainingController : Controller
     {
-        private readonly ITraningService _traningService;
+        private readonly ITrainingService _trainingService;
         private readonly ISession _session;
         private User _loggedInUser;
         private User LoggedInUser => _loggedInUser ?? (_loggedInUser = _session.GetLoggedInUser(User.Identity.Name));
 
-        public TrainingController(ITraningService traningService, ISession session)
+        public TrainingController(ITrainingService trainingService, ISession session)
         {
-            _traningService = traningService;
+            _trainingService = trainingService;
             _session = session;
         }
         [HttpGet]
@@ -39,7 +39,7 @@ namespace FloorBallOldBoysWEB.Controllers
             {
                 model.Creator = LoggedInUser;
                 var newTraning = Mapper.ViewModelToModelMapping.CreateTrainingViewModelToTraining(model);
-                _traningService.Add(newTraning);
+                _trainingService.Add(newTraning);
                 return RedirectToAction("TodaysTrainings");
             }
             return View(model);
@@ -48,7 +48,7 @@ namespace FloorBallOldBoysWEB.Controllers
         public IActionResult TodaysTrainings()
         {
 
-            var todaysTranings = GetTodaysTranings();
+            var todaysTranings =_trainingService.GetTodaysTrainings();
             var model = Mapper.ModelToViewModelMapping
                 .TrainingsToTrainingsViewModel(todaysTranings, LoggedInUser);
             model.ReturnUrl = Url.Action(nameof(TodaysTrainings));
@@ -59,7 +59,7 @@ namespace FloorBallOldBoysWEB.Controllers
         public IActionResult GetAllTrainings()
         {
 
-            var allTrainings = _traningService.AllInclude("EnrolledUsers.User", "ActualAttendance.User");
+            var allTrainings = _trainingService.AllInclude("EnrolledUsers.User", "ActualAttendance.User");
             var model = Mapper.ModelToViewModelMapping
                 .TrainingsToTrainingsViewModel(allTrainings, LoggedInUser);
             model.ReturnUrl = Url.Action(nameof(GetAllTrainings));
@@ -70,13 +70,13 @@ namespace FloorBallOldBoysWEB.Controllers
         [Authorize]
         public IActionResult EnrollTraining(int trainingId, string returnUrl)
         {
-            var training = _traningService.Find(trainingId);
+            var training = _trainingService.Find(trainingId);
             training.EnrolledUsers.Add(new UserTraningEnrollment
             {
                 TrainingId = training.Id,
                 UserId = LoggedInUser.Id
             });
-            _traningService.Update(training);
+            _trainingService.Update(training);
             return Redirect(returnUrl);
         }
 
@@ -84,10 +84,10 @@ namespace FloorBallOldBoysWEB.Controllers
         [Authorize]
         public IActionResult DismissTraining(int trainingId, string returnUrl)
         {
-            var training = _traningService.AllInclude("EnrolledUsers.User").FirstOrDefault(t => t.Id == trainingId);
+            var training = _trainingService.AllInclude("EnrolledUsers.User").FirstOrDefault(t => t.Id == trainingId);
             var deleteEnrollments = training.EnrolledUsers.Where(ute => ute.UserId == LoggedInUser.Id).ToList();
             deleteEnrollments.ForEach(de => training.EnrolledUsers.Remove(de));
-            _traningService.Update(training);
+            _trainingService.Update(training);
             return Redirect(returnUrl);
         }
 
@@ -96,7 +96,7 @@ namespace FloorBallOldBoysWEB.Controllers
         [Authorize]
         public IActionResult Edit(int trainingId, string returnUrl)
         {
-            var training = _traningService.Find(trainingId);
+            var training = _trainingService.Find(trainingId);
             var model = Mapper.ModelToViewModelMapping.TrainingToTrainingViewModel(training);
             
             if (model is null)
@@ -112,29 +112,24 @@ namespace FloorBallOldBoysWEB.Controllers
         {
             if (ModelState.IsValid)
             {
-                var traning = _traningService.Find(trainingId);
+                var traning = _trainingService.Find(trainingId);
                 traning = Mapper.ViewModelToModelMapping.EditTrainingViewModelToTraining(model, traning);
-                _traningService.Update(traning);
+                _trainingService.Update(traning);
                 return Redirect(model.ReturnUrl);
             }
 
             return View(model);
         }
 
-        private IEnumerable<Training> GetTodaysTranings()
-        {
-            return _traningService.AllInclude("EnrolledUsers.User")
-                .Where(t => t.Date.Date == DateTime.Today);
-        }
-
+       
 
         public IActionResult Delete(int trainingId, string returnUrl)
         {
-            var training = _traningService.Find(trainingId);
+            var training = _trainingService.Find(trainingId);
             if (training is null)
                 return Redirect(returnUrl);
 
-            _traningService.Delete(training);
+            _trainingService.Delete(training);
             return Redirect(returnUrl);
         }
     }

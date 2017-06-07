@@ -23,27 +23,18 @@
                 <table style="margin: 0px auto;">
                     <tr>
                         <th>
-                            <form method="get" asp-action="MyAccount" asp-controller="Account">
-                                <input class="btn btn-primary navbar-btn lrMargin5px" type="submit" value="Mitt konto" />
-                            </form>
+                            <a id="MyAccount" class="btn btn-primary navbar-btn lrMargin5px">Mitt konto</a>
                         </th>
                         <th>
-                            <form method="get" asp-action="GetAllTrainings" asp-controller="Training">
-                                <input class="btn btn-primary navbar-btn lrMargin5px" type="submit" value="Alla träningar" />
-                            </form>
+                            <a class="btn btn-primary navbar-btn lrMargin5px" asp-controller="Training" asp-action="GetAllTrainings">Alla träningar</a>
                         </th>
                         <th>
-                            <form method="get" asp-action="TodaysTrainings" asp-controller="Training">
-
-                                <input class="btn btn-primary navbar-btn lrMargin5px" type="submit" value="Dagens träningar" />
-                            </form>
+                            <a class="btn btn-primary navbar-btn lrMargin5px" asp-controller="Training" asp-action="TodaysTrainings">Dagens träningar</a>
                         </th>
                         <th>
                             @if (Model.IsAdmin)
                             {
-                                <form method="get" asp-controller="Training" asp-action="Create">
-                                    <input class="btn btn-primary navbar-btn lrMargin5px" type="submit" value="Skapa träning" />
-                                </form>
+                                <a class="btn btn-primary navbar-btn lrMargin5px" asp-controller="Training" asp-action="Create">Skapa träning</a>
                             }
                         </th>
                     </tr>

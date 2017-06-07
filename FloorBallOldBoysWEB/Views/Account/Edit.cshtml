@@ -10,28 +10,76 @@
         <h2>@Model.Firstname @Model.Lastname</h2>
     </div>
 
-
-    <div class="panel-body">
-        <div class="row">
-            <div class=" col-sm-6 col-sm-6">
-                <form method="post">
+    <form method="post" asp-action="Edit">
+        <div class="panel-body">
+            <div class="row">
+                <div class=" col-sm-6 col-sm-6">
+                    <div asp-validation-summary="ModelOnly"></div>
                     <table class="table-responsive" id="table-override">
                         <tbody>
-                            <tr><td><label class="control-label" asp-for="SocialSecurityNumber"></label></td><td><input asp-for="SocialSecurityNumber" class="lineInput" /></td></tr>
-                            <tr><td><label class="control-label" asp-for="Firstname"></label></td><td><input asp-for="Firstname" class="lineInput" /></td></tr>
-                            <tr><td><label class="control-label" asp-for="Lastname"></label></td><td><input asp-for="Lastname" class="lineInput" /></td></tr>
-                            <tr><td><label class="control-label" asp-for="Street"></label></td><td><input asp-for="Street" class="lineInput" /></td></tr>
-                            <tr><td><label class="control-label" asp-for="ZipCode"></label></td><td><input asp-for="ZipCode" class="lineInput" /></td></tr>
-                            <tr><td><label class="control-label" asp-for="City"></label></td><td><input asp-for="City" class="lineInput" /></td></tr>
-                            <tr><td><label class="control-label" asp-for="Email"></label></td><td><input asp-for="Email" class="lineInput" /></td></tr>
+                            <tr>
+                                <td><label class="control-label" asp-for="SocialSecurityNumber"></label></td>
+                                <td><input asp-for="SocialSecurityNumber" class="lineInput" required /></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td><span class="text-danger" asp-validation-for="SocialSecurityNumber"></span></td>
+                            </tr>
+                            <tr>
+                                <td><label class="control-label" asp-for="Firstname"></label></td>
+                                <td><input asp-for="Firstname" class="lineInput" required /></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td><span class="text-danger" asp-validation-for="Firstname"></span></td>
+                            </tr>
+                            <tr>
+                                <td><label class="control-label" asp-for="Lastname"></label></td>
+                                <td><input asp-for="Lastname" class="lineInput" required /></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td><span asp-validation-for="Lastname"></span></td>
+                            </tr>
+                            <tr>
+                                <td><label class="control-label" asp-for="Street"></label></td>
+                                <td><input asp-for="Street" class="lineInput" required /></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td><span class="text-danger" asp-validation-for="Street"></span></td>
+                            </tr>
+                            <tr>
+                                <td><label class="control-label" asp-for="ZipCode"></label></td>
+                                <td><input asp-for="ZipCode" class="lineInput" required /></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td><span class="text-danger" asp-validation-for="ZipCode"></span></td>
+                            </tr>
+                            <tr>
+                                <td><label class="control-label" asp-for="City"></label></td>
+                                <td><input asp-for="City" class="lineInput" required /></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td><span class="text-danger" asp-validation-for="City"></span></td>
+                            </tr>
+                            <tr>
+                                <td><label class="control-label" asp-for="Email"></label></td>
+                                <td><input asp-for="Email" class="lineInput" required /></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td><span class="text-danger" asp-validation-for="Email"></span></td>
+                            </tr>
                         </tbody>
                     </table>
-                </form>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="panel-footer">
-        <a class="btn btn-info" asp-controller="Account" asp-action="Edit">Spara</a>
-    </div>
-
+        <div class="panel-footer">
+            <input type="submit" class="btn btn-info" value="Spara" />
+        </div>
+    </form>
 </div>
