@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Domain.Entities;
 using Domain.Services;
 using FloorBallOldBoysWEB.IdentityUser;
@@ -47,7 +44,7 @@ namespace FloorBallOldBoysWEB.Controllers
             return PartialView(model);
         }
         [HttpPost, Route("edit")]
-        public async Task<IActionResult> Edit(EditUserViewModel model)
+        public  IActionResult Edit(EditUserViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -66,8 +63,10 @@ namespace FloorBallOldBoysWEB.Controllers
                 _userService.Update(user);
                 return RedirectToAction("MyAccount", "AccountControllerApi");
             }
-            return View(model);
+            return PartialView(model);
         }
+
+
 
     }
 }

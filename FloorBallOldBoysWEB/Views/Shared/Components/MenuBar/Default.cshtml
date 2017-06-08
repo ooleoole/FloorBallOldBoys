@@ -10,7 +10,7 @@
             <div class="pull-right">
                 <table>
                     <tr>
-                        <td><a class="btn-link pull-right" asp-controller="Account" asp-action="MyAccount">@Model.Email</a></td>
+                        <td><a class="btn-link pull-right" >@Model.Email</a></td>
                     </tr>
                     <tr>
                         <td><a class="glyphicon glyphicon-log-out pull-right" asp-controller="Account" asp-action="Logout">LoggaUt</a></td>
@@ -23,10 +23,10 @@
                 <table style="margin: 0px auto;">
                     <tr>
                         <th>
-                            <a id="MyAccount" class="btn btn-primary navbar-btn lrMargin5px">Mitt konto</a>
+                            <a id="myAccount" class="btn btn-primary navbar-btn lrMargin5px">Mitt konto</a>
                         </th>
                         <th>
-                            <a class="btn btn-primary navbar-btn lrMargin5px" asp-controller="Training" asp-action="GetAllTrainings">Alla träningar</a>
+                            <a id="allTrainings" class="btn btn-primary navbar-btn lrMargin5px">Alla träningar</a>
                         </th>
                         <th>
                             <a class="btn btn-primary navbar-btn lrMargin5px" asp-controller="Training" asp-action="TodaysTrainings">Dagens träningar</a>

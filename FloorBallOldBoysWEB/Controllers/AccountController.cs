@@ -46,7 +46,7 @@ namespace FloorBallOldBoysWEB.Controllers
             if (ModelState.IsValid)
             {
                 var loginResult = await _signInManager.PasswordSignInAsync(model.Username, model.Password,
-                    model.RememberMe, false);
+                    model.RememberMe, true);
                 if (loginResult.Succeeded)
                 {
                     if (Url.IsLocalUrl(model.ReturnUrl))
@@ -146,7 +146,7 @@ namespace FloorBallOldBoysWEB.Controllers
         //    return View(model);
         //}
         [HttpPost]
-        public async Task<IActionResult> Edit(EditUserViewModel model)
+        public  IActionResult Edit(EditUserViewModel model)
         {
             if (ModelState.IsValid)
             {

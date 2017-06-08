@@ -34,11 +34,11 @@
                         <form>
                             @if (training.EnrolledUsers.Any(ute => ute.User.Email == User.Identity.Name))
                             {
-                                <a id="dismiss" class="btn btn-primary">Ångra anmälan</a>
+                                <a id="dismiss" class="btn btn-primary" data-model='{"trainingId":"@training.Id","returnUrl":"@Model.ReturnUrl"}'>Ångra anmälan</a>
                             }
                             else
                             {
-                                <a id="enroll" class="btn btn-primary" >Kommer</a>
+                                <a id="enroll" class="btn btn-primary" data-model='{"trainingId":"@training.Id","returnUrl":"@Model.ReturnUrl"}'>Kommer</a>
                             }
                         </form>
                     </th>
@@ -62,6 +62,3 @@
     </section>
 
 }
-
-
-

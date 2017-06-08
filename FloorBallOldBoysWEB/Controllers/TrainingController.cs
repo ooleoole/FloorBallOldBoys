@@ -54,42 +54,42 @@ namespace FloorBallOldBoysWEB.Controllers
             model.ReturnUrl = Url.Action(nameof(TodaysTrainings));
             return View("TodayTranings", model);
         }
-        [HttpGet]
-        [Authorize]
-        public IActionResult GetAllTrainings()
-        {
+        //[HttpGet]
+        //[Authorize]
+        //public IActionResult GetAllTrainings()
+        //{
 
-            var allTrainings = _trainingService.AllInclude("EnrolledUsers.User", "ActualAttendance.User");
-            var model = Mapper.ModelToViewModelMapping
-                .TrainingsToTrainingsViewModel(allTrainings, LoggedInUser);
-            model.ReturnUrl = Url.Action(nameof(GetAllTrainings));
-            return View("AllTrainings", model);
-        }
-
-
-        [Authorize]
-        public IActionResult EnrollTraining(int trainingId, string returnUrl)
-        {
-            var training = _trainingService.Find(trainingId);
-            training.EnrolledUsers.Add(new UserTraningEnrollment
-            {
-                TrainingId = training.Id,
-                UserId = LoggedInUser.Id
-            });
-            _trainingService.Update(training);
-            return Redirect(returnUrl);
-        }
+        //    var allTrainings = _trainingService.AllInclude("EnrolledUsers.User", "ActualAttendance.User");
+        //    var model = Mapper.ModelToViewModelMapping
+        //        .TrainingsToTrainingsViewModel(allTrainings, LoggedInUser);
+        //    model.ReturnUrl = Url.Action(nameof(GetAllTrainings));
+        //    return View("AllTrainings", model);
+        //}
 
 
-        [Authorize]
-        public IActionResult DismissTraining(int trainingId, string returnUrl)
-        {
-            var training = _trainingService.AllInclude("EnrolledUsers.User").FirstOrDefault(t => t.Id == trainingId);
-            var deleteEnrollments = training.EnrolledUsers.Where(ute => ute.UserId == LoggedInUser.Id).ToList();
-            deleteEnrollments.ForEach(de => training.EnrolledUsers.Remove(de));
-            _trainingService.Update(training);
-            return Redirect(returnUrl);
-        }
+        //[Authorize]
+        //public IActionResult EnrollTraining(int trainingId, string returnUrl)
+        //{
+        //    var training = _trainingService.Find(trainingId);
+        //    training.EnrolledUsers.Add(new UserTraningEnrollment
+        //    {
+        //        TrainingId = training.Id,
+        //        UserId = LoggedInUser.Id
+        //    });
+        //    _trainingService.Update(training);
+        //    return Redirect(returnUrl);
+        //}
+
+
+        //[Authorize]
+        //public IActionResult DismissTraining(int trainingId, string returnUrl)
+        //{
+        //    var training = _trainingService.AllInclude("EnrolledUsers.User").FirstOrDefault(t => t.Id == trainingId);
+        //    var deleteEnrollments = training.EnrolledUsers.Where(ute => ute.UserId == LoggedInUser.Id).ToList();
+        //    deleteEnrollments.ForEach(de => training.EnrolledUsers.Remove(de));
+        //    _trainingService.Update(training);
+        //    return Redirect(returnUrl);
+        //}
 
 
         [HttpGet]

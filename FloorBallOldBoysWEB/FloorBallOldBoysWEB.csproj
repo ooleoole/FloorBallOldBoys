@@ -12,8 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="wwwroot\bootstrap.css" />
-    <Content Include="wwwroot\bootstrapOLD.css" />
     <Content Include="wwwroot\Css\Style.css" />
     <Content Include="wwwroot\lib\bootstrap\.bower.json" />
     <Content Include="wwwroot\lib\bootstrap\bower.json" />
@@ -427,7 +425,6 @@
     <Content Include="wwwroot\lib\jQuery\test\unit\wrap.js" />
     <Content Include="wwwroot\lib\jQuery\test\xhtml.php" />
     <Content Include="wwwroot\Scripts\Script.js" />
-    <Content Include="wwwroot\Style.css" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
