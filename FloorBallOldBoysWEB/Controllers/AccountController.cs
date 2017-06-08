@@ -138,13 +138,13 @@ namespace FloorBallOldBoysWEB.Controllers
         //    var model = Mapper.ModelToViewModelMapping.UserToMyAccountViewModel(LoggedInUser);
         //    return View("AccountDetails", model);
         //}
-        [HttpGet]
-        public IActionResult Edit(int id)
-        {
-            var user = _userService.FindAll(u => u.Id == id, "Address").FirstOrDefault();
-            var model = Mapper.ModelToViewModelMapping.UserToEditUserViewModel(user);
-            return View(model);
-        }
+        //[HttpGet]
+        //public IActionResult Edit(int id)
+        //{
+        //    var user = _userService.FindAll(u => u.Id == id, "Address").FirstOrDefault();
+        //    var model = Mapper.ModelToViewModelMapping.UserToEditUserViewModel(user);
+        //    return View(model);
+        //}
         [HttpPost]
         public async Task<IActionResult> Edit(EditUserViewModel model)
         {

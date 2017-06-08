@@ -442,7 +442,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Middleware\" />
-    <Folder Include="Views\AccountControllerApi\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="wwwroot\lib\jQuery\.github\ISSUE_TEMPLATE.md" />
