@@ -1,29 +1,24 @@
-﻿@model TrainingsViewModel
+﻿@model  TrainingSummaryViewModel
 
 
-@foreach (var training in Model.Tranings)
-{
+
+
     <section class="panel panel-primary panelTopMargin100">
         <div class="panel-heading">
-            <h2>@training.Location</h2>
-            <h4>@training.Date.DayOfWeek  @training.StartTime.Hour:@training.StartTime.Minute - @training.EndTime.Hour:@training.EndTime.Minute</h4>
-            <h6>@training.Date.Year/@training.Date.Month/@training.Date.Day</h6>
+            <h2>@Model.Location</h2>
+            <h4>@Model.Date.DayOfWeek  @Model.StartTime.Hour:@Model.StartTime.Minute - @Model.EndTime.Hour:@Model.EndTime.Minute</h4>
+            <h6>@Model.Date.Year/@Model.Date.Month/@Model.Date.Day</h6>
         </div>
         <div class="panel-body">
-            <div>@training.Info</div>
+            <div>@Model.Info</div>
 
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4>Anmälda deltagare</h4>
                 </div>
 
-                <div class="panel-body">
-                    @foreach (var userTraningEnrollment in training.EnrolledUsers)
-                    {
-
-                        @Html.Partial("_UserSummary", userTraningEnrollment)
-                    }
-
+                <div id="enrollment_summary_@Model.Id" class="panel-body">
+                    @Html.Partial("_EnrollmentSummary", Model.EnrolledUsers)
                 </div>
             </div>
         </div>
@@ -31,34 +26,40 @@
             <table>
                 <tr>
                     <th>
-                        <form>
-                            @if (training.EnrolledUsers.Any(ute => ute.User.Email == User.Identity.Name))
-                            {
-                                <a id="dismiss" class="btn btn-primary" data-model='{"trainingId":"@training.Id","returnUrl":"@Model.ReturnUrl"}'>Ångra anmälan</a>
-                            }
-                            else
-                            {
-                                <a id="enroll" class="btn btn-primary" data-model='{"trainingId":"@training.Id","returnUrl":"@Model.ReturnUrl"}'>Kommer</a>
-                            }
-                        </form>
+                        @if (Model.EnrolledUsers.Any(ute => ute.User.Email == User.Identity.Name))
+                        {
+                            <a id="dismiss_@Model.Id" class="btn btn-primary dismiss"
+                               data-html-target="#training_summary_@Model.Id"
+                               data-method="POST"
+                               data-url="/api/training/dismissTraining"
+                               data-model='@Json.Serialize(Model)'>Ångra anmälan</a>
+                        }
+                        else
+                        {
+                            <a id="dismiss_@Model.Id" class="btn btn-primary enroll"
+                               data-html-target="#training_summary_@Model.Id"
+                               data-method="POST"
+                               data-url="/api/training/enrollTraining"
+                               data-model='@Json.Serialize(Model)'>Kommer</a>
+                        }
                     </th>
                     <th>
                         <div class="col-lg-12">
                             @if (Model.IsAdmin)
                             {
                                 <a asp-action="Edit" asp-controller="Training"
-                                   asp-route-trainingId="@training.Id" asp-route-returnUrl="@Model.ReturnUrl">Ändra</a>
-                                <a asp-action="Delete" asp-controller="Training"
-                                   asp-route-trainingId="@training.Id" asp-route-returnUrl="@Model.ReturnUrl">Ta bort</a>
+                                   asp-route-trainingId="@Model.Id" asp-route-returnUrl="@Model.ReturnUrl">Ändra</a>
+                                <a id="delete-training"
+                                   data-html-target="#main_content"
+                                   data-method="POST"
+                                   data-url="/api/training/deleteTraining"
+                                   data-model='{"trainingId":"@Model.Id","returnUrl":"@Model.ReturnUrl"}'>Ta bort</a>
 
                             }
                         </div>
                     </th>
                 </tr>
             </table>
-
-
         </div>
     </section>
 
-}

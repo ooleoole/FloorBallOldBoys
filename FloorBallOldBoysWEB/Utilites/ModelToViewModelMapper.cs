@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Domain.Entities;
 using FloorBallOldBoysWEB.IdentityUser;
 using FloorBallOldBoysWEB.ViewModels;
@@ -8,11 +9,11 @@ namespace FloorBallOldBoysWEB.Utilites
     internal class ModelToViewModelMapper
     {
         public TrainingsViewModel TrainingsToTrainingsViewModel(
-            IEnumerable<Training> todaysTranings, User loggedInUser)
+            IEnumerable<Training> trainings, User loggedInUser)
         {
             return new TrainingsViewModel
             {
-                Tranings = todaysTranings,
+                TrainingsSummaryViewModels = TrainingsToTrainingsSummaryViewModels(trainings),
                 IsAdmin = loggedInUser.IsAdmin
 
             };
@@ -62,6 +63,31 @@ namespace FloorBallOldBoysWEB.Utilites
                 SocialSecurityNumber = user.SocialSecurityNumber
 
             };
+        }
+
+        public TrainingSummaryViewModel TrainingToTrainingSummaryViewModel(Training training)
+        {
+            return new TrainingSummaryViewModel
+            {
+                Id = training.Id,
+                StartTime = training.StartTime,
+                EndTime = training.EndTime,
+                Date = training.Date,
+                Location = training.Location,
+                IsCancelled = training.IsCancelled,
+                Info = training.Info,
+                CreatorId = training.CreatorId,
+                Creator = training.Creator,
+                EnrolledUsers = training.EnrolledUsers,
+                
+                
+            };
+        }
+
+        public IEnumerable<TrainingSummaryViewModel> TrainingsToTrainingsSummaryViewModels
+            (IEnumerable<Training> trainings)
+        {
+            return trainings.Select(TrainingToTrainingSummaryViewModel);
         }
     }
 

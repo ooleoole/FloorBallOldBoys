@@ -2,6 +2,7 @@
 using Domain.Entities;
 using Domain.Services;
 using FloorBallOldBoysWEB.Utilites;
+using FloorBallOldBoysWEB.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -34,26 +35,41 @@ namespace FloorBallOldBoysWEB.Controllers
         }
         [HttpPost, Route("enrollTraining")]
         [Authorize]
-        public IActionResult EnrollTraining(int trainingId, string returnUrl)
+        public IActionResult EnrollTraining(TrainingSummaryViewModel trainingSummaryViewModel)
         {
-            var training = _trainingService.Find(trainingId);
+            var training = _trainingService.Find(trainingSummaryViewModel.Id);
             training.EnrolledUsers.Add(new UserTraningEnrollment
             {
                 TrainingId = training.Id,
                 UserId = LoggedInUser.Id
             });
             _trainingService.Update(training);
-            return Redirect(returnUrl);
+            trainingSummaryViewModel.EnrolledUsers = _trainingService.AllInclude("EnrolledUsers.User").
+                FirstOrDefault(t => t.Id == trainingSummaryViewModel.Id).EnrolledUsers;
+            return PartialView("_TrainingSummary", trainingSummaryViewModel);
         }
 
         [HttpPost, Route("dismissTraining")]
         [Authorize]
-        public IActionResult DismissTraining(int trainingId, string returnUrl)
+        public IActionResult DismissTraining(TrainingSummaryViewModel trainingSummaryViewModel)
         {
-            var training = _trainingService.AllInclude("EnrolledUsers.User").FirstOrDefault(t => t.Id == trainingId);
+            var training = _trainingService.AllInclude("EnrolledUsers.User").FirstOrDefault(t => t.Id == trainingSummaryViewModel.Id);
             var deleteEnrollments = training.EnrolledUsers.Where(ute => ute.UserId == LoggedInUser.Id).ToList();
             deleteEnrollments.ForEach(de => training.EnrolledUsers.Remove(de));
             _trainingService.Update(training);
+            trainingSummaryViewModel.EnrolledUsers = training.EnrolledUsers;
+            return PartialView("_TrainingSummary", trainingSummaryViewModel);
+        }
+
+        [HttpPost, Route("deleteTraining")]
+        [Authorize]
+        public IActionResult Delete(int trainingId, string returnUrl)
+        {
+            var training = _trainingService.Find(trainingId);
+            if (training is null)
+                return Redirect(returnUrl);
+
+            _trainingService.Delete(training);
             return Redirect(returnUrl);
         }
 

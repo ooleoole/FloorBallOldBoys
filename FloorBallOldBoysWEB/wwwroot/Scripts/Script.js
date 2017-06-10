@@ -67,29 +67,64 @@ $(document).on("click", "#post-edit",
         );
     });
 
-$(document).on("click", "#enroll", enrollTraining);
+$(document).on("click", ".enroll", modelRequest);
 
-$(document).on("click", "#dismiss", dissmissTraining);
-    
-function dissmissTraining() {
-    var modelJsValue = $(this).attr("data-model");
-    $.ajax("/api/training/dismissTraining",
+$(document).on("click", ".dismiss", modelRequest);
+
+$(document).on("click", "#delete-training", modelRequest);
+//function () {
+//    $(document).off("click", "#delete-training");
+//    var modelJsValue = $(this).attr("data-model");
+//    $.ajax("/api/training/deleteTraining",
+//        {
+//            type: "POST",
+//            data: JSON.parse(modelJsValue),
+//            success: function (result) {
+//                console.log(result);
+//                $("#main_content").html(result);
+
+//            },
+//            complete: function () {
+//                //$(document).on("click", "#delete-training", dissmissTraining);
+//            }
+//        }
+//    );
+//});
+
+function modelRequest(event) {
+    var element = $(event.target);
+    if (element.hasClass("requestRunning")) {
+        return;
+    }
+    element.addClass("requestRunning");
+    var htmlTarget = element.data("html-target");
+    var url = element.data("url");
+    var method = element.data("method");
+    var modelJsValue = $(element).attr("data-model");
+    $.ajax(url,
         {
-            type: "POST",
+            type: method,
             data: JSON.parse(modelJsValue),
             success: function (result) {
                 console.log(result);
-                $("#main_content").html(result);
-                $(document).off("click", this);
+                $(htmlTarget).html(result);
+
             },
             complete: function () {
-                $(document).on("click", this, dissmissTraining);
+
+                element.removeClass("requestRunning");
             }
         }
     );
 };
-function enrollTraining() {
-    var modelJsValue = $(this).attr("data-model");
+function enrollTraining(event) {
+
+
+    if ($(event.target).hasClass("requestRunning")) {
+        return;
+    }
+    $(event.target).addClass("requestRunning");
+    var modelJsValue = $("#" + event.target.id).attr("data-model");
     $.ajax("/api/training/enrollTraining",
         {
             type: "POST",
@@ -97,11 +132,12 @@ function enrollTraining() {
             success: function (result) {
                 console.log(result);
                 $("#main_content").html(result);
-                $(document).off("click", this);
+
 
             },
             complete: function () {
-                $(document).on("click", this, enrollTraining);
+
+                $(event.target).addClass("requestRunning");
             }
         }
     );

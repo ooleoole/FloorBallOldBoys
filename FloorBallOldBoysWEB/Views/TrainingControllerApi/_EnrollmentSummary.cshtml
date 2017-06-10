@@ -1,0 +1,9 @@
+﻿@model IEnumerable<Domain.Entities.UserTraningEnrollment>
+
+<section>
+    @foreach (var userTrainingEnrollent in Model)
+    {
+        <div>@userTrainingEnrollent.User.Firstname @userTrainingEnrollent.User.Lastname</div>
+    }
+
+</section>

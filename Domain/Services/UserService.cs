@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 using Domain.Entities;
@@ -84,6 +85,7 @@ namespace Domain.Services
         {
             user.AddressId = address.Id;
             user.Address = null;
+           
         }
 
         private Address GetExistingAddress(User user)

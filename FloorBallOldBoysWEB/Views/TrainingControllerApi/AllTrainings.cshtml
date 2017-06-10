@@ -4,5 +4,9 @@
     ViewBag.Title = "title";
 
 }
-
-@Html.Partial("_TrainingSummary", Model)
+@foreach (var trainingSummaryViewModel in Model.TrainingsSummaryViewModels)
+{
+    <div id="training_summary_@trainingSummaryViewModel.Id">
+    @Html.Partial("_TrainingSummary", trainingSummaryViewModel)
+    </div>
+}
