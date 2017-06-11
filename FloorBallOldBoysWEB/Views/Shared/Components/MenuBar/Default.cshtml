@@ -29,7 +29,10 @@
                             <a id="allTrainings" class="btn btn-primary navbar-btn lrMargin5px">Alla träningar</a>
                         </th>
                         <th>
-                            <a class="btn btn-primary navbar-btn lrMargin5px" asp-controller="Training" asp-action="TodaysTrainings">Dagens träningar</a>
+                            <a id="todays-trainings" class="btn btn-primary navbar-btn lrMargin5px" 
+                               data-html-target="#main_content"
+                               data-url="/api/training/todaysTrainings"
+                               data-action-type="add">Dagens träningar</a>
                         </th>
                         <th>
                             @if (Model.IsAdmin)

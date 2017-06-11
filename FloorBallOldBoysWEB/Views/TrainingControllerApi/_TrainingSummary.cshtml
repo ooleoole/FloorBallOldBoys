@@ -17,7 +17,7 @@
                     <h4>Anmälda deltagare</h4>
                 </div>
 
-                <div id="enrollment_summary_@Model.Id" class="panel-body">
+                <div id="enrollment_summary_@Model.TrainingId" class="panel-body">
                     @Html.Partial("_EnrollmentSummary", Model.EnrolledUsers)
                 </div>
             </div>
@@ -28,32 +28,39 @@
                     <th>
                         @if (Model.EnrolledUsers.Any(ute => ute.User.Email == User.Identity.Name))
                         {
-                            <a id="dismiss_@Model.Id" class="btn btn-primary dismiss"
-                               data-html-target="#training_summary_@Model.Id"
+                            <a id="dismiss_@Model.TrainingId" class="btn btn-primary dismiss"
+                               data-html-target="#training_summary_@Model.TrainingId"
                                data-method="POST"
                                data-url="/api/training/dismissTraining"
-                               data-model='@Json.Serialize(Model)'>Ångra anmälan</a>
+                               data-action-type="add"
+                               data-model='{"trainingId":"@Model.TrainingId","returnUrl":"@Model.ReturnUrl"}'>Ångra anmälan</a>
                         }
                         else
                         {
-                            <a id="dismiss_@Model.Id" class="btn btn-primary enroll"
-                               data-html-target="#training_summary_@Model.Id"
+                            <a id="dismiss_@Model.TrainingId" class="btn btn-primary enroll"
+                               data-html-target="#training_summary_@Model.TrainingId"
                                data-method="POST"
                                data-url="/api/training/enrollTraining"
-                               data-model='@Json.Serialize(Model)'>Kommer</a>
+                               data-action-type="add"
+                               data-model='{"trainingId":"@Model.TrainingId","returnUrl":"@Model.ReturnUrl"}'>Kommer</a>
                         }
                     </th>
                     <th>
                         <div class="col-lg-12">
                             @if (Model.IsAdmin)
                             {
-                                <a asp-action="Edit" asp-controller="Training"
-                                   asp-route-trainingId="@Model.Id" asp-route-returnUrl="@Model.ReturnUrl">Ändra</a>
-                                <a id="delete-training"
-                                   data-html-target="#main_content"
-                                   data-method="POST"
+                                <a id="edit-training" class="cursor-pointer"
+                                   data-html-target="#training_summary_@Model.TrainingId"
+                                   data-method="GET"
+                                   data-url="/api/training/editTraining"
+                                   data-action-type="add"
+                                   data-model='{"trainingId":"@Model.TrainingId","returnUrl":"@Model.ReturnUrl"}'>Ändra</a>
+                                <a id="delete-training" class="cursor-pointer"
+                                   data-html-target="#training_summary_@Model.TrainingId"
+                                   data-method="DELETE"
                                    data-url="/api/training/deleteTraining"
-                                   data-model='{"trainingId":"@Model.Id","returnUrl":"@Model.ReturnUrl"}'>Ta bort</a>
+                                   data-action-type="delete"
+                                   data-model='{"trainingId":"@Model.TrainingId","returnUrl":"@Model.ReturnUrl"}'>Ta bort</a>
 
                             }
                         </div>

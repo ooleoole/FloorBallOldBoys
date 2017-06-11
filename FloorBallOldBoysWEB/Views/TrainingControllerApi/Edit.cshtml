@@ -5,12 +5,14 @@
 
 }
 
-@*<div class="panel panel-default panelTopMargin100">
+<div class="panel panel-default panelTopMargin100">
     <div class="panel-heading">
         <h2 id="tableTitle">Ändra träning</h2>
     </div>
     <div class="panel-body">
-        <form class="form-horizontal" metod="post" asp-antiforgery="true">
+        <form id="form-@Model.TrainingId" class="form-horizontal" asp-antiforgery="true">
+            <input type="hidden" asp-for="TrainingId"/>
+            <input type="hidden" asp-for="ReturnUrl"/>
             <div class="form-group">
                 <label class="control-label col-sm-1" for="location-input" asp-for="Location"></label>
                 <div class="col-sm-4">
@@ -32,7 +34,7 @@
             <div class="form-group">
                 <label class="control-label col-sm-1" for="date-input" asp-for="Date"></label>
                 <div class="col-sm-4">
-                    <input class="form-control" id="date-input" asp-for="Date" />
+                    <input class="form-control" id="date-input" asp-for="Date"/>
                 </div>
             </div>
             <div class="form-group">
@@ -43,12 +45,15 @@
             </div>
             <div class="form-group">
                 <div class="col-lg-offset-1 col-sm-4">
-                    <button type="submit" class="btn btn-default" asp-route-trainingId="@Model.TrainingId" asp-route-returnUrl="@Model.ReturnUrl" asp-action="Edit">Spara</button>
+                    <button id="post-editTraining-@Model.TrainingId" type="button" class="btn btn-default post-edit-training"
+                            data-form="#form-@Model.TrainingId"
+                            data-html-target="#training_summary_@Model.TrainingId"
+                            data-url="/api/training/editTraining"
+                            data-action-type="add">Spara</button>
                     <a class="btn btn-default" asp-route-trainingId="@Model.TrainingId" asp-route-returnUrl="@Model.ReturnUrl" asp-controller="Training" asp-action="Edit">Ångra</a>
                 </div>
             </div>
         </form>
     </div>
     <div class="panel-footer"></div>
-</div>*@
-
+</div>

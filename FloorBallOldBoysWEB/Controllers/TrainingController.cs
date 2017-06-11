@@ -50,8 +50,8 @@ namespace FloorBallOldBoysWEB.Controllers
 
             var todaysTranings =_trainingService.GetTodaysTrainings();
             var model = Mapper.ModelToViewModelMapping
-                .TrainingsToTrainingsViewModel(todaysTranings, LoggedInUser);
-            model.ReturnUrl = Url.Action(nameof(TodaysTrainings));
+                .TrainingsToTrainingsViewModel(todaysTranings, LoggedInUser, Url.Action(nameof(TodaysTrainings)));
+            
             return View("TodayTranings", model);
         }
         //[HttpGet]
@@ -106,20 +106,20 @@ namespace FloorBallOldBoysWEB.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        [Authorize]
-        public IActionResult Edit(int trainingId, EditTrainingViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var traning = _trainingService.Find(trainingId);
-                traning = Mapper.ViewModelToModelMapping.EditTrainingViewModelToTraining(model, traning);
-                _trainingService.Update(traning);
-                return Redirect(model.ReturnUrl);
-            }
+        //[HttpPost]
+        //[Authorize]
+        //public IActionResult Edit(int trainingId, EditTrainingViewModel model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var traning = _trainingService.Find(trainingId);
+        //        traning = Mapper.ViewModelToModelMapping.EditTrainingViewModelToTraining(model, traning);
+        //        _trainingService.Update(traning);
+        //        return Redirect(model.ReturnUrl);
+        //    }
 
-            return View(model);
-        }
+        //    return View(model);
+        //}
 
        
 

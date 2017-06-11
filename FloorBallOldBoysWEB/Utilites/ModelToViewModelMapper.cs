@@ -9,12 +9,12 @@ namespace FloorBallOldBoysWEB.Utilites
     internal class ModelToViewModelMapper
     {
         public TrainingsViewModel TrainingsToTrainingsViewModel(
-            IEnumerable<Training> trainings, User loggedInUser)
+            IEnumerable<Training> trainings, User loggedInUser, string returnUrl)
         {
             return new TrainingsViewModel
             {
-                TrainingsSummaryViewModels = TrainingsToTrainingsSummaryViewModels(trainings),
-                IsAdmin = loggedInUser.IsAdmin
+                TrainingsSummaryViewModels = TrainingsToTrainingsSummaryViewModels(trainings, loggedInUser, returnUrl),
+
 
             };
         }
@@ -23,7 +23,7 @@ namespace FloorBallOldBoysWEB.Utilites
         {
             return new EditTrainingViewModel
             {
-                Id = training.Id,
+                TrainingId = training.Id,
                 Date = training.Date.Date,
                 StartTime = training.StartTime,
                 EndTime = training.EndTime,
@@ -65,11 +65,11 @@ namespace FloorBallOldBoysWEB.Utilites
             };
         }
 
-        public TrainingSummaryViewModel TrainingToTrainingSummaryViewModel(Training training)
+        public TrainingSummaryViewModel TrainingToTrainingSummaryViewModel(Training training, User loggedInUser, string returnUrl)
         {
             return new TrainingSummaryViewModel
             {
-                Id = training.Id,
+                TrainingId = training.Id,
                 StartTime = training.StartTime,
                 EndTime = training.EndTime,
                 Date = training.Date,
@@ -79,15 +79,17 @@ namespace FloorBallOldBoysWEB.Utilites
                 CreatorId = training.CreatorId,
                 Creator = training.Creator,
                 EnrolledUsers = training.EnrolledUsers,
-                
-                
+                IsAdmin = loggedInUser.IsAdmin,
+                ReturnUrl = returnUrl
+
+
             };
         }
 
         public IEnumerable<TrainingSummaryViewModel> TrainingsToTrainingsSummaryViewModels
-            (IEnumerable<Training> trainings)
+            (IEnumerable<Training> trainings, User loggedInUser, string returnUrl)
         {
-            return trainings.Select(TrainingToTrainingSummaryViewModel);
+            return trainings.Select(t => TrainingToTrainingSummaryViewModel(t, loggedInUser, returnUrl));
         }
     }
 

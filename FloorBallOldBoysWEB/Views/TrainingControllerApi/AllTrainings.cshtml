@@ -6,7 +6,7 @@
 }
 @foreach (var trainingSummaryViewModel in Model.TrainingsSummaryViewModels)
 {
-    <div id="training_summary_@trainingSummaryViewModel.Id">
+    <div id="training_summary_@trainingSummaryViewModel.TrainingId">
     @Html.Partial("_TrainingSummary", trainingSummaryViewModel)
     </div>
 }

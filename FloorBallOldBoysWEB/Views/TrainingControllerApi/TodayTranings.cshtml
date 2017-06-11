@@ -1,0 +1,25 @@
+﻿@model TrainingsViewModel
+
+@{
+    ViewBag.Title = "Dagens träningar";
+
+}
+
+
+@if (!Model.TrainingsSummaryViewModels.Any())
+{
+    <div>
+        Ingen träning idag
+    </div>
+}
+else
+{
+    foreach (var trainingSummaryViewModel in Model.TrainingsSummaryViewModels)
+    {
+        <div id="training_summary_@trainingSummaryViewModel.TrainingId">
+            @Html.Partial("_TrainingSummary", trainingSummaryViewModel)
+        </div>
+    }
+   
+}
+

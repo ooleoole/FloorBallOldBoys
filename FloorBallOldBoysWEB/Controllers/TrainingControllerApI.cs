@@ -21,57 +21,101 @@ namespace FloorBallOldBoysWEB.Controllers
             _session = session;
             _trainingService = trainingService;
         }
+        [HttpGet, Route("todaysTrainings")]
+        [Authorize]
+        public IActionResult TodaysTrainings()
+        {
+
+            var todaysTranings = _trainingService.GetTodaysTrainings();
+            var model = Mapper.ModelToViewModelMapping
+                .TrainingsToTrainingsViewModel(todaysTranings, LoggedInUser, Url.Action(nameof(TodaysTrainings)));
+
+            return PartialView("TodayTranings", model);
+        }
 
         [HttpGet, Route("getAllTranings")]
         [Authorize]
         public IActionResult GetAllTrainings()
         {
-
             var allTrainings = _trainingService.AllInclude("EnrolledUsers.User", "ActualAttendance.User");
             var model = Mapper.ModelToViewModelMapping
-                .TrainingsToTrainingsViewModel(allTrainings, LoggedInUser);
-            model.ReturnUrl = Url.Action(nameof(GetAllTrainings));
+                .TrainingsToTrainingsViewModel(allTrainings, LoggedInUser, Url.Action(nameof(GetAllTrainings)));
             return PartialView("AllTrainings", model);
         }
         [HttpPost, Route("enrollTraining")]
         [Authorize]
-        public IActionResult EnrollTraining(TrainingSummaryViewModel trainingSummaryViewModel)
+        public IActionResult EnrollTraining(int trainingId, string returnUrl)
         {
-            var training = _trainingService.Find(trainingSummaryViewModel.Id);
+            var training = _trainingService.Find(trainingId);
             training.EnrolledUsers.Add(new UserTraningEnrollment
             {
                 TrainingId = training.Id,
                 UserId = LoggedInUser.Id
             });
             _trainingService.Update(training);
-            trainingSummaryViewModel.EnrolledUsers = _trainingService.AllInclude("EnrolledUsers.User").
-                FirstOrDefault(t => t.Id == trainingSummaryViewModel.Id).EnrolledUsers;
+            training = _trainingService.AllInclude("EnrolledUsers.User").
+            FirstOrDefault(t => t.Id == trainingId);
+            var trainingSummaryViewModel = Mapper.ModelToViewModelMapping.
+                TrainingToTrainingSummaryViewModel(training, LoggedInUser, returnUrl);
             return PartialView("_TrainingSummary", trainingSummaryViewModel);
         }
 
         [HttpPost, Route("dismissTraining")]
         [Authorize]
-        public IActionResult DismissTraining(TrainingSummaryViewModel trainingSummaryViewModel)
+        public IActionResult DismissTraining(int trainingId, string returnUrl)
         {
-            var training = _trainingService.AllInclude("EnrolledUsers.User").FirstOrDefault(t => t.Id == trainingSummaryViewModel.Id);
+            var training = _trainingService.AllInclude("EnrolledUsers.User").FirstOrDefault(t => t.Id == trainingId);
             var deleteEnrollments = training.EnrolledUsers.Where(ute => ute.UserId == LoggedInUser.Id).ToList();
-            deleteEnrollments.ForEach(de => training.EnrolledUsers.Remove(de));
+            deleteEnrollments.ForEach(userTraningEnrollment => training.EnrolledUsers.Remove(userTraningEnrollment));
             _trainingService.Update(training);
-            trainingSummaryViewModel.EnrolledUsers = training.EnrolledUsers;
+            var trainingSummaryViewModel = Mapper.ModelToViewModelMapping.
+                 TrainingToTrainingSummaryViewModel(training, LoggedInUser, returnUrl);
             return PartialView("_TrainingSummary", trainingSummaryViewModel);
         }
 
-        [HttpPost, Route("deleteTraining")]
+        [HttpDelete, Route("deleteTraining")]
         [Authorize]
         public IActionResult Delete(int trainingId, string returnUrl)
         {
             var training = _trainingService.Find(trainingId);
             if (training is null)
-                return Redirect(returnUrl);
+                return BadRequest();
 
             _trainingService.Delete(training);
-            return Redirect(returnUrl);
+            return Ok();
         }
+
+        [HttpGet, Route("editTraining")]
+        [Authorize]
+        public IActionResult Edit(int trainingId, string returnUrl)
+        {
+            var training = _trainingService.Find(trainingId);
+            var model = Mapper.ModelToViewModelMapping.TrainingToTrainingViewModel(training);
+
+            if (model is null)
+                return Redirect(returnUrl);
+
+            model.ReturnUrl = returnUrl;
+            return PartialView(model);
+        }
+
+        [HttpPost, Route("editTraining")]
+        [Authorize]
+        public IActionResult Edit(EditTrainingViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var training = _trainingService.AllInclude("EnrolledUsers.User").FirstOrDefault(t => t.Id == model.TrainingId);
+                training = Mapper.ViewModelToModelMapping.EditTrainingViewModelToTraining(model, training);
+                _trainingService.Update(training);
+                var trainingSummaryViewModel = Mapper.ModelToViewModelMapping.
+                    TrainingToTrainingSummaryViewModel(training, LoggedInUser, model.ReturnUrl);
+                return PartialView("_TrainingSummary", trainingSummaryViewModel);
+            }
+
+            return PartialView(model);
+        }
+
 
     }
 }

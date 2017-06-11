@@ -10,7 +10,7 @@ namespace FloorBallOldBoysWEB.ViewModels
     public class EditTrainingViewModel
     {
         [Required]
-        public int Id { get; set; }
+        public int TrainingId { get; set; }
         [Required]
         [Display(Name = "Plats")]
         public string Location { get; set; }

@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using Domain.Entities;
 
 namespace FloorBallOldBoysWEB.ViewModels
 {
     public class TrainingSummaryViewModel
     {
-        public int Id { get; set; }
+        public int TrainingId { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public DateTime Date { get; set; }
