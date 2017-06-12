@@ -5,12 +5,20 @@
     <div class="navbar-default col-md-12 lrPaddingOverride" style="padding-left: 0px; padding-right: 0px;">
         <div class="container-fluid">
             <div>
-                <a class="navbar-brand" asp-controller="Training" asp-action="TodaysTrainings">EllösOldBoys</a>
+                <a id="logo" class="navbar-brand cursor-pointer"
+                   data-html-target="#main-content"
+                   data-url="/api/training/todaysTrainings"
+                   data-action-type="add">EllösOldBoys</a>
             </div>
             <div class="pull-right">
                 <table>
                     <tr>
-                        <td><a class="btn-link pull-right" >@Model.Email</a></td>
+                        <td>
+                            <a id="email" class="btn-link pull-right cursor-pointer"
+                               data-html-target="#main-content"
+                               data-url="/api/account/myAccount"
+                               data-action-type="add">@Model.Email</a>
+                        </td>
                     </tr>
                     <tr>
                         <td><a class="glyphicon glyphicon-log-out pull-right" asp-controller="Account" asp-action="Logout">LoggaUt</a></td>
@@ -23,21 +31,30 @@
                 <table style="margin: 0px auto;">
                     <tr>
                         <th>
-                            <a id="myAccount" class="btn btn-primary navbar-btn lrMargin5px">Mitt konto</a>
+                            <a id="myAccount" class="btn btn-primary navbar-btn lrMargin5px"
+                               data-html-target="#main-content"
+                               data-url="/api/account/myAccount"
+                               data-action-type="add">Mitt konto</a>
                         </th>
                         <th>
-                            <a id="allTrainings" class="btn btn-primary navbar-btn lrMargin5px">Alla träningar</a>
+                            <a id="allTrainings" class="btn btn-primary navbar-btn lrMargin5px"
+                               data-html-target="#main-content"
+                               data-url="/api/training/getAllTranings"
+                               data-action-type="add">Alla träningar</a>
                         </th>
                         <th>
-                            <a id="todays-trainings" class="btn btn-primary navbar-btn lrMargin5px" 
-                               data-html-target="#main_content"
+                            <a id="todays-trainings" class="btn btn-primary navbar-btn lrMargin5px"
+                               data-html-target="#main-content"
                                data-url="/api/training/todaysTrainings"
                                data-action-type="add">Dagens träningar</a>
                         </th>
                         <th>
                             @if (Model.IsAdmin)
                             {
-                                <a class="btn btn-primary navbar-btn lrMargin5px" asp-controller="Training" asp-action="Create">Skapa träning</a>
+                                <a id="create-training" class="btn btn-primary navbar-btn lrMargin5px"
+                                   data-html-target="#main-content"
+                                   data-url="/api/training/createTraining"
+                                   data-action-type="add">Skapa träning</a>
                             }
                         </th>
                     </tr>

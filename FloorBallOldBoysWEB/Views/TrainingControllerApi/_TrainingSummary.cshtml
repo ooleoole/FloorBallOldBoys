@@ -33,7 +33,7 @@
                                data-method="POST"
                                data-url="/api/training/dismissTraining"
                                data-action-type="add"
-                               data-model='{"trainingId":"@Model.TrainingId","returnUrl":"@Model.ReturnUrl"}'>Ångra anmälan</a>
+                               data-model='{"trainingId":"@Model.TrainingId"}'>Ångra anmälan</a>
                         }
                         else
                         {
@@ -42,25 +42,25 @@
                                data-method="POST"
                                data-url="/api/training/enrollTraining"
                                data-action-type="add"
-                               data-model='{"trainingId":"@Model.TrainingId","returnUrl":"@Model.ReturnUrl"}'>Kommer</a>
+                               data-model='{"trainingId":"@Model.TrainingId"}'>Kommer</a>
                         }
                     </th>
                     <th>
                         <div class="col-lg-12">
                             @if (Model.IsAdmin)
                             {
-                                <a id="edit-training" class="cursor-pointer"
+                                <a id="edit-training-@Model.TrainingId" class="cursor-pointer edit-training"
                                    data-html-target="#training_summary_@Model.TrainingId"
                                    data-method="GET"
                                    data-url="/api/training/editTraining"
                                    data-action-type="add"
-                                   data-model='{"trainingId":"@Model.TrainingId","returnUrl":"@Model.ReturnUrl"}'>Ändra</a>
+                                   data-model='{"trainingId":"@Model.TrainingId"}'>Ändra</a>
                                 <a id="delete-training" class="cursor-pointer"
                                    data-html-target="#training_summary_@Model.TrainingId"
                                    data-method="DELETE"
                                    data-url="/api/training/deleteTraining"
                                    data-action-type="delete"
-                                   data-model='{"trainingId":"@Model.TrainingId","returnUrl":"@Model.ReturnUrl"}'>Ta bort</a>
+                                   data-model='{"trainingId":"@Model.TrainingId"}'>Ta bort</a>
 
                             }
                         </div>

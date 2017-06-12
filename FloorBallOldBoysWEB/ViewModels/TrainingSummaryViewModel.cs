@@ -19,7 +19,7 @@ namespace FloorBallOldBoysWEB.ViewModels
         public ICollection<UserTraningAttendance> ActualAttendance { get; set; } = new List<UserTraningAttendance>();
 
         public bool IsAdmin { get; set; }
-        public string ReturnUrl { get; set; }
+        
     
     }
 }

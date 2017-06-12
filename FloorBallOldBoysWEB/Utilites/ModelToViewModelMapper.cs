@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Domain.Entities;
-using FloorBallOldBoysWEB.IdentityUser;
 using FloorBallOldBoysWEB.ViewModels;
 
 namespace FloorBallOldBoysWEB.Utilites
@@ -9,11 +8,11 @@ namespace FloorBallOldBoysWEB.Utilites
     internal class ModelToViewModelMapper
     {
         public TrainingsViewModel TrainingsToTrainingsViewModel(
-            IEnumerable<Training> trainings, User loggedInUser, string returnUrl)
+            IEnumerable<Training> trainings, User loggedInUser)
         {
             return new TrainingsViewModel
             {
-                TrainingsSummaryViewModels = TrainingsToTrainingsSummaryViewModels(trainings, loggedInUser, returnUrl),
+                TrainingsSummaryViewModels = TrainingsToTrainingsSummaryViewModels(trainings, loggedInUser)
 
 
             };
@@ -65,7 +64,7 @@ namespace FloorBallOldBoysWEB.Utilites
             };
         }
 
-        public TrainingSummaryViewModel TrainingToTrainingSummaryViewModel(Training training, User loggedInUser, string returnUrl)
+        public TrainingSummaryViewModel TrainingToTrainingSummaryViewModel(Training training, User loggedInUser)
         {
             return new TrainingSummaryViewModel
             {
@@ -80,16 +79,16 @@ namespace FloorBallOldBoysWEB.Utilites
                 Creator = training.Creator,
                 EnrolledUsers = training.EnrolledUsers,
                 IsAdmin = loggedInUser.IsAdmin,
-                ReturnUrl = returnUrl
+                
 
 
             };
         }
 
         public IEnumerable<TrainingSummaryViewModel> TrainingsToTrainingsSummaryViewModels
-            (IEnumerable<Training> trainings, User loggedInUser, string returnUrl)
+            (IEnumerable<Training> trainings, User loggedInUser)
         {
-            return trainings.Select(t => TrainingToTrainingSummaryViewModel(t, loggedInUser, returnUrl));
+            return trainings.Select(t => TrainingToTrainingSummaryViewModel(t, loggedInUser));
         }
     }
 

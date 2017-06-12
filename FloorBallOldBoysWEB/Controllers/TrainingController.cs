@@ -50,7 +50,7 @@ namespace FloorBallOldBoysWEB.Controllers
 
             var todaysTranings =_trainingService.GetTodaysTrainings();
             var model = Mapper.ModelToViewModelMapping
-                .TrainingsToTrainingsViewModel(todaysTranings, LoggedInUser, Url.Action(nameof(TodaysTrainings)));
+                .TrainingsToTrainingsViewModel(todaysTranings, LoggedInUser);
             
             return View("TodayTranings", model);
         }
@@ -92,19 +92,19 @@ namespace FloorBallOldBoysWEB.Controllers
         //}
 
 
-        [HttpGet]
-        [Authorize]
-        public IActionResult Edit(int trainingId, string returnUrl)
-        {
-            var training = _trainingService.Find(trainingId);
-            var model = Mapper.ModelToViewModelMapping.TrainingToTrainingViewModel(training);
+        //[HttpGet]
+        //[Authorize]
+        //public IActionResult Edit(int trainingId, string returnUrl)
+        //{
+        //    var training = _trainingService.Find(trainingId);
+        //    var model = Mapper.ModelToViewModelMapping.TrainingToTrainingViewModel(training);
             
-            if (model is null)
-                return Redirect(returnUrl);
+        //    if (model is null)
+        //        return Redirect(returnUrl);
 
-            model.ReturnUrl = returnUrl;
-            return View(model);
-        }
+        //    model.ReturnUrl = returnUrl;
+        //    return View(model);
+        //}
 
         //[HttpPost]
         //[Authorize]
@@ -123,14 +123,14 @@ namespace FloorBallOldBoysWEB.Controllers
 
        
 
-        public IActionResult Delete(int trainingId, string returnUrl)
-        {
-            var training = _trainingService.Find(trainingId);
-            if (training is null)
-                return Redirect(returnUrl);
+        //public IActionResult Delete(int trainingId, string returnUrl)
+        //{
+        //    var training = _trainingService.Find(trainingId);
+        //    if (training is null)
+        //        return Redirect(returnUrl);
 
-            _trainingService.Delete(training);
-            return Redirect(returnUrl);
-        }
+        //    _trainingService.Delete(training);
+        //    return Redirect(returnUrl);
+        //}
     }
 }

@@ -3,76 +3,31 @@ $(function () {
     $("body").on("submit", checkBeforeSubmit);
 });
 
-$("#myAccount").on("click",
-    function () {
-        $.ajax("/api/account/myAccount",
-            {
-                type: "GET",
-                success: function (result) {
-                    console.log(result);
-                    $("#main_content").html(result);
-                }
 
-            });
-    });
-
-$("#allTrainings").on("click",
-    function () {
-        $.ajax("/api/training/getAllTranings",
-            {
-                type: "GET",
-                success: function (result) {
-                    console.log(result);
-                    $("#main_content").html(result);
+    
 
 
-                }
-            });
-    });
 
-$(document).on("click", "#edit",
-    function (event) {
-        event.preventDefault();
-        $.ajax("/api/account/edit",
-            {
-                type: "GET",
-                data: {
-                    id: $(document).
-                        find("#edit").
-                        data().
-                        id
 
-                },
-                success: function (result) {
-                    console.log(result);
-                    $("#main_content").html(result);
-                }
-            });
-    });
-$(document).on("click", "#post-edit",
-    function () {
-        $.ajax("/api/account/edit",
-            {
-                type: "POST",
-                data: $("form").serialize(),
-                success: function (result) {
-                    console.log(result);
-                    $("#main_content").html(result);
-
-                }
-            }
-        );
-    });
-
+    
+$(document).on("click", "#edit-account", modelRequest);
 $(document).on("click", ".enroll", modelRequest);
-
 $(document).on("click", ".dismiss", modelRequest);
-
 $(document).on("click", "#delete-training", modelRequest);
+$(document).on("click", ".reset-edit-training-form", modelRequest);
+$(document).on("click", ".edit-training", modelRequest);
 
-$(document).on("click", "#edit-training", modelRequest);
-$(document).on("click", ".post-edit-training",formRequest);
+$(document).on("click", "#edit-account-post", formRequest);
+$(document).on("click", ".post-edit-training", formRequest);
+$(document).on("click", "#create-training-post", formRequest);
+
+$(document).on("click", "#email", basicGetRequest);
+$(document).on("click", "#logo", basicGetRequest);
+$(document).on("click", "#myAccount", basicGetRequest);
+$(document).on("click", "#allTrainings", basicGetRequest);
+$(document).on("click", "#reset-create-training-form", basicGetRequest);
 $(document).on("click", "#todays-trainings", basicGetRequest);
+$(document).on("click", "#create-training", basicGetRequest);
 
 function basicGetRequest(event) {
     var element = $(event.target);
@@ -91,8 +46,6 @@ function basicGetRequest(event) {
                 var action = domActionSelector(actionType);
                 actionType === "delete" ?
                     action(htmlTarget) : action(htmlTarget, result);
-
-
             },
             complete: function () {
 
@@ -100,7 +53,7 @@ function basicGetRequest(event) {
             }
         }
     );
-};
+}
 
 
 function formRequest(event) {
@@ -123,8 +76,6 @@ function formRequest(event) {
                 var action = domActionSelector(actionType);
                 actionType === "delete" ?
                     action(htmlTarget) : action(htmlTarget, result);
-
-
             },
             complete: function () {
 
@@ -132,7 +83,7 @@ function formRequest(event) {
             }
         }
     );
-};
+}
 
 function modelRequest(event) {
     var element = $(event.target);
@@ -154,8 +105,6 @@ function modelRequest(event) {
                 var action = domActionSelector(actionType);
                 actionType === "delete" ?
                     action(htmlTarget) : action(htmlTarget, result);
-                
-
             },
             complete: function () {
 
@@ -163,7 +112,7 @@ function modelRequest(event) {
             }
         }
     );
-};
+}
 
 function domActionSelector(actionType) {
 
@@ -184,31 +133,8 @@ function domActionSelector(actionType) {
     }
 
 }
-function enrollTraining(event) {
 
 
-    if ($(event.target).hasClass("requestRunning")) {
-        return;
-    }
-    $(event.target).addClass("requestRunning");
-    var modelJsValue = $("#" + event.target.id).attr("data-model");
-    $.ajax("/api/training/enrollTraining",
-        {
-            type: "POST",
-            data: JSON.parse(modelJsValue),
-            success: function (result) {
-                console.log(result);
-                $("#main_content").html(result);
-
-
-            },
-            complete: function () {
-
-                $(event.target).addClass("requestRunning");
-            }
-        }
-    );
-};
 
 
 
