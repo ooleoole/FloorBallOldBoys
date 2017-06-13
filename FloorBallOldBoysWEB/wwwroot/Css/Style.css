@@ -37,7 +37,7 @@
 }
 
 .panelTopMargin100 {
-    margin-top: 100px;
+    margin-top: 50px;
 }
 
 .lrPaddingOverride {
@@ -122,4 +122,16 @@
 .cursor-pointer {
     cursor: pointer;
     cursor: hand;
+}
+/*#bootstrap-overrides .hidden-body.glyphicon {
+    top: 40px;
+    color: black;
+}*/
+
+#bootstrap-overrides .glyphicon {
+    top: 20px;
+    
+}
+#bootstrap-overrides .toggle-row {
+    margin-right: -7px;
 }

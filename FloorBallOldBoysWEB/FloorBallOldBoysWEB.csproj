@@ -5,13 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Views\Home\**" />
-    <Content Remove="Views\Home\**" />
-    <EmbeddedResource Remove="Views\Home\**" />
-    <None Remove="Views\Home\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="wwwroot\Css\Style.css" />
     <Content Include="wwwroot\lib\bootstrap\.bower.json" />
     <Content Include="wwwroot\lib\bootstrap\bower.json" />
@@ -424,6 +417,7 @@
     <Content Include="wwwroot\lib\jQuery\test\unit\tween.js" />
     <Content Include="wwwroot\lib\jQuery\test\unit\wrap.js" />
     <Content Include="wwwroot\lib\jQuery\test\xhtml.php" />
+    <Content Include="wwwroot\Scripts\Ajax.js" />
     <Content Include="wwwroot\Scripts\Script.js" />
   </ItemGroup>
   <ItemGroup>

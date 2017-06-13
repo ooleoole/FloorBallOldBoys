@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
-using Domain.Entities;
 using Domain.Services;
 using FloorBallOldBoysWEB.IdentityUser;
 using FloorBallOldBoysWEB.Utilites;
@@ -18,15 +16,11 @@ namespace FloorBallOldBoysWEB.Controllers
         private readonly UserManager<UserAccount> _userManger;
         private readonly SignInManager<UserAccount> _signInManager;
         private readonly IUserService _userService;
-        private readonly ISession _session;
-        private User _loggedInUser;
-        private User LoggedInUser => _loggedInUser ?? (_loggedInUser = _session.GetLoggedInUser(User.Identity.Name));
 
         public AccountController(UserManager<UserAccount> userManager,
             SignInManager<UserAccount> signInManager,
-            IUserService userService, ISession session)
+            IUserService userService)
         {
-            _session = session;
             _userManger = userManager;
             _signInManager = signInManager;
             _userService = userService;
@@ -53,7 +47,7 @@ namespace FloorBallOldBoysWEB.Controllers
                     {
                         return Redirect(model.ReturnUrl);
                     }
-                    return RedirectToAction("TodaysTrainings", "Training");
+                    return Redirect("/Start?isStartPage=True");
                 }
             }
             ModelState.AddModelError("", "Du gjorde sönder internet. Ring Pecka så fixar han det");
@@ -118,8 +112,8 @@ namespace FloorBallOldBoysWEB.Controllers
 
                 if (createResult.Succeeded)
                 {
-                    await _signInManager.SignInAsync(userAccount, false);
-                    return RedirectToAction("TodaysTrainings", "Training");
+                    await _signInManager.SignInAsync(userAccount, true);
+                    return Redirect("/Start?isStartPage=True");
                 }
                 if (user.Id != 0)
                     _userService.Delete(user);
@@ -133,39 +127,7 @@ namespace FloorBallOldBoysWEB.Controllers
             return View(model);
         }
 
-        //public IActionResult MyAccount()
-        //{
-        //    var model = Mapper.ModelToViewModelMapping.UserToMyAccountViewModel(LoggedInUser);
-        //    return View("AccountDetails", model);
-        //}
-        //[HttpGet]
-        //public IActionResult Edit(int id)
-        //{
-        //    var user = _userService.FindAll(u => u.Id == id, "Address").FirstOrDefault();
-        //    var model = Mapper.ModelToViewModelMapping.UserToEditUserViewModel(user);
-        //    return View(model);
-        //}
-        [HttpPost]
-        public  IActionResult Edit(EditUserViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                // var userAccount = _userManger.Users.FirstOrDefault(u => u.UserId == LoggedInUser.Id);
-
-                //await _userManger.RemovePasswordAsync(userAccount);
-                //var result = await _userManger.AddPasswordAsync(userAccount, model.Password);
-                //if (!result.Succeeded)
-                //{
-                //    foreach (var error in result.Errors)
-                //        ModelState.AddModelError("", error.Description);
-
-                //    return View(model);
-                //}
-                var user = Mapper.ViewModelToModelMapping.EditUserViewModelToUser(model, LoggedInUser);
-                _userService.Update(user);
-                return RedirectToAction("MyAccount","AccountControllerApi");
-            }
-            return View(model);
-        }
+       
+        
     }
 }

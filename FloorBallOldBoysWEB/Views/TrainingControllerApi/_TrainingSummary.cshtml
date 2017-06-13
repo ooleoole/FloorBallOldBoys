@@ -3,70 +3,77 @@
 
 
 
-    <section class="panel panel-primary panelTopMargin100">
-        <div class="panel-heading">
-            <h2>@Model.Location</h2>
-            <h4>@Model.Date.DayOfWeek  @Model.StartTime.Hour:@Model.StartTime.Minute - @Model.EndTime.Hour:@Model.EndTime.Minute</h4>
-            <h6>@Model.Date.Year/@Model.Date.Month/@Model.Date.Day</h6>
-        </div>
-        <div class="panel-body">
-            <div>@Model.Info</div>
-
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4>Anmälda deltagare</h4>
-                </div>
-
-                <div id="enrollment_summary_@Model.TrainingId" class="panel-body">
-                    @Html.Partial("_EnrollmentSummary", Model.EnrolledUsers)
-                </div>
+<section class="panel panel-primary panelTopMargin100">
+    <div id="training-heading-@Model.TrainingId" class="panel-heading panel-heading-training">
+        <h2>@Model.Location</h2>
+        <h4>@Model.Date.DayOfWeek  @Model.StartTime.Hour:@Model.StartTime.Minute - @Model.EndTime.Hour:@Model.EndTime.Minute</h4>
+        <div class="row">
+            <h6 class="col-xs-6 toggle-row">@Model.Date.Year/@Model.Date.Month/@Model.Date.Day</h6>
+            <div>
+                <span id="toggle-training-glyph-@Model.TrainingId" class="glyphicon glyphicon-chevron-up"></span>
             </div>
         </div>
-        <div class="panel-footer">
-            <table>
-                <tr>
-                    <th>
-                        @if (Model.EnrolledUsers.Any(ute => ute.User.Email == User.Identity.Name))
-                        {
-                            <a id="dismiss_@Model.TrainingId" class="btn btn-primary dismiss"
-                               data-html-target="#training_summary_@Model.TrainingId"
-                               data-method="POST"
-                               data-url="/api/training/dismissTraining"
-                               data-action-type="add"
-                               data-model='{"trainingId":"@Model.TrainingId"}'>Ångra anmälan</a>
-                        }
-                        else
-                        {
-                            <a id="dismiss_@Model.TrainingId" class="btn btn-primary enroll"
-                               data-html-target="#training_summary_@Model.TrainingId"
-                               data-method="POST"
-                               data-url="/api/training/enrollTraining"
-                               data-action-type="add"
-                               data-model='{"trainingId":"@Model.TrainingId"}'>Kommer</a>
-                        }
-                    </th>
-                    <th>
-                        <div class="col-lg-12">
-                            @if (Model.IsAdmin)
-                            {
-                                <a id="edit-training-@Model.TrainingId" class="cursor-pointer edit-training"
-                                   data-html-target="#training_summary_@Model.TrainingId"
-                                   data-method="GET"
-                                   data-url="/api/training/editTraining"
-                                   data-action-type="add"
-                                   data-model='{"trainingId":"@Model.TrainingId"}'>Ändra</a>
-                                <a id="delete-training" class="cursor-pointer"
-                                   data-html-target="#training_summary_@Model.TrainingId"
-                                   data-method="DELETE"
-                                   data-url="/api/training/deleteTraining"
-                                   data-action-type="delete"
-                                   data-model='{"trainingId":"@Model.TrainingId"}'>Ta bort</a>
+    </div>
 
-                            }
-                        </div>
-                    </th>
-                </tr>
-            </table>
+    <div id="training-body-@Model.TrainingId" class="panel-body main-panel-body">
+
+        <div>@Model.Info</div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4>Anmälda deltagare</h4>
+            </div>
+
+            <div id="enrollment_summary_@Model.TrainingId" class="panel-body">
+                @Html.Partial("_EnrollmentSummary", Model.EnrolledUsers)
+            </div>
         </div>
-    </section>
+    </div>
+    <div class="panel-footer">
+        <table>
+            <tr>
+                <th>
+                    @if (Model.EnrolledUsers.Any(ute => ute.User.Email == User.Identity.Name))
+                    {
+                        <a id="dismiss_@Model.TrainingId" class="btn btn-primary dismiss"
+                           data-html-target="#training_summary_@Model.TrainingId"
+                           data-method="POST"
+                           data-url="/api/training/dismissTraining"
+                           data-action-type="add"
+                           data-model='{"trainingId":"@Model.TrainingId"}'>Ångra anmälan</a>
+                    }
+                    else
+                    {
+                        <a id="dismiss_@Model.TrainingId" class="btn btn-primary enroll"
+                           data-html-target="#training_summary_@Model.TrainingId"
+                           data-method="POST"
+                           data-url="/api/training/enrollTraining"
+                           data-action-type="add"
+                           data-model='{"trainingId":"@Model.TrainingId"}'>Kommer</a>
+                    }
+                </th>
+                <th>
+                    <div class="col-lg-12">
+                        @if (Model.IsAdmin)
+                        {
+                            <a id="edit-training-@Model.TrainingId" class="cursor-pointer edit-training"
+                               data-html-target="#training_summary_@Model.TrainingId"
+                               data-method="GET"
+                               data-url="/api/training/editTraining"
+                               data-action-type="add"
+                               data-model='{"trainingId":"@Model.TrainingId"}'>Ändra</a>
+                            <a id="delete-training" class="cursor-pointer"
+                               data-html-target="#training_summary_@Model.TrainingId"
+                               data-method="DELETE"
+                               data-url="/api/training/deleteTraining"
+                               data-action-type="delete"
+                               data-model='{"trainingId":"@Model.TrainingId"}'>Ta bort</a>
+
+                        }
+                    </div>
+                </th>
+            </tr>
+        </table>
+    </div>
+</section>
 

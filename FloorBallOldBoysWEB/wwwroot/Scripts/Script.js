@@ -4,12 +4,8 @@ $(function () {
 });
 
 
-    
 
-
-
-
-    
+//--------------AJAX------------------------------------//
 $(document).on("click", "#edit-account", modelRequest);
 $(document).on("click", ".enroll", modelRequest);
 $(document).on("click", ".dismiss", modelRequest);
@@ -24,10 +20,11 @@ $(document).on("click", "#create-training-post", formRequest);
 $(document).on("click", "#email", basicGetRequest);
 $(document).on("click", "#logo", basicGetRequest);
 $(document).on("click", "#myAccount", basicGetRequest);
-$(document).on("click", "#allTrainings", basicGetRequest);
+
 $(document).on("click", "#reset-create-training-form", basicGetRequest);
 $(document).on("click", "#todays-trainings", basicGetRequest);
 $(document).on("click", "#create-training", basicGetRequest);
+$(document).on("click", "#allTrainings", basicGetRequest);
 
 function basicGetRequest(event) {
     var element = $(event.target);
@@ -44,12 +41,17 @@ function basicGetRequest(event) {
             success: function (result) {
                 console.log(result);
                 var action = domActionSelector(actionType);
-                actionType === "delete" ?
-                    action(htmlTarget) : action(htmlTarget, result);
+                actionType === "delete" ? action(htmlTarget) : action(htmlTarget, result);
+            },
+            error: function (xhr, textStatus, error) {
+                errorHandler(xhr, textStatus, error);
+                element.removeClass("requestRunning");
+
             },
             complete: function () {
 
                 element.removeClass("requestRunning");
+
             }
         }
     );
@@ -62,6 +64,7 @@ function formRequest(event) {
     if (element.hasClass("requestRunning")) {
         return;
     }
+
     element.addClass("requestRunning");
     var htmlTarget = element.data("html-target");
     var url = element.data("url");
@@ -77,6 +80,10 @@ function formRequest(event) {
                 actionType === "delete" ?
                     action(htmlTarget) : action(htmlTarget, result);
             },
+            error: function (xhr, textStatus, error) {
+                errorHandler(xhr, textStatus, error);
+                element.removeClass("requestRunning");
+            },
             complete: function () {
 
                 element.removeClass("requestRunning");
@@ -86,6 +93,7 @@ function formRequest(event) {
 }
 
 function modelRequest(event) {
+    event.preventDefault();
     var element = $(event.target);
     if (element.hasClass("requestRunning")) {
         return;
@@ -106,6 +114,11 @@ function modelRequest(event) {
                 actionType === "delete" ?
                     action(htmlTarget) : action(htmlTarget, result);
             },
+            error: function (xhr, textStatus, error) {
+                errorHandler(xhr, textStatus, error);
+                element.removeClass("requestRunning");
+
+            },
             complete: function () {
 
                 element.removeClass("requestRunning");
@@ -121,6 +134,15 @@ function domActionSelector(actionType) {
             return function (htmlTarget, html) {
                 $(htmlTarget).html(html);
             };
+        case "add-toggle-training":
+            return function (htmlTarget, html) {
+                $(htmlTarget).html(html);
+                $(".panel-footer").hide();
+                $(".main-panel-body").hide().parent().find(".glyphicon")
+                    .removeClass("glyphicon-chevron-up")
+                    .addClass("glyphicon-chevron-down");
+
+            };
         case "delete":
             return function (htmlTarget) {
                 $(htmlTarget).fadeOut("slow",
@@ -130,12 +152,24 @@ function domActionSelector(actionType) {
             };
 
         default:
+            throw "Invalid action-type";
     }
 
-}
+};
 
-
-
+$(document).on("click", ".panel-heading-training", function () {
+    $(this).siblings(".main-panel-body").toggle("slow", function () {
+        $(this).siblings(".panel-footer").toggle("slow", function () {
+            var el = $(this).parent().find(".glyphicon");
+            el.toggleClass("glyphicon-chevron-down").toggleClass("glyphicon-chevron-up");
+        });
+    });
+});
+function errorHandler(xhr, textStatus, error) {
+    console.log(xhr.statusText);
+    console.log(textStatus);
+    console.log(error);
+};
 
 
 var wasSubmitted = false;

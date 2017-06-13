@@ -8,7 +8,6 @@ using FloorBallOldBoysWEB.Utilites;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -81,6 +80,7 @@ namespace FloorBallOldBoysWEB
             //app.UseNodeModules(env.ContentRootPath);
             app.UseIdentity();
             app.UseMvc(routes => routes.MapRoute("default", "{controller=Account}/{Action=Login}/{id?}"));
+            app.UseMvc(routes => routes.MapRoute("test", "{controller}/{Action}/{isStartPage?}"));
             app.Run(async (context) => await context.Response.WriteAsync("Hello World!"));
         }
     }
