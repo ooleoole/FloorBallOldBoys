@@ -7,6 +7,7 @@ using FloorBallOldBoysWEB.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace FloorBallOldBoysWEB.Controllers
 {
@@ -30,7 +31,8 @@ namespace FloorBallOldBoysWEB.Controllers
         [AllowAnonymous]
         public IActionResult Login()
         {
-
+            if (User.Identity.IsAuthenticated)
+                Response.Redirect("/Start?isStartPage=True");
             return View();
         }
         [HttpPost]
@@ -40,7 +42,7 @@ namespace FloorBallOldBoysWEB.Controllers
             if (ModelState.IsValid)
             {
                 var loginResult = await _signInManager.PasswordSignInAsync(model.Username, model.Password,
-                    model.RememberMe, true);
+                    model.RememberMe, false);
                 if (loginResult.Succeeded)
                 {
                     if (Url.IsLocalUrl(model.ReturnUrl))
@@ -127,7 +129,7 @@ namespace FloorBallOldBoysWEB.Controllers
             return View(model);
         }
 
-       
-        
+
+
     }
 }

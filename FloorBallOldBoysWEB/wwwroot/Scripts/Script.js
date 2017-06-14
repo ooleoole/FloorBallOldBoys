@@ -137,8 +137,9 @@ function domActionSelector(actionType) {
         case "add-toggle-training":
             return function (htmlTarget, html) {
                 $(htmlTarget).html(html);
-                $(".panel-footer").hide();
-                $(".main-panel-body").hide().parent().find(".glyphicon")
+                $(".panel-footer").hide().
+                    siblings(".main-panel-body").hide().
+                    parent().find(".glyphicon")
                     .removeClass("glyphicon-chevron-up")
                     .addClass("glyphicon-chevron-down");
 
@@ -165,6 +166,20 @@ $(document).on("click", ".panel-heading-training", function () {
         });
     });
 });
+
+$(document).on("mouseenter", ".training-panel", shake);
+$(document).on("touchstart ", ".training-panel", shake);
+
+
+function shake() {
+    $(this).children(":hidden").parents(".training-panel").
+        effect("shake",
+        {
+            times: 2,
+            distance: 2,
+            direction: "down"
+        }, 500);
+};
 function errorHandler(xhr, textStatus, error) {
     console.log(xhr.statusText);
     console.log(textStatus);
