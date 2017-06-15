@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FloorBallOldBoysWEB.Controllers
 {
-    
+
     [Route("api/training"), Route("")]
     public class TrainingControllerApi : Controller
     {
@@ -43,7 +43,7 @@ namespace FloorBallOldBoysWEB.Controllers
             return PartialView(model);
         }
 
-        [HttpGet, Route("todaysTrainings"),Route("Start")]
+        [HttpGet, Route("todaysTrainings"), Route("Start")]
         [Authorize]
         public IActionResult TodaysTrainings(bool isStartPage)
         {
@@ -68,6 +68,16 @@ namespace FloorBallOldBoysWEB.Controllers
             var model = Mapper.ModelToViewModelMapping
                 .TrainingsToTrainingsViewModel(allTrainings, LoggedInUser);
             return PartialView("AllTrainings", model);
+        }
+        [HttpGet, Route("getTraining")]
+        [Authorize]
+        public IActionResult GetTraining(int trainingId)
+        {
+            var training = _trainingService.AllInclude("EnrolledUsers.User").
+                FirstOrDefault(t => t.Id == trainingId);
+            var trainingSummaryViewModel = Mapper.ModelToViewModelMapping.
+                TrainingToTrainingSummaryViewModel(training, LoggedInUser);
+            return PartialView("_TrainingSummary", trainingSummaryViewModel);
         }
         [HttpPost, Route("enrollTraining")]
         [Authorize]

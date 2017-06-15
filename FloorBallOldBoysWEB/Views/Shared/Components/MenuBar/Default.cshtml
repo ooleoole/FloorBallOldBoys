@@ -1,8 +1,8 @@
 ﻿@model MenuBarViewModel
 
 
-<nav id="navBar" class="navbar navbar-fixed-top navbar-default" style="height:50px">
-    <div class="navbar-default col-md-12 lrPaddingOverride" style="padding-left: 0px; padding-right: 0px;">
+<nav id="navBar" class="navbar navbar-inverse navbar-fixed-top" style="height:50px">
+    <div class="navbar-inverse col-md-12 lrPaddingOverride" style="padding-left: 0px; padding-right: 0px;">
         <div class="container-fluid">
             <div>
                 <a id="logo" class="navbar-brand cursor-pointer"
@@ -31,19 +31,19 @@
                 <table style="margin: 0px auto;">
                     <tr>
                         <th>
-                            <a id="myAccount" class="btn btn-primary navbar-btn lrMargin5px"
+                            <a id="my-account-btn" class="btn btn-primary navbar-btn lrMargin5px"
                                data-html-target="#main-content"
                                data-url="/api/account/myAccount"
                                data-action-type="add">Mitt konto</a>
                         </th>
                         <th>
-                            <a id="allTrainings" class="btn btn-primary navbar-btn lrMargin5px"
+                            <a id="all-trainings-btn" class="btn btn-primary navbar-btn lrMargin5px"
                                data-html-target="#main-content"
                                data-url="/api/training/getAllTranings"
                                data-action-type="add-toggle-training">Alla träningar</a>
                         </th>
                         <th>
-                            <a id="todays-trainings" class="btn btn-primary navbar-btn lrMargin5px"
+                            <a id="todays-trainings-btn" class="btn btn-primary navbar-btn lrMargin5px"
                                data-html-target="#main-content"
                                data-url="/api/training/todaysTrainings"
                                data-action-type="add">Dagens träningar</a>
@@ -51,7 +51,7 @@
                         <th>
                             @if (Model.IsAdmin)
                             {
-                                <a id="create-training" class="btn btn-primary navbar-btn lrMargin5px"
+                                <a id="create-training-btn" class="btn btn-primary navbar-btn lrMargin5px"
                                    data-html-target="#main-content"
                                    data-url="/api/training/createTraining"
                                    data-action-type="add">Skapa träning</a>

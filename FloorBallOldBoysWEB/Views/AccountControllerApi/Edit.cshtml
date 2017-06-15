@@ -5,7 +5,7 @@
 }
 
 
-<div class="panel panel-info panelTopMargin100">
+<div id="my-account" class="panel panel-success panelTopMargin100">
     <div class="panel-heading">
         <h2>@Model.Firstname @Model.Lastname</h2>
     </div>
@@ -39,7 +39,7 @@
                             </tr>
                             <tr>
                                 <td></td>
-                                <td><span asp-validation-for="Lastname"></span></td>
+                                <td><span class="text-danger" asp-validation-for="Lastname"></span></td>
                             </tr>
                             <tr>
                                 <td><label class="control-label" asp-for="Street"></label></td>
@@ -79,11 +79,22 @@
             </div>
         </div>
         <div class="panel-footer">
-            <a id="edit-account-post" class="btn btn-info"
-               data-form="#edit-account-form"
-               data-html-target="#main-content"
-               data-url="/api/account/edit"
-               data-action-type="add">Spara</a>
+            <div class="row">
+                <div class="col-xs-12">
+
+                    <a id="edit-account-post" class="btn btn-success"
+                       data-form="#edit-account-form"
+                       data-html-target="#main-content"
+                       data-url="/api/account/edit"
+                       data-action-type="add">Spara</a>
+                    <a id="cancel-account-post-btn" class="btn btn-success pull-right"
+                       data-form="#edit-account-form"
+                       data-html-target="#main-content"
+                       data-url="/api/account/edit"
+                       data-action-type="add">Avbryt</a>
+                </div>
+            </div>
         </div>
+
     </form>
 </div>

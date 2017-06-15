@@ -19,12 +19,11 @@ $(document).on("click", "#create-training-post", formRequest);
 
 $(document).on("click", "#email", basicGetRequest);
 $(document).on("click", "#logo", basicGetRequest);
-$(document).on("click", "#myAccount", basicGetRequest);
-
+$(document).on("click", "#my-account-btn", basicGetRequest);
 $(document).on("click", "#reset-create-training-form", basicGetRequest);
-$(document).on("click", "#todays-trainings", basicGetRequest);
-$(document).on("click", "#create-training", basicGetRequest);
-$(document).on("click", "#allTrainings", basicGetRequest);
+$(document).on("click", "#todays-trainings-btn", basicGetRequest);
+$(document).on("click", "#create-training-btn", basicGetRequest);
+$(document).on("click", "#all-trainings-btn", basicGetRequest);
 
 function basicGetRequest(event) {
     var element = $(event.target);
@@ -133,10 +132,12 @@ function domActionSelector(actionType) {
         case "add":
             return function (htmlTarget, html) {
                 $(htmlTarget).html(html);
+                setCurrentPageOnNavbar(html);
             };
         case "add-toggle-training":
             return function (htmlTarget, html) {
                 $(htmlTarget).html(html);
+                setCurrentPageOnNavbar(html);
                 $(".panel-footer").hide().
                     siblings(".main-panel-body").hide().
                     parent().find(".glyphicon")
@@ -144,6 +145,13 @@ function domActionSelector(actionType) {
                     .addClass("glyphicon-chevron-down");
 
             };
+        case "addSmooth":
+            return function (htmlTarget, html) {
+                setCurrentPageOnNavbar(html);
+                $(htmlTarget).hide().html(html).fadeIn();
+
+
+            }
         case "delete":
             return function (htmlTarget) {
                 $(htmlTarget).fadeOut("slow",
@@ -161,25 +169,54 @@ function domActionSelector(actionType) {
 $(document).on("click", ".panel-heading-training", function () {
     $(this).siblings(".main-panel-body").toggle("slow", function () {
         $(this).siblings(".panel-footer").toggle("slow", function () {
-            var el = $(this).parent().find(".glyphicon");
-            el.toggleClass("glyphicon-chevron-down").toggleClass("glyphicon-chevron-up");
+            $(this).parent().find(".glyphicon")
+                .toggleClass("glyphicon-chevron-down").toggleClass("glyphicon-chevron-up");
         });
     });
 });
 
 $(document).on("mouseenter", ".training-panel", shake);
-$(document).on("touchstart ", ".training-panel", shake);
-
+$(document).on("touchmove", ".training-panel", shake);
+$("#navbar-buttons").buttonset();
 
 function shake() {
-    $(this).children(":hidden").parents(".training-panel").
+    var element = $(this).children(":hidden").parents(".training-panel");
+    if (element.hasClass("effectRunning")) {
+        return;
+    }
+    element.addClass("effectRunning").
         effect("shake",
         {
             times: 2,
             distance: 2,
             direction: "down"
-        }, 500);
+        }, 500, function () {
+            element.removeClass("effectRunning");
+        });
 };
+
+function setCurrentPageOnNavbar(html) {
+    var classesToRemove = "btn-pressed " +
+        "myaccount-btn-pressed " +
+        "create-training-btn-pressed";
+    if (~html.indexOf("<div id=\"my-account\"")) {
+        $(".navbar-btn").removeClass(classesToRemove);
+        $("#my-account-btn").addClass("myaccount-btn-pressed");
+    }
+    else if (~html.indexOf("<div id=\"all-trainings\">")) {
+        $(".navbar-btn").removeClass(classesToRemove);
+        $("#all-trainings-btn").addClass("btn-pressed");
+    }
+    else if (~html.indexOf("<div id=\"todays-trainings\">")) {
+        $(".navbar-btn").removeClass(classesToRemove);
+        $("#todays-trainings-btn").addClass("btn-pressed");
+    }
+    else if (~html.indexOf("<div id=\"create-training\"")) {
+        $(".navbar-btn").removeClass(classesToRemove);
+        $("#create-training-btn").addClass("create-training-btn-pressed");
+    }
+}
+
 function errorHandler(xhr, textStatus, error) {
     console.log(xhr.statusText);
     console.log(textStatus);

@@ -14,31 +14,31 @@
             <input type="hidden" asp-for="TrainingId" />
             <div class="form-group">
                 <label class="control-label col-sm-1" for="location-input" asp-for="Location"></label>
-                <div class="col-sm-4">
+                <div class="col-sm-6">
                     <input type="text" class="form-control" id="location-input" asp-for="Location">
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-1" for="starttime-input" asp-for="StartTime"></label>
-                <div class="col-sm-4">
+                <div class="col-sm-6">
                     <input class="form-control" id="starttime-input" asp-for="StartTime">
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-1" for="endtime-input" asp-for="EndTime"></label>
-                <div class="col-sm-4">
+                <div class="col-sm-6">
                     <input class="form-control" id="endtime-input" asp-for="EndTime">
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-1" for="date-input" asp-for="Date"></label>
-                <div class="col-sm-4">
+                <div class="col-sm-6">
                     <input class="form-control" id="date-input" asp-for="Date" />
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-1" for="info-input" asp-for="Info"></label>
-                <div class="col-sm-4">
+                <div class="col-sm-6">
                     <textarea rows="4" cols="50" type="text" class="form-control" id="info-input" asp-for="Info"></textarea>
                 </div>
             </div>
@@ -48,15 +48,15 @@
                        data-form="#form-@Model.TrainingId"
                        data-html-target="#training_summary_@Model.TrainingId"
                        data-url="/api/training/editTraining"
-                       data-action-type="add">
+                       data-action-type="addSmooth">
                         Spara
                     </a>
                     <a id="reset-form-@Model.TrainingId" class="btn btn-default reset-edit-training-form"
                        data-html-target="#training_summary_@Model.TrainingId"
                        data-method="GET"
-                       data-url="/api/training/editTraining"
-                       data-action-type="add"
-                       data-model='{"trainingId":"@Model.TrainingId"}'>Ångra</a>
+                       data-url="/api/training/getTraining"
+                       data-action-type="addSmooth"
+                       data-model='{"trainingId":"@Model.TrainingId"}'>Avbryt</a>
                 </div>
             </div>
         </form>

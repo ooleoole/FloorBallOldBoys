@@ -1,9 +1,7 @@
 ﻿@model CreateTrainingViewModel
-@{
-    ViewBag.Title = "Skapa träning";
-}
 
-<div class="panel panel-default panelTopMargin100">
+
+<div id="create-training" class="panel panel-default panelTopMargin100">
     <div class="panel-heading">
         <h2 id="tableTitle">Skapa träning</h2>
     </div>
@@ -12,36 +10,36 @@
         <form id="create-training-form" class="form-horizontal" metod="post" asp-antiforgery="true">
             <div class="form-group">
                 <label class="control-label col-sm-1" for="location-input" asp-for="Location"></label>
-                <div class="col-sm-4">
+                <div class="col-sm-6">
                     <input type="text" class="form-control" id="location-input" placeholder="Plats" asp-for="Location">
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-1" for="starttime-input" asp-for="StartTime"></label>
-                <div class="col-sm-4">
+                <div class="col-sm-6">
                     <input class="form-control" id="starttime-input" asp-for="StartTime">
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-1" for="endtime-input" asp-for="EndTime"></label>
-                <div class="col-sm-4">
+                <div class="col-sm-6">
                     <input class="form-control" id="endtime-input" asp-for="EndTime">
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-1" for="date-input" asp-for="Date"></label>
-                <div class="col-sm-4">
+                <div class="col-sm-6">
                     <input class="form-control" id="date-input" asp-for="Date" />
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-1" for="info-input" asp-for="Info"></label>
-                <div class="col-sm-4">
+                <div class="col-sm-6">
                     <textarea rows="4" cols="50" type="text" class="form-control" id="info-input" asp-for="Info"></textarea>
                 </div>
             </div>
             <div class="form-group">
-                <div class="col-lg-offset-1 col-sm-4">
+                <div class="col-lg-offset-1 col-sm-6">
                     <a id="create-training-post" class="btn btn-default"
                        data-form="#create-training-form"
                        data-html-target="#main-content"
@@ -50,7 +48,7 @@
                     <a id="reset-create-training-form" class="btn btn-default"
                        data-html-target="#main-content"
                        data-url="/api/training/createTraining"
-                       data-action-type="add">Ångra</a>
+                       data-action-type="add">Avbryt</a>
                 </div>
             </div>
         </form>
