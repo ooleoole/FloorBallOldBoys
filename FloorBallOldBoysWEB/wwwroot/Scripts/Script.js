@@ -1,8 +1,7 @@
 ﻿
-$(function () {
+$(function() {
     $("body").on("submit", checkBeforeSubmit);
 });
-
 
 
 //--------------AJAX------------------------------------//
@@ -27,8 +26,6 @@ $(document).on("click", "#create-training-btn", basicGetRequest);
 $(document).on("click", "#all-trainings-btn", basicGetRequest);
 
 
-
-
 function basicGetRequest(event) {
     var element = $(event.target);
     if (element.hasClass("requestRunning")) {
@@ -41,17 +38,17 @@ function basicGetRequest(event) {
     $.ajax(url,
         {
             type: "GET",
-            success: function (result) {
+            success: function(result) {
                 console.log(result);
                 var action = domActionSelector(actionType);
                 actionType === "delete" ? action(htmlTarget) : action(htmlTarget, result);
             },
-            error: function (xhr, textStatus, error) {
+            error: function(xhr, textStatus, error) {
                 errorHandler(xhr, textStatus, error);
                 element.removeClass("requestRunning");
 
             },
-            complete: function () {
+            complete: function() {
 
                 element.removeClass("requestRunning");
 
@@ -77,17 +74,16 @@ function formRequest(event) {
         {
             type: "POST",
             data: $(form).serialize(),
-            success: function (result) {
+            success: function(result) {
                 console.log(result);
                 var action = domActionSelector(actionType);
-                actionType === "delete" ?
-                    action(htmlTarget) : action(htmlTarget, result);
+                actionType === "delete" ? action(htmlTarget) : action(htmlTarget, result);
             },
-            error: function (xhr, textStatus, error) {
+            error: function(xhr, textStatus, error) {
                 errorHandler(xhr, textStatus, error);
                 element.removeClass("requestRunning");
             },
-            complete: function () {
+            complete: function() {
 
                 element.removeClass("requestRunning");
             }
@@ -111,18 +107,17 @@ function modelRequest(event) {
         {
             type: method,
             data: JSON.parse(modelJsValue),
-            success: function (result) {
+            success: function(result) {
                 console.log(result);
                 var action = domActionSelector(actionType);
-                actionType === "delete" ?
-                    action(htmlTarget) : action(htmlTarget, result);
+                actionType === "delete" ? action(htmlTarget) : action(htmlTarget, result);
             },
-            error: function (xhr, textStatus, error) {
+            error: function(xhr, textStatus, error) {
                 errorHandler(xhr, textStatus, error);
                 element.removeClass("requestRunning");
 
             },
-            complete: function () {
+            complete: function() {
 
                 element.removeClass("requestRunning");
             }
@@ -133,51 +128,54 @@ function modelRequest(event) {
 function domActionSelector(actionType) {
 
     switch (actionType) {
-        case "add":
-            return function (htmlTarget, html) {
-                $(htmlTarget).html(html);
-                setCurrentPageOnNavbar(html);
-            };
-        case "add-toggle-training":
-            return function (htmlTarget, html) {
-                $(htmlTarget).html(html);
-                setCurrentPageOnNavbar(html);
-                $(".panel-footer").hide().
-                    siblings(".main-panel-body").hide().
-                    parent().find(".glyphicon")
-                    .removeClass("glyphicon-chevron-up")
-                    .addClass("glyphicon-chevron-down");
+    case "add":
+        return function(htmlTarget, html) {
+            $(htmlTarget).html(html);
+            setCurrentPageOnNavbar(html);
+        };
+    case "add-toggle-training":
+        return function(htmlTarget, html) {
+            $(htmlTarget).html(html);
+            setCurrentPageOnNavbar(html);
+            $(".panel-footer").hide().siblings(".main-panel-body").hide().parent().find(".glyphicon")
+                .removeClass("glyphicon-chevron-up")
+                .addClass("glyphicon-chevron-down");
 
-            };
-        case "addSmooth":
-            return function (htmlTarget, html) {
-                setCurrentPageOnNavbar(html);
-                $(htmlTarget).hide().html(html).fadeIn();
+        };
+    case "addSmooth":
+        return function(htmlTarget, html) {
+            setCurrentPageOnNavbar(html);
+            $(htmlTarget).hide().html(html).fadeIn();
 
 
-            }
-        case "delete":
-            return function (htmlTarget) {
-                $(htmlTarget).fadeOut("slow",
-                    function () {
-                        $(this).remove();
-                    });
-            };
+        };
+    case "delete":
+        return function(htmlTarget) {
+            $(htmlTarget).fadeOut("slow",
+                function() {
+                    $(this).remove();
+                });
+        };
 
-        default:
-            throw "Invalid action-type";
+    default:
+        throw "Invalid action-type";
     }
 
 };
+
 //------------------------styling---------------------------------//
-$(document).on("click", ".panel-heading-training", function () {
-    $(this).siblings(".main-panel-body").toggle("slow", function () {
-        $(this).siblings(".panel-footer").toggle("slow", function () {
-            $(this).parent().find(".glyphicon")
-                .toggleClass("glyphicon-chevron-down").toggleClass("glyphicon-chevron-up");
-        });
+$(document).on("click",
+    ".panel-heading-training",
+    function() {
+        $(this).siblings(".main-panel-body").toggle("slow",
+            function() {
+                $(this).siblings(".panel-footer").toggle("slow",
+                    function() {
+                        $(this).parent().find(".glyphicon")
+                            .toggleClass("glyphicon-chevron-down").toggleClass("glyphicon-chevron-up");
+                    });
+            });
     });
-});
 
 $(document).on("mouseenter", ".training-panel", shake);
 $(document).on("touchmove", ".training-panel", shake);
@@ -188,13 +186,14 @@ function shake() {
     if (element.hasClass("effectRunning")) {
         return;
     }
-    element.addClass("effectRunning").
-        effect("shake",
+    element.addClass("effectRunning").effect("shake",
         {
             times: 2,
             distance: 2,
             direction: "down"
-        }, 500, function () {
+        },
+        500,
+        function() {
             element.removeClass("effectRunning");
         });
 };
@@ -206,16 +205,13 @@ function setCurrentPageOnNavbar(html) {
     if (~html.indexOf("<div id=\"my-account\"")) {
         $(".navbar-btn").removeClass(classesToRemove);
         $("#my-account-btn").addClass("myaccount-btn-pressed");
-    }
-    else if (~html.indexOf("<div id=\"all-trainings\">")) {
+    } else if (~html.indexOf("<div id=\"all-trainings\">")) {
         $(".navbar-btn").removeClass(classesToRemove);
         $("#all-trainings-btn").addClass("btn-pressed");
-    }
-    else if (~html.indexOf("<div id=\"todays-trainings\">")) {
+    } else if (~html.indexOf("<div id=\"todays-trainings\">")) {
         $(".navbar-btn").removeClass(classesToRemove);
         $("#todays-trainings-btn").addClass("btn-pressed");
-    }
-    else if (~html.indexOf("<div id=\"create-training\"")) {
+    } else if (~html.indexOf("<div id=\"create-training\"")) {
         $(".navbar-btn").removeClass(classesToRemove);
         $("#create-training-btn").addClass("create-training-btn-pressed");
     }
@@ -230,7 +226,6 @@ $(document).on("mouseenter touchstart ",
     });
 
 
-
 function errorHandler(xhr, textStatus, error) {
     console.log(xhr.statusText);
     console.log(textStatus);
@@ -239,6 +234,7 @@ function errorHandler(xhr, textStatus, error) {
 
 
 var wasSubmitted = false;
+
 function checkBeforeSubmit() {
     if (!wasSubmitted) {
         wasSubmitted = true;
@@ -246,7 +242,3 @@ function checkBeforeSubmit() {
     }
     return false;
 }
-
-
-
-

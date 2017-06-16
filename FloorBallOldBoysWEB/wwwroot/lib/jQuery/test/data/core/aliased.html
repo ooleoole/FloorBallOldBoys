@@ -5,21 +5,21 @@
 	<title>alias-masked DOM properties (#14074)</title>
 	<script>
 		var errors = [];
-		window.onerror = function( errorMessage, filePath, lineNumber ) {
-			errors.push( errorMessage );
+		window.onerror = function(errorMessage, filePath, lineNumber) {
+			errors.push(errorMessage);
 		};
 	</script>
 	<script src="../../jquery.js"></script>
 	<script src="../iframeTest.js"></script>
 </head>
 <body>
-	<form>
-		<input type="text" id="nodeName"/>
-	</form>
-	<script>
-		jQuery( function() {
-			startIframeTest( errors );
-		} );
-	</script>
+<form>
+	<input type="text" id="nodeName"/>
+</form>
+<script>
+	jQuery(function() {
+		startIframeTest(errors);
+	});
+</script>
 </body>
 </html>

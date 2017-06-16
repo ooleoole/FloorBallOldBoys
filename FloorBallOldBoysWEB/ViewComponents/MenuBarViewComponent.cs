@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using Domain.Services;
+using Domain.Interfaces;
 using FloorBallOldBoysWEB.IdentityUser;
 using FloorBallOldBoysWEB.ViewModels;
 using Microsoft.AspNetCore.Identity;
@@ -9,8 +9,8 @@ namespace FloorBallOldBoysWEB.ViewComponents
 {
     public class MenuBarViewComponent : ViewComponent
     {
-        private readonly IUserService _userService;
         private readonly UserManager<UserAccount> _userManager;
+        private readonly IUserService _userService;
 
         public MenuBarViewComponent(IUserService userService, UserManager<UserAccount> userManager)
         {
@@ -24,11 +24,11 @@ namespace FloorBallOldBoysWEB.ViewComponents
 
 
             var loogedInUser = _userService.Find(userId);
-            var model= new MenuBarViewModel
+            var model = new MenuBarViewModel
             {
                 Email = loogedInUser.Email,
                 IsAdmin = loogedInUser.IsAdmin,
-                Name =$"{loogedInUser.Firstname} {loogedInUser.Lastname}"
+                Name = $"{loogedInUser.Firstname} {loogedInUser.Lastname}"
             };
 
             return View(model);

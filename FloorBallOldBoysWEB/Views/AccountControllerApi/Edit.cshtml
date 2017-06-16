@@ -17,62 +17,104 @@
                     <div asp-validation-summary="ModelOnly"></div>
                     <table class="table-responsive" id="table-override">
                         <tbody>
-                            <tr>
-                                <td><label class="control-label" asp-for="SocialSecurityNumber"></label></td>
-                                <td><input asp-for="SocialSecurityNumber" class="lineInput" required /></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td><span class="text-danger" asp-validation-for="SocialSecurityNumber"></span></td>
-                            </tr>
-                            <tr>
-                                <td><label class="control-label" asp-for="Firstname"></label></td>
-                                <td><input asp-for="Firstname" class="lineInput" required /></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td><span class="text-danger" asp-validation-for="Firstname"></span></td>
-                            </tr>
-                            <tr>
-                                <td><label class="control-label" asp-for="Lastname"></label></td>
-                                <td><input asp-for="Lastname" class="lineInput" required /></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td><span class="text-danger" asp-validation-for="Lastname"></span></td>
-                            </tr>
-                            <tr>
-                                <td><label class="control-label" asp-for="Street"></label></td>
-                                <td><input asp-for="Street" class="lineInput" required /></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td><span class="text-danger" asp-validation-for="Street"></span></td>
-                            </tr>
-                            <tr>
-                                <td><label class="control-label" asp-for="ZipCode"></label></td>
-                                <td><input asp-for="ZipCode" class="lineInput" required /></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td><span class="text-danger" asp-validation-for="ZipCode"></span></td>
-                            </tr>
-                            <tr>
-                                <td><label class="control-label" asp-for="City"></label></td>
-                                <td><input asp-for="City" class="lineInput" required /></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td><span class="text-danger" asp-validation-for="City"></span></td>
-                            </tr>
-                            <tr>
-                                <td><label class="control-label" asp-for="Email"></label></td>
-                                <td><input asp-for="Email" class="lineInput" required /></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td><span class="text-danger" asp-validation-for="Email"></span></td>
-                            </tr>
+                        <tr>
+                            <td>
+                                <label class="control-label" asp-for="SocialSecurityNumber"></label>
+                            </td>
+                            <td>
+                                <input asp-for="SocialSecurityNumber" class="lineInput" required/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <span class="text-danger" asp-validation-for="SocialSecurityNumber"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="control-label" asp-for="Firstname"></label>
+                            </td>
+                            <td>
+                                <input asp-for="Firstname" class="lineInput" required/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <span class="text-danger" asp-validation-for="Firstname"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="control-label" asp-for="Lastname"></label>
+                            </td>
+                            <td>
+                                <input asp-for="Lastname" class="lineInput" required/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <span class="text-danger" asp-validation-for="Lastname"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="control-label" asp-for="Street"></label>
+                            </td>
+                            <td>
+                                <input asp-for="Street" class="lineInput" required/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <span class="text-danger" asp-validation-for="Street"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="control-label" asp-for="ZipCode"></label>
+                            </td>
+                            <td>
+                                <input asp-for="ZipCode" class="lineInput" required/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <span class="text-danger" asp-validation-for="ZipCode"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="control-label" asp-for="City"></label>
+                            </td>
+                            <td>
+                                <input asp-for="City" class="lineInput" required/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <span class="text-danger" asp-validation-for="City"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="control-label" asp-for="Email"></label>
+                            </td>
+                            <td>
+                                <input asp-for="Email" class="lineInput" required/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <span class="text-danger" asp-validation-for="Email"></span>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -86,11 +128,15 @@
                        data-form="#edit-account-form"
                        data-html-target="#main-content"
                        data-url="/api/account/edit"
-                       data-action-type="add">Spara</a>
+                       data-action-type="add">
+                        Spara
+                    </a>
                     <a id="cancel-account-post-btn" class="btn btn-success pull-right"
                        data-html-target="#main-content"
                        data-url="/api/account/myAccount"
-                       data-action-type="add">Avbryt</a>
+                       data-action-type="add">
+                        Avbryt
+                    </a>
                 </div>
             </div>
         </div>

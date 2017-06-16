@@ -1,6 +1,6 @@
-var fs = require( "fs" );
+var fs = require("fs");
 
-module.exports = function( Release ) {
+module.exports = function(Release) {
 
 	var
 		files = [
@@ -12,13 +12,13 @@ module.exports = function( Release ) {
 			"dist/jquery.slim.min.map",
 			"src/core.js"
 		],
-		cdn = require( "./release/cdn" ),
-		dist = require( "./release/dist" ),
-		ensureSizzle = require( "./release/ensure-sizzle" ),
+		cdn = require("./release/cdn"),
+		dist = require("./release/dist"),
+		ensureSizzle = require("./release/ensure-sizzle"),
 
 		npmTags = Release.npmTags;
 
-	Release.define( {
+	Release.define({
 		npmPublish: true,
 		issueTracker: "github",
 
@@ -26,8 +26,8 @@ module.exports = function( Release ) {
 		 * Ensure the repo is in a proper state before release
 		 * @param {Function} callback
 		 */
-		checkRepoState: function( callback ) {
-			ensureSizzle( Release, callback );
+		checkRepoState: function(callback) {
+			ensureSizzle(Release, callback);
 		},
 
 		/**
@@ -35,9 +35,9 @@ module.exports = function( Release ) {
 		 */
 		_setSrcVersion: function() {
 			var corePath = __dirname + "/../src/core.js",
-				contents = fs.readFileSync( corePath, "utf8" );
-			contents = contents.replace( /@VERSION/g, Release.newVersion );
-			fs.writeFileSync( corePath, contents, "utf8" );
+				contents = fs.readFileSync(corePath, "utf8");
+			contents = contents.replace(/@VERSION/g, Release.newVersion);
+			fs.writeFileSync(corePath, contents, "utf8");
 		},
 
 		/**
@@ -46,16 +46,16 @@ module.exports = function( Release ) {
 		 * committed before creating the tag.
 		 * @param {Function} callback
 		 */
-		generateArtifacts: function( callback ) {
-			Release.exec( "grunt", "Grunt command failed" );
+		generateArtifacts: function(callback) {
+			Release.exec("grunt", "Grunt command failed");
 			Release.exec(
 				"grunt custom:-ajax,-effects --filename=jquery.slim.js && " +
-					"grunt remove_map_comment --filename=jquery.slim.js",
+				"grunt remove_map_comment --filename=jquery.slim.js",
 				"Grunt custom failed"
 			);
-			cdn.makeReleaseCopies( Release );
+			cdn.makeReleaseCopies(Release);
 			Release._setSrcVersion();
-			callback( files );
+			callback(files);
 		},
 
 		/**
@@ -74,12 +74,13 @@ module.exports = function( Release ) {
 		 * Publish to distribution repo and npm
 		 * @param {Function} callback
 		 */
-		dist: function( callback ) {
-			cdn.makeArchives( Release, function() {
-				dist( Release, files, callback );
-			} );
+		dist: function(callback) {
+			cdn.makeArchives(Release,
+				function() {
+					dist(Release, files, callback);
+				});
 		}
-	} );
+	});
 };
 
 module.exports.dependencies = [

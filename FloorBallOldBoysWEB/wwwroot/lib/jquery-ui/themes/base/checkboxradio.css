@@ -10,25 +10,26 @@
  */
 
 .ui-checkboxradio-label .ui-icon-background {
-	box-shadow: inset 1px 1px 1px #ccc;
-	border-radius: .12em;
-	border: none;
+    border: none;
+    border-radius: .12em;
+    box-shadow: inset 1px 1px 1px #ccc;
 }
+
 .ui-checkboxradio-radio-label .ui-icon-background {
-	width: 16px;
-	height: 16px;
-	border-radius: 1em;
-	overflow: visible;
-	border: none;
+    border: none;
+    border-radius: 1em;
+    height: 16px;
+    overflow: visible;
+    width: 16px;
 }
+
 .ui-checkboxradio-radio-label.ui-checkboxradio-checked .ui-icon,
 .ui-checkboxradio-radio-label.ui-checkboxradio-checked:hover .ui-icon {
-	background-image: none;
-	width: 8px;
-	height: 8px;
-	border-width: 4px;
-	border-style: solid;
+    background-image: none;
+    border-style: solid;
+    border-width: 4px;
+    height: 8px;
+    width: 8px;
 }
-.ui-checkboxradio-disabled {
-	pointer-events: none;
-}
+
+.ui-checkboxradio-disabled { pointer-events: none; }

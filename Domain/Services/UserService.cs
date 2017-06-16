@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 using Domain.Entities;
@@ -9,12 +8,10 @@ using Domain.Utilities;
 
 namespace Domain.Services
 {
-
-
     public class UserService : IUserService
     {
-        private readonly IRepo<User> _repo;
         private readonly IRepo<Address> _addressRepo;
+        private readonly IRepo<User> _repo;
 
         public UserService(IRepo<User> repo, IRepo<Address> addressRepo)
         {
@@ -48,27 +45,33 @@ namespace Domain.Services
             NullCheck.ThrowArgumentNullEx(predicate);
             return _repo.FindAll(predicate);
         }
-        public IEnumerable<User> FindAll(Expression<Func<User, bool>> predicate, params Expression<Func<User, object>>[] includeProperties)
+
+        public IEnumerable<User> FindAll(Expression<Func<User, bool>> predicate,
+            params Expression<Func<User, object>>[] includeProperties)
         {
             NullCheck.ThrowArgumentNullEx(predicate, includeProperties);
             return _repo.FindAll(predicate, includeProperties);
         }
+
         public IEnumerable<User> FindAll(Expression<Func<User, bool>> predicate, params string[] includeProperties)
         {
             NullCheck.ThrowArgumentNullEx(predicate, includeProperties);
             return _repo.FindAll(predicate, includeProperties);
         }
+
         public IEnumerable<User> AllInclude(params Expression<Func<User, object>>[] incluedProperties)
         {
             NullCheck.ThrowArgumentNullEx(incluedProperties);
-                
+
             return _repo.AllInclude(incluedProperties);
         }
+
         public IEnumerable<User> AllInclude(params string[] incluedProperties)
         {
             NullCheck.ThrowArgumentNullEx(incluedProperties);
             return _repo.AllInclude(incluedProperties);
         }
+
         public void Update(User user)
         {
             NullCheck.ThrowArgumentNullEx(user);
@@ -85,7 +88,6 @@ namespace Domain.Services
         {
             user.AddressId = address.Id;
             user.Address = null;
-           
         }
 
         private Address GetExistingAddress(User user)

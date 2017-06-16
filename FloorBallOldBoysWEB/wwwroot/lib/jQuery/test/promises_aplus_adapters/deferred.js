@@ -1,20 +1,21 @@
 "use strict";
 
-require( "jsdom" ).env( "", function( errors, window ) {
-	if ( errors ) {
-		console.error( errors );
-		return;
-	}
+require("jsdom").env("",
+	function(errors, window) {
+		if (errors) {
+			console.error(errors);
+			return;
+		}
 
-	var jQuery = require( "../../" )( window );
+		var jQuery = require("../../")(window);
 
-	module.exports.deferred = function() {
-		var deferred = jQuery.Deferred();
+		module.exports.deferred = function() {
+			var deferred = jQuery.Deferred();
 
-		return {
-			promise: deferred.promise(),
-			resolve: deferred.resolve.bind( deferred ),
-			reject: deferred.reject.bind( deferred )
+			return {
+				promise: deferred.promise(),
+				resolve: deferred.resolve.bind(deferred),
+				reject: deferred.reject.bind(deferred)
+			};
 		};
-	};
-} );
+	});

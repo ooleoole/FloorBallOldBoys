@@ -10,19 +10,17 @@ namespace Data.Repositories
 {
     public class Repo<TEntity> : IRepo<TEntity> where TEntity : class
     {
-        private readonly DbSet<TEntity> _set;
         private readonly DbContext _context;
+        private readonly DbSet<TEntity> _set;
 
         public Repo()
         {
             _context = new EllosOldBoysContext();
             _set = _context.Set<TEntity>();
-
         }
 
         public void Add(TEntity entity)
         {
-
             _set.Add(entity);
             _context.Entry(entity);
             _context.SaveChanges();
@@ -42,11 +40,15 @@ namespace Data.Repositories
         {
             return _set.Where(predicate).ToList();
         }
-        public IEnumerable<TEntity> FindAll(Expression<Func<TEntity, bool>> predicate, params string[] includeProperties)
+
+        public IEnumerable<TEntity> FindAll(Expression<Func<TEntity, bool>> predicate,
+            params string[] includeProperties)
         {
             return GetAllIncluding(includeProperties).Where(predicate).ToList();
         }
-        public IEnumerable<TEntity> FindAll(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] includeProperties)
+
+        public IEnumerable<TEntity> FindAll(Expression<Func<TEntity, bool>> predicate,
+            params Expression<Func<TEntity, object>>[] includeProperties)
         {
             return GetAllIncluding(includeProperties).Where(predicate).ToList();
         }
@@ -62,7 +64,7 @@ namespace Data.Repositories
         {
             return GetAllIncluding(includeProperties).ToList();
         }
-        
+
         public IEnumerable<TEntity> AllInclude(params string[] includeProperties)
         {
             return GetAllIncluding(includeProperties).ToList();
@@ -74,6 +76,7 @@ namespace Data.Repositories
             _set.Update(entity);
             _context.SaveChanges();
         }
+
         private IQueryable<TEntity> GetAllIncluding(params Expression<Func<TEntity, object>>[] includeProperties)
         {
             var queryable = _set as IQueryable<TEntity>;
@@ -81,6 +84,7 @@ namespace Data.Repositories
             return includeProperties.Aggregate
                 (queryable, (current, includeProperty) => current.Include(includeProperty));
         }
+
         private IQueryable<TEntity> GetAllIncluding(params string[] includeProperties)
         {
             var queryable = _set as IQueryable<TEntity>;
@@ -88,9 +92,5 @@ namespace Data.Repositories
             return includeProperties.Aggregate
                 (queryable, (current, includeProperty) => current.Include(includeProperty));
         }
-
-
     }
-
-
 }

@@ -38,13 +38,17 @@ namespace Domain.Services
             NullCheck.ThrowArgumentNullEx(predicate);
             return _repo.FindAll(predicate);
         }
-        public IEnumerable<Training> FindAll(Expression<Func<Training, bool>> predicate, params Expression<Func<Training, object>>[] includeProperties)
+
+        public IEnumerable<Training> FindAll(Expression<Func<Training, bool>> predicate,
+            params Expression<Func<Training, object>>[] includeProperties)
         {
             NullCheck.ThrowArgumentNullEx(predicate, includeProperties);
 
             return _repo.FindAll(predicate, includeProperties);
         }
-        public IEnumerable<Training> FindAll(Expression<Func<Training, bool>> predicate, params string[] includeProperties)
+
+        public IEnumerable<Training> FindAll(Expression<Func<Training, bool>> predicate,
+            params string[] includeProperties)
         {
             NullCheck.ThrowArgumentNullEx(predicate, includeProperties);
             return _repo.FindAll(predicate, includeProperties);
@@ -69,6 +73,7 @@ namespace Domain.Services
 
             return _repo.AllInclude(includeProperties);
         }
+
         public IEnumerable<Training> AllInclude(params Expression<Func<Training, object>>[] includeProperties)
         {
             NullCheck.ThrowArgumentNullEx(includeProperties);

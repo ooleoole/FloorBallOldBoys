@@ -7,25 +7,27 @@
 	<script src="../iframeTest.js"></script>
 </head>
 <body>
-	<form id="navigate" action="../iframe.html"></form>
-	<script>
-		jQuery( window ).on( "unload", function() {
+<form id="navigate" action="../iframe.html"></form>
+<script>
+	jQuery(window).on("unload",
+		function() {
 			var ajaxStatus;
 			jQuery.ajax({
 				url: "../name.html",
 				async: false,
-				complete: function( xhr, status ) {
+				complete: function(xhr, status) {
 					ajaxStatus = status;
 				}
 			});
-			startIframeTest( ajaxStatus );
+			startIframeTest(ajaxStatus);
 		});
 
-		jQuery(function() {
-			setTimeout(function() {
-				document.getElementById( "navigate" ).submit();
-			}, 0 );
-		});
-	</script>
+	jQuery(function() {
+		setTimeout(function() {
+				document.getElementById("navigate").submit();
+			},
+			0);
+	});
+</script>
 </body>
 </html>

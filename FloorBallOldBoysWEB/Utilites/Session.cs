@@ -1,19 +1,16 @@
 ﻿using System.Linq;
 using Domain.Entities;
-using Domain.Services;
+using Domain.Interfaces;
 using FloorBallOldBoysWEB.IdentityUser;
 using Microsoft.AspNetCore.Identity;
 
 namespace FloorBallOldBoysWEB.Utilites
 {
-
-
     public class Session : ISession
     {
-
-        private readonly IUserService _userService;
         private readonly UserManager<UserAccount> _userManager;
 
+        private readonly IUserService _userService;
 
 
         public Session(IUserService userService, UserManager<UserAccount> userManager)

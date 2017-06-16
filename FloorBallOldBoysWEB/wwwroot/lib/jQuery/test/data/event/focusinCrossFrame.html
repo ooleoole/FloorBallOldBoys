@@ -8,12 +8,13 @@
 	<script src="../iframeTest.js"></script>
 </head>
 <body>
-	<input type="text" id="frame-input" />
-	<script>
-		// Call parent when this frame is fully loaded, it will mess with #frame-input
-		jQuery( window ).one( "load", function() {
+<input type="text" id="frame-input"/>
+<script>
+	// Call parent when this frame is fully loaded, it will mess with #frame-input
+	jQuery(window).one("load",
+		function() {
 			startIframeTest();
 		});
-	</script>
+</script>
 </body>
 </html>

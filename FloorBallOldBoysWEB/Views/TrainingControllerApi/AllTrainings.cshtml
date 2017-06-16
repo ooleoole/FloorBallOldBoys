@@ -2,13 +2,12 @@
 
 @{
     ViewBag.Title = "title";
-
 }
 <div id="all-trainings">
-@foreach (var trainingSummaryViewModel in Model.TrainingsSummaryViewModels)
-{
-    <div id="training_summary_@trainingSummaryViewModel.TrainingId">
-    @Html.Partial("_TrainingSummary", trainingSummaryViewModel)
-    </div>
-}
+    @foreach (var trainingSummaryViewModel in Model.TrainingsSummaryViewModels)
+    {
+        <div id="training_summary_@trainingSummaryViewModel.TrainingId">
+            @Html.Partial("_TrainingSummary", trainingSummaryViewModel)
+        </div>
+    }
 </div>

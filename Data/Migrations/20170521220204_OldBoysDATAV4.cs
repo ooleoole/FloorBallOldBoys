@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Data.Migrations
 {
@@ -9,50 +7,50 @@ namespace Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<string>(
-                name: "ZipCode",
-                table: "Address",
+                "ZipCode",
+                "Address",
                 nullable: false,
                 oldClrType: typeof(string));
 
             migrationBuilder.AlterColumn<string>(
-                name: "Street",
-                table: "Address",
+                "Street",
+                "Address",
                 nullable: false,
                 oldClrType: typeof(string));
 
             migrationBuilder.AlterColumn<string>(
-                name: "City",
-                table: "Address",
+                "City",
+                "Address",
                 nullable: false,
                 oldClrType: typeof(string));
 
             migrationBuilder.AddUniqueConstraint(
-                name: "AK_Address_City_Street_ZipCode",
-                table: "Address",
-                columns: new[] { "City", "Street", "ZipCode" });
+                "AK_Address_City_Street_ZipCode",
+                "Address",
+                new[] {"City", "Street", "ZipCode"});
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropUniqueConstraint(
-                name: "AK_Address_City_Street_ZipCode",
-                table: "Address");
+                "AK_Address_City_Street_ZipCode",
+                "Address");
 
             migrationBuilder.AlterColumn<string>(
-                name: "ZipCode",
-                table: "Address",
+                "ZipCode",
+                "Address",
                 nullable: false,
                 oldClrType: typeof(string));
 
             migrationBuilder.AlterColumn<string>(
-                name: "Street",
-                table: "Address",
+                "Street",
+                "Address",
                 nullable: false,
                 oldClrType: typeof(string));
 
             migrationBuilder.AlterColumn<string>(
-                name: "City",
-                table: "Address",
+                "City",
+                "Address",
                 nullable: false,
                 oldClrType: typeof(string));
         }

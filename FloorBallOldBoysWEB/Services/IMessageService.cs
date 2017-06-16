@@ -5,5 +5,4 @@
         string GetMessage();
         void SetMessage(string mess);
     }
-
 }

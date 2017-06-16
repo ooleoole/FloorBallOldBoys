@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Domain.Services;
+using Domain.Interfaces;
 using FloorBallOldBoysWEB.IdentityUser;
 using FloorBallOldBoysWEB.Utilites;
 using FloorBallOldBoysWEB.ViewModels;
@@ -13,8 +13,8 @@ namespace FloorBallOldBoysWEB.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        private readonly UserManager<UserAccount> _userManger;
         private readonly SignInManager<UserAccount> _signInManager;
+        private readonly UserManager<UserAccount> _userManger;
         private readonly IUserService _userService;
 
         public AccountController(UserManager<UserAccount> userManager,
@@ -24,8 +24,8 @@ namespace FloorBallOldBoysWEB.Controllers
             _userManger = userManager;
             _signInManager = signInManager;
             _userService = userService;
-
         }
+
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Login()
@@ -34,6 +34,7 @@ namespace FloorBallOldBoysWEB.Controllers
                 Response.Redirect("/Start?isStartPage=True");
             return View();
         }
+
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel model)
@@ -45,9 +46,7 @@ namespace FloorBallOldBoysWEB.Controllers
                 if (loginResult.Succeeded)
                 {
                     if (Url.IsLocalUrl(model.ReturnUrl))
-                    {
                         return Redirect(model.ReturnUrl);
-                    }
                     return Redirect("/Start?isStartPage=True");
                 }
             }
@@ -60,7 +59,6 @@ namespace FloorBallOldBoysWEB.Controllers
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction(nameof(Login));
-
         }
 
         [HttpGet]
@@ -69,7 +67,9 @@ namespace FloorBallOldBoysWEB.Controllers
         {
             return View();
         }
-        [HttpPost, ValidateAntiForgeryToken]
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         [AllowAnonymous]
         public async Task<IActionResult> Register(RegisterUserViewModel model)
         {
@@ -83,7 +83,6 @@ namespace FloorBallOldBoysWEB.Controllers
                 }
                 catch (Exception)
                 {
-
                     ModelState.AddModelError("", "Email upptagen");
                     return View(model);
                 }
@@ -97,9 +96,7 @@ namespace FloorBallOldBoysWEB.Controllers
                 IdentityResult createResult;
                 try
                 {
-
                     createResult = await _userManger.CreateAsync(userAccount, model.Password);
-
                 }
                 catch (Exception)
                 {
@@ -122,13 +119,9 @@ namespace FloorBallOldBoysWEB.Controllers
 
                 foreach (var error in createResult.Errors)
                     ModelState.AddModelError("", error.Description);
-
             }
 
             return View(model);
         }
-
-
-
     }
 }

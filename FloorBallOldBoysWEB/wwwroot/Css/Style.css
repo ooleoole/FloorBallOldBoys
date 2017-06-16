@@ -1,28 +1,24 @@
 ﻿#headLine {
     font-family: monospace;
     font-size: 60px;
-    padding-top: 50px;
     padding-bottom: 70px;
+    padding-top: 50px;
 }
 
-#headlLineForm {
-    font-family: monospace;
-}
+#headlLineForm { font-family: monospace; }
 
 #loginBtn {
-    right: 0;
     left: 0;
-    margin-right: auto;
-    margin-left: auto;
     margin-bottom: 15px;
-    min-height: 25px;
+    margin-left: auto;
+    margin-right: auto;
     max-height: 125px;
+    min-height: 25px;
+    right: 0;
     width: 206px;
 }
 
-#navBar {
-    height: 50px;
-}
+#navBar { height: 50px; }
 
 .lrMargin5px {
     margin-left: 5px;
@@ -30,115 +26,100 @@
 }
 
 .lineInput {
-    border: 0;
-    outline: 0;
     background: transparent;
+    border: 0;
     border-bottom: 1px solid black;
+    outline: 0;
 }
 
-.panelTopMargin100 {
-    margin-top: 50px;
-}
+.panelTopMargin100 { margin-top: 50px; }
 
 .lrPaddingOverride {
-    padding-right: 0 !important;
     padding-left: 0 !important;
+    padding-right: 0 !important;
 }
 
-.borderOverride {
-    border: none;
-}
+.borderOverride { border: none; }
 
 @media only screen and (max-width: 480px) {
-    #tableTitle {
-        padding-left: 0px;
-    }
+    #tableTitle { padding-left: 0px; }
+
     #table-override {
-        width: 100%;
-        margin-bottom: 15px;
-        overflow-y: hidden;
         -ms-overflow-style: -ms-autohiding-scrollbar;
         border: none;
+        margin-bottom: 15px;
+        overflow-y: hidden;
+        width: 100%;
     }
 }
 
 @media only screen and (min-width: 480px) and (max-width: 768px) {
-    #tableTitle {
-        padding-left: 0px;
-    }
+    #tableTitle { padding-left: 0px; }
+
     #table-override {
-        width: 100% ;
-        margin-bottom: 75px;
-        overflow-y: hidden;
         -ms-overflow-style: -ms-autohiding-scrollbar;
         border: none;
+        margin-bottom: 75px;
+        overflow-y: hidden;
+        width: 100%;
     }
 }
 
 @media only screen and (min-width: 768px) and (max-width: 959px) {
-    .container {
-        width: 750px;
-    }
+    .container { width: 750px; }
+
     #tableTitle {
         padding-left: 0px;
         width: 750px;
     }
 
     #table-override {
-        width: 100%;
-        margin-bottom: 15px;
-        overflow-y: hidden;
         -ms-overflow-style: -ms-autohiding-scrollbar;
         border: none;
+        margin-bottom: 15px;
+        overflow-y: hidden;
+        width: 100%;
     }
 }
 
 @media only screen and (min-width: 959px) {
-    .container {
-        width: 750px;
-    }
-    #tableTitle {
-        padding-left: 17px;
-       
-    }
+    .container { width: 750px; }
+
+    #tableTitle { padding-left: 17px; }
 
     #table-override {
-        width: 100% !important;
-        margin-bottom: 15px;
-        overflow-y: hidden;
         -ms-overflow-style: -ms-autohiding-scrollbar;
         border: none;
+        margin-bottom: 15px;
+        overflow-y: hidden;
+        width: 100% !important;
     }
 }
 
-.contentSpacingTop {
-    padding-top: 100px !important;
-}
+.contentSpacingTop { padding-top: 100px !important; }
 
 .size {
-    min-width: 300px !important;
-    max-width: 300px !important;
     margin: auto;
+    max-width: 300px !important;
+    min-width: 300px !important;
 }
 
 #footer {
     display: table;
-    text-align: center;
     margin-left: auto;
     margin-right: auto;
+    text-align: center;
 }
+
 .cursor-pointer {
     cursor: pointer;
     cursor: hand;
 }
 
 
-#bootstrap-overrides [id^="toggle-training-glyph-"] {
-    top: 20px;
-}
-#bootstrap-overrides .toggle-row {
-    margin-right: -7px;
-}
+#bootstrap-overrides [id^="toggle-training-glyph-"] { top: 20px; }
+
+#bootstrap-overrides .toggle-row { margin-right: -7px; }
 
 #bootstrap-overrides .btn-pressed {
     background-color: rgb(60, 76, 135);
@@ -157,6 +138,5 @@
     border: 0.5px solid #9d9d9d;
     margin: 5.5px;
 }
-#bootstrap-overrides .popover{
-    width: 200px;
-}
+
+#bootstrap-overrides .popover { width: 200px; }

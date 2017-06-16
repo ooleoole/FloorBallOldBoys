@@ -9,11 +9,10 @@
  * http://api.jqueryui.com/tooltip/#theming
  */
 .ui-tooltip {
-	padding: 8px;
-	position: absolute;
-	z-index: 9999;
-	max-width: 300px;
+    max-width: 300px;
+    padding: 8px;
+    position: absolute;
+    z-index: 9999;
 }
-body .ui-tooltip {
-	border-width: 2px;
-}
+
+body .ui-tooltip { border-width: 2px; }

@@ -13,8 +13,6 @@ namespace FloorBallOldBoysWEB.Utilites
             return new TrainingsViewModel
             {
                 TrainingsSummaryViewModels = TrainingsToTrainingsSummaryViewModels(trainings, loggedInUser)
-
-
             };
         }
 
@@ -43,8 +41,6 @@ namespace FloorBallOldBoysWEB.Utilites
                 Street = user.Address.Street,
                 ZipCode = user.Address.ZipCode,
                 SocialSecurityNumber = user.SocialSecurityNumber
-
-
             };
         }
 
@@ -60,7 +56,6 @@ namespace FloorBallOldBoysWEB.Utilites
                 Street = user.Address.Street,
                 ZipCode = user.Address.ZipCode,
                 SocialSecurityNumber = user.SocialSecurityNumber
-
             };
         }
 
@@ -78,10 +73,7 @@ namespace FloorBallOldBoysWEB.Utilites
                 CreatorId = training.CreatorId,
                 Creator = training.Creator,
                 EnrolledUsers = training.EnrolledUsers,
-                IsAdmin = loggedInUser.IsAdmin,
-
-
-
+                IsAdmin = loggedInUser.IsAdmin
             };
         }
 
@@ -93,6 +85,4 @@ namespace FloorBallOldBoysWEB.Utilites
                 .ThenByDescending(t => t.StartTime);
         }
     }
-
-
 }

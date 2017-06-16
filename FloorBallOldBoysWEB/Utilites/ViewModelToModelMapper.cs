@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Security.Cryptography.X509Certificates;
 using Domain.Entities;
 using FloorBallOldBoysWEB.ViewModels;
 
@@ -18,7 +17,7 @@ namespace FloorBallOldBoysWEB.Utilites
             return trainingToBeEdited;
         }
 
-        public User EditUserViewModelToUser(EditUserViewModel model,User userToBeEdited)
+        public User EditUserViewModelToUser(EditUserViewModel model, User userToBeEdited)
         {
             userToBeEdited.Address.City = model.City;
             userToBeEdited.Address.Street = model.Street;
@@ -27,7 +26,6 @@ namespace FloorBallOldBoysWEB.Utilites
             userToBeEdited.Lastname = model.Lastname;
             userToBeEdited.SocialSecurityNumber = model.SocialSecurityNumber;
             return userToBeEdited;
-
         }
 
         public User RegisterUserViewModelToUser(RegisterUserViewModel model)
@@ -43,7 +41,7 @@ namespace FloorBallOldBoysWEB.Utilites
                 Email = model.Email,
                 Firstname = model.Firstname,
                 Lastname = model.Lastname,
-                SocialSecurityNumber = model.SocialSecurityNumber,
+                SocialSecurityNumber = model.SocialSecurityNumber
             };
         }
 
@@ -52,12 +50,13 @@ namespace FloorBallOldBoysWEB.Utilites
             return new Training
             {
                 Location = model.Location,
-                StartTime = new DateTime(model.Date.Year, model.Date.Month, model.Date.Day, model.StartTime.Hour, model.StartTime.Minute, 0),
-                EndTime = new DateTime(model.Date.Year, model.Date.Month, model.Date.Day, model.EndTime.Hour, model.EndTime.Minute, 0),
+                StartTime = new DateTime(model.Date.Year, model.Date.Month, model.Date.Day, model.StartTime.Hour,
+                    model.StartTime.Minute, 0),
+                EndTime = new DateTime(model.Date.Year, model.Date.Month, model.Date.Day, model.EndTime.Hour,
+                    model.EndTime.Minute, 0),
                 Date = model.Date,
                 Info = model.Info,
                 CreatorId = model.Creator.Id
-
             };
         }
     }

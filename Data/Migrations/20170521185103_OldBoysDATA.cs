@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Data.Migrations
 {
@@ -10,26 +9,25 @@ namespace Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Address",
-                columns: table => new
+                "Address",
+                table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("SqlServer:ValueGenerationStrategy",
+                            SqlServerValueGenerationStrategy.IdentityColumn),
                     City = table.Column<string>(nullable: false),
                     Street = table.Column<string>(nullable: false),
                     ZipCode = table.Column<string>(nullable: false)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Address", x => x.Id);
-                });
+                constraints: table => { table.PrimaryKey("PK_Address", x => x.Id); });
 
             migrationBuilder.CreateTable(
-                name: "User",
-                columns: table => new
+                "User",
+                table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("SqlServer:ValueGenerationStrategy",
+                            SqlServerValueGenerationStrategy.IdentityColumn),
                     AddressId = table.Column<int>(nullable: false),
                     Email = table.Column<string>(nullable: false),
                     Firstname = table.Column<string>(maxLength: 45, nullable: false),
@@ -44,19 +42,20 @@ namespace Data.Migrations
                     table.PrimaryKey("PK_User", x => x.Id);
                     table.UniqueConstraint("AK_User_Email", x => x.Email);
                     table.ForeignKey(
-                        name: "FK_User_Address_AddressId",
-                        column: x => x.AddressId,
-                        principalTable: "Address",
-                        principalColumn: "Id",
+                        "FK_User_Address_AddressId",
+                        x => x.AddressId,
+                        "Address",
+                        "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Training",
-                columns: table => new
+                "Training",
+                table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("SqlServer:ValueGenerationStrategy",
+                            SqlServerValueGenerationStrategy.IdentityColumn),
                     CreatorId = table.Column<int>(nullable: false),
                     Date = table.Column<DateTime>(nullable: false),
                     EndTime = table.Column<DateTime>(nullable: false),
@@ -69,98 +68,98 @@ namespace Data.Migrations
                 {
                     table.PrimaryKey("PK_Training", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Training_User_CreatorId",
-                        column: x => x.CreatorId,
-                        principalTable: "User",
-                        principalColumn: "Id",
+                        "FK_Training_User_CreatorId",
+                        x => x.CreatorId,
+                        "User",
+                        "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserTraningAttendance",
-                columns: table => new
+                "UserTraningAttendance",
+                table => new
                 {
                     TrainingId = table.Column<int>(nullable: false),
                     UserId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserTraningAttendance", x => new { x.TrainingId, x.UserId });
+                    table.PrimaryKey("PK_UserTraningAttendance", x => new {x.TrainingId, x.UserId});
                     table.ForeignKey(
-                        name: "FK_UserTraningAttendance_Training_TrainingId",
-                        column: x => x.TrainingId,
-                        principalTable: "Training",
-                        principalColumn: "Id",
+                        "FK_UserTraningAttendance_Training_TrainingId",
+                        x => x.TrainingId,
+                        "Training",
+                        "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UserTraningAttendance_User_UserId",
-                        column: x => x.UserId,
-                        principalTable: "User",
-                        principalColumn: "Id",
+                        "FK_UserTraningAttendance_User_UserId",
+                        x => x.UserId,
+                        "User",
+                        "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserTraningEnrollment",
-                columns: table => new
+                "UserTraningEnrollment",
+                table => new
                 {
                     TrainingId = table.Column<int>(nullable: false),
                     UserId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserTraningEnrollment", x => new { x.TrainingId, x.UserId });
+                    table.PrimaryKey("PK_UserTraningEnrollment", x => new {x.TrainingId, x.UserId});
                     table.ForeignKey(
-                        name: "FK_UserTraningEnrollment_Training_TrainingId",
-                        column: x => x.TrainingId,
-                        principalTable: "Training",
-                        principalColumn: "Id",
+                        "FK_UserTraningEnrollment_Training_TrainingId",
+                        x => x.TrainingId,
+                        "Training",
+                        "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UserTraningEnrollment_User_UserId",
-                        column: x => x.UserId,
-                        principalTable: "User",
-                        principalColumn: "Id",
+                        "FK_UserTraningEnrollment_User_UserId",
+                        x => x.UserId,
+                        "User",
+                        "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Training_CreatorId",
-                table: "Training",
-                column: "CreatorId");
+                "IX_Training_CreatorId",
+                "Training",
+                "CreatorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_User_AddressId",
-                table: "User",
-                column: "AddressId");
+                "IX_User_AddressId",
+                "User",
+                "AddressId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserTraningAttendance_UserId",
-                table: "UserTraningAttendance",
-                column: "UserId");
+                "IX_UserTraningAttendance_UserId",
+                "UserTraningAttendance",
+                "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserTraningEnrollment_UserId",
-                table: "UserTraningEnrollment",
-                column: "UserId");
+                "IX_UserTraningEnrollment_UserId",
+                "UserTraningEnrollment",
+                "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "UserTraningAttendance");
+                "UserTraningAttendance");
 
             migrationBuilder.DropTable(
-                name: "UserTraningEnrollment");
+                "UserTraningEnrollment");
 
             migrationBuilder.DropTable(
-                name: "Training");
+                "Training");
 
             migrationBuilder.DropTable(
-                name: "User");
+                "User");
 
             migrationBuilder.DropTable(
-                name: "Address");
+                "Address");
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Data.Migrations
 {
@@ -9,26 +7,26 @@ namespace Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_UserTraningAttendance_User_UserId",
-                table: "UserTraningAttendance");
+                "FK_UserTraningAttendance_User_UserId",
+                "UserTraningAttendance");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_UserTraningEnrollment_User_UserId",
-                table: "UserTraningEnrollment");
+                "FK_UserTraningEnrollment_User_UserId",
+                "UserTraningEnrollment");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_UserTraningAttendance_User_UserId",
-                table: "UserTraningAttendance",
-                column: "UserId",
-                principalTable: "User",
+                "FK_UserTraningAttendance_User_UserId",
+                "UserTraningAttendance",
+                "UserId",
+                "User",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_UserTraningEnrollment_User_UserId",
-                table: "UserTraningEnrollment",
-                column: "UserId",
-                principalTable: "User",
+                "FK_UserTraningEnrollment_User_UserId",
+                "UserTraningEnrollment",
+                "UserId",
+                "User",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
         }
@@ -36,26 +34,26 @@ namespace Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_UserTraningAttendance_User_UserId",
-                table: "UserTraningAttendance");
+                "FK_UserTraningAttendance_User_UserId",
+                "UserTraningAttendance");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_UserTraningEnrollment_User_UserId",
-                table: "UserTraningEnrollment");
+                "FK_UserTraningEnrollment_User_UserId",
+                "UserTraningEnrollment");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_UserTraningAttendance_User_UserId",
-                table: "UserTraningAttendance",
-                column: "UserId",
-                principalTable: "User",
+                "FK_UserTraningAttendance_User_UserId",
+                "UserTraningAttendance",
+                "UserId",
+                "User",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_UserTraningEnrollment_User_UserId",
-                table: "UserTraningEnrollment",
-                column: "UserId",
-                principalTable: "User",
+                "FK_UserTraningEnrollment_User_UserId",
+                "UserTraningEnrollment",
+                "UserId",
+                "User",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
         }

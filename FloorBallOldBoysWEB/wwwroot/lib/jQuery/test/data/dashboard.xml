@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
 <dashboard>
 	<locations class="foo">
 		<location for="bar" checked="different">

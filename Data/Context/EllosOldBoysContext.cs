@@ -1,7 +1,5 @@
-﻿
-using Domain.Entities;
+﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Data.Context
 {
@@ -12,6 +10,7 @@ namespace Data.Context
         public DbSet<Address> Address { get; set; }
         public DbSet<UserTraningAttendance> UserTraningAttendance { get; set; }
         public DbSet<UserTraningEnrollment> UserTraningEnrollment { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(
@@ -20,11 +19,10 @@ namespace Data.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<UserTraningAttendance>().HasKey(k => new { k.TrainingId, k.UserId });
-            modelBuilder.Entity<UserTraningEnrollment>().HasKey(k => new { k.TrainingId, k.UserId });
+            modelBuilder.Entity<UserTraningAttendance>().HasKey(k => new {k.TrainingId, k.UserId});
+            modelBuilder.Entity<UserTraningEnrollment>().HasKey(k => new {k.TrainingId, k.UserId});
             modelBuilder.Entity<User>().HasAlternateKey(k => k.Email);
             modelBuilder.Entity<Address>().HasAlternateKey(k => new {k.City, k.Street, k.ZipCode});
-
         }
     }
 }

@@ -1,14 +1,16 @@
 ﻿@model MenuBarViewModel
 
 
-<nav id="navBar" class="navbar navbar-inverse navbar-fixed-top" style="height:50px">
+<nav id="navBar" class="navbar navbar-inverse navbar-fixed-top" style="height: 50px">
     <div class="navbar-inverse col-md-12 lrPaddingOverride" style="padding-left: 0px; padding-right: 0px;">
         <div class="container-fluid">
             <div>
                 <a id="logo" class="navbar-brand cursor-pointer"
                    data-html-target="#main-content"
                    data-url="/api/training/todaysTrainings"
-                   data-action-type="add">EllösOldBoys</a>
+                   data-action-type="add">
+                    EllösOldBoys
+                </a>
             </div>
             <div class="pull-right">
                 <table>
@@ -17,11 +19,14 @@
                             <a id="email" class="btn-link pull-right cursor-pointer"
                                data-html-target="#main-content"
                                data-url="/api/account/myAccount"
-                               data-action-type="add">@Model.Email</a>
+                               data-action-type="add">
+                                @Model.Email</a>
                         </td>
                     </tr>
                     <tr>
-                        <td><a class="glyphicon glyphicon-log-out pull-right" asp-controller="Account" asp-action="Logout">LoggaUt</a></td>
+                        <td>
+                            <a class="glyphicon glyphicon-log-out pull-right" asp-controller="Account" asp-action="Logout">LoggaUt</a>
+                        </td>
                     </tr>
                 </table>
             </div>
@@ -34,19 +39,25 @@
                             <a id="my-account-btn" class="btn btn-primary navbar-btn lrMargin5px"
                                data-html-target="#main-content"
                                data-url="/api/account/myAccount"
-                               data-action-type="add">Mitt konto</a>
+                               data-action-type="add">
+                                Mitt konto
+                            </a>
                         </th>
                         <th>
                             <a id="all-trainings-btn" class="btn btn-primary navbar-btn lrMargin5px"
                                data-html-target="#main-content"
                                data-url="/api/training/getAllTranings"
-                               data-action-type="add-toggle-training">Alla träningar</a>
+                               data-action-type="add-toggle-training">
+                                Alla träningar
+                            </a>
                         </th>
                         <th>
                             <a id="todays-trainings-btn" class="btn btn-primary navbar-btn lrMargin5px"
                                data-html-target="#main-content"
                                data-url="/api/training/todaysTrainings"
-                               data-action-type="add">Dagens träningar</a>
+                               data-action-type="add">
+                                Dagens träningar
+                            </a>
                         </th>
                         <th>
                             @if (Model.IsAdmin)
@@ -54,7 +65,9 @@
                                 <a id="create-training-btn" class="btn btn-primary navbar-btn lrMargin5px"
                                    data-html-target="#main-content"
                                    data-url="/api/training/createTraining"
-                                   data-action-type="add">Skapa träning</a>
+                                   data-action-type="add">
+                                    Skapa träning
+                                </a>
                             }
                         </th>
                     </tr>

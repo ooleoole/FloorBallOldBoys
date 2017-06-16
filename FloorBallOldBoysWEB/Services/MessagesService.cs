@@ -2,17 +2,13 @@
 
 namespace FloorBallOldBoysWEB.Services
 {
-   
     public class MessagesService : IMessagesService
     {
-
-        
         private readonly IConfiguration _conf;
 
         public MessagesService(IConfiguration conf)
         {
             _conf = conf;
-            
         }
 
         public string GetMessage()

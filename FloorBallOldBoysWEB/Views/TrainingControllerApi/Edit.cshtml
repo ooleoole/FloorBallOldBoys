@@ -2,7 +2,6 @@
 
 @{
     ViewBag.Title = "Edit";
-
 }
 
 <div class="panel panel-default panelTopMargin100">
@@ -11,7 +10,7 @@
     </div>
     <div class="panel-body">
         <form id="form-@Model.TrainingId" class="form-horizontal" asp-antiforgery="true">
-            <input type="hidden" asp-for="TrainingId" />
+            <input type="hidden" asp-for="TrainingId"/>
             <div class="form-group">
                 <label class="control-label col-sm-1" for="location-input" asp-for="Location"></label>
                 <div class="col-sm-6">
@@ -33,7 +32,7 @@
             <div class="form-group">
                 <label class="control-label col-sm-1" for="date-input" asp-for="Date"></label>
                 <div class="col-sm-6">
-                    <input class="form-control" id="date-input" asp-for="Date" />
+                    <input class="form-control" id="date-input" asp-for="Date"/>
                 </div>
             </div>
             <div class="form-group">
@@ -56,7 +55,9 @@
                        data-method="GET"
                        data-url="/api/training/getTraining"
                        data-action-type="addSmooth"
-                       data-model='{"trainingId":"@Model.TrainingId"}'>Avbryt</a>
+                       data-model='{"trainingId":"@Model.TrainingId"}'>
+                        Avbryt
+                    </a>
                 </div>
             </div>
         </form>

@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using Domain.Entities;
-using Domain.Services;
+using Domain.Interfaces;
 using FloorBallOldBoysWEB.IdentityUser;
 using FloorBallOldBoysWEB.Utilites;
 using FloorBallOldBoysWEB.ViewModels;
@@ -12,12 +12,11 @@ namespace FloorBallOldBoysWEB.Controllers
     [Route("api/account")]
     public class AccountControllerApi : Controller
     {
-        private readonly UserManager<UserAccount> _userManger;
-        private readonly SignInManager<UserAccount> _signInManager;
-        private readonly IUserService _userService;
         private readonly ISession _session;
+        private readonly SignInManager<UserAccount> _signInManager;
+        private readonly UserManager<UserAccount> _userManger;
+        private readonly IUserService _userService;
         private User _loggedInUser;
-        private User LoggedInUser => _loggedInUser ?? (_loggedInUser = _session.GetLoggedInUser(User.Identity.Name));
 
         public AccountControllerApi(UserManager<UserAccount> userManager,
             SignInManager<UserAccount> signInManager,
@@ -27,24 +26,30 @@ namespace FloorBallOldBoysWEB.Controllers
             _userManger = userManager;
             _signInManager = signInManager;
             _userService = userService;
-
         }
-        [HttpGet, Route("myAccount")]
+
+        private User LoggedInUser => _loggedInUser ?? (_loggedInUser = _session.GetLoggedInUser(User.Identity.Name));
+
+        [HttpGet]
+        [Route("myAccount")]
         public IActionResult MyAccount()
         {
             var model = Mapper.ModelToViewModelMapping.UserToMyAccountViewModel(LoggedInUser);
             return PartialView("AccountDetails", model);
         }
 
-        [HttpGet, Route("edit")]
+        [HttpGet]
+        [Route("edit")]
         public IActionResult Edit(int id)
         {
             var user = _userService.FindAll(u => u.Id == id, "Address").FirstOrDefault();
             var model = Mapper.ModelToViewModelMapping.UserToEditUserViewModel(user);
             return PartialView(model);
         }
-        [HttpPost, Route("edit")]
-        public  IActionResult Edit(EditUserViewModel model)
+
+        [HttpPost]
+        [Route("edit")]
+        public IActionResult Edit(EditUserViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -65,8 +70,5 @@ namespace FloorBallOldBoysWEB.Controllers
             }
             return PartialView(model);
         }
-
-
-
     }
 }
