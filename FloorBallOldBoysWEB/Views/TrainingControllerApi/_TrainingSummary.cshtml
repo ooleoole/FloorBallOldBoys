@@ -6,9 +6,9 @@
 <section class="panel panel-primary panelTopMargin100 training-panel">
     <div id="training-heading-@Model.TrainingId" class="panel-heading panel-heading-training">
         <h2>@Model.Location</h2>
-        <h4>@Model.Date.DayOfWeek  @Model.StartTime.Hour:@Model.StartTime.Minute - @Model.EndTime.Hour:@Model.EndTime.Minute</h4>
+        <h4>@Model.Date.DayOfWeek  @Model.StartTime.ToString("HH:mm") - @Model.EndTime.ToString("HH:mm")</h4>
         <div class="row">
-            <h6 class="col-xs-6 toggle-row">@Model.Date.Year/@Model.Date.Month/@Model.Date.Day</h6>
+            <h6 class="col-xs-6 toggle-row">@Model.Date.ToString("yyyy-MM-dd")</h6>
             <div>
                 <span id="toggle-training-glyph-@Model.TrainingId" class="glyphicon glyphicon-chevron-up"></span>
             </div>
@@ -62,13 +62,20 @@
                                data-url="/api/training/editTraining"
                                data-action-type="add"
                                data-model='{"trainingId":"@Model.TrainingId"}'>Ändra</a>
-                            <a id="delete-training" class="cursor-pointer"
+                            
+                               <a id="delete-training" class="cursor-pointer"
                                data-html-target="#training_summary_@Model.TrainingId"
                                data-method="DELETE"
                                data-url="/api/training/deleteTraining"
                                data-action-type="delete"
-                               data-model='{"trainingId":"@Model.TrainingId"}'>Ta bort</a>
-
+                               data-model='{"trainingId":"@Model.TrainingId"}'
+                                  
+                               data-toggle="confirmation"
+                               data-btn-ok-label="Ja" data-btn-ok-icon="glyphicon glyphicon-share-alt"
+                               data-btn-ok-class="btn-success"
+                               data-btn-cancel-label="Nej" data-btn-cancel-icon="glyphicon glyphicon-ban-circle"
+                               data-btn-cancel-class="btn-danger"
+                               data-title="Bekräfta borttagning" data-content="Vill du ta bort träningen?">Ta bort</a>
                         }
                     </div>
                 </th>
@@ -76,4 +83,7 @@
         </table>
     </div>
 </section>
+<script>
+  
+</script>
 

@@ -1060,7 +1060,6 @@
     <Content Include="wwwroot\lib\jQuery\test\unit\tween.js" />
     <Content Include="wwwroot\lib\jQuery\test\unit\wrap.js" />
     <Content Include="wwwroot\lib\jQuery\test\xhtml.php" />
-    <Content Include="wwwroot\Scripts\Ajax.js" />
     <Content Include="wwwroot\Scripts\Script.js" />
   </ItemGroup>
   <ItemGroup>

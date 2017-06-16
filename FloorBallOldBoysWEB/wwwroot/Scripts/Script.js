@@ -17,6 +17,7 @@ $(document).on("click", "#edit-account-post", formRequest);
 $(document).on("click", ".post-edit-training", formRequest);
 $(document).on("click", "#create-training-post", formRequest);
 
+$(document).on("click", "#cancel-account-post-btn", basicGetRequest);
 $(document).on("click", "#email", basicGetRequest);
 $(document).on("click", "#logo", basicGetRequest);
 $(document).on("click", "#my-account-btn", basicGetRequest);
@@ -24,6 +25,9 @@ $(document).on("click", "#reset-create-training-form", basicGetRequest);
 $(document).on("click", "#todays-trainings-btn", basicGetRequest);
 $(document).on("click", "#create-training-btn", basicGetRequest);
 $(document).on("click", "#all-trainings-btn", basicGetRequest);
+
+
+
 
 function basicGetRequest(event) {
     var element = $(event.target);
@@ -165,7 +169,7 @@ function domActionSelector(actionType) {
     }
 
 };
-
+//------------------------styling---------------------------------//
 $(document).on("click", ".panel-heading-training", function () {
     $(this).siblings(".main-panel-body").toggle("slow", function () {
         $(this).siblings(".panel-footer").toggle("slow", function () {
@@ -216,6 +220,16 @@ function setCurrentPageOnNavbar(html) {
         $("#create-training-btn").addClass("create-training-btn-pressed");
     }
 }
+
+$(document).on("mouseenter touchstart ",
+    "#delete-training",
+    function() {
+        $("[data-toggle=confirmation]").confirmation({
+            rootSelector: "[data-toggle=confirmation]"
+        });
+    });
+
+
 
 function errorHandler(xhr, textStatus, error) {
     console.log(xhr.statusText);

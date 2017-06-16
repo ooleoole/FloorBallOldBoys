@@ -131,14 +131,10 @@
     cursor: pointer;
     cursor: hand;
 }
-/*#bootstrap-overrides .hidden-body.glyphicon {
-    top: 40px;
-    color: black;
-}*/
 
-#bootstrap-overrides .glyphicon {
+
+#bootstrap-overrides [id^="toggle-training-glyph-"] {
     top: 20px;
-    
 }
 #bootstrap-overrides .toggle-row {
     margin-right: -7px;
@@ -160,4 +156,7 @@
     background-color: rgb(125, 125, 125);
     border: 0.5px solid #9d9d9d;
     margin: 5.5px;
+}
+#bootstrap-overrides .popover{
+    width: 200px;
 }

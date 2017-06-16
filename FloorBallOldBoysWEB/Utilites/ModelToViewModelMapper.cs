@@ -79,7 +79,7 @@ namespace FloorBallOldBoysWEB.Utilites
                 Creator = training.Creator,
                 EnrolledUsers = training.EnrolledUsers,
                 IsAdmin = loggedInUser.IsAdmin,
-                
+
 
 
             };
@@ -88,7 +88,9 @@ namespace FloorBallOldBoysWEB.Utilites
         public IEnumerable<TrainingSummaryViewModel> TrainingsToTrainingsSummaryViewModels
             (IEnumerable<Training> trainings, User loggedInUser)
         {
-            return trainings.Select(t => TrainingToTrainingSummaryViewModel(t, loggedInUser));
+            return trainings.Select(t => TrainingToTrainingSummaryViewModel(t, loggedInUser))
+                .OrderByDescending(t => t.Date)
+                .ThenByDescending(t => t.StartTime);
         }
     }
 
