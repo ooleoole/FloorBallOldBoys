@@ -139,4 +139,23 @@
     margin: 5.5px;
 }
 
-#bootstrap-overrides .popover { width: 200px; }
+#bootstrap-overrides .popover { width: 200px; 
+
+}
+#bootstrap-overrides .buttom-margin {
+    margin-bottom: 7px;
+}
+#bootstrap-overrides .password-label {
+    margin-bottom: 0px;
+}
+
+#bootstrap-overrides .error {
+    color: red;
+}
+
+#bootstrap-overrides .valid {
+    color: green;
+}
+#bootstrap-overrides .input-validation-error {
+    color: red;
+}

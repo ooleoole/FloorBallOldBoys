@@ -132,11 +132,13 @@ function domActionSelector(actionType) {
         return function(htmlTarget, html) {
             $(htmlTarget).html(html);
             setCurrentPageOnNavbar(html);
+            registerFormsToValidator();
         };
     case "add-toggle-training":
         return function(htmlTarget, html) {
             $(htmlTarget).html(html);
             setCurrentPageOnNavbar(html);
+            registerFormsToValidator();
             $(".panel-footer").hide().siblings(".main-panel-body").hide().parent().find(".glyphicon")
                 .removeClass("glyphicon-chevron-up")
                 .addClass("glyphicon-chevron-down");
@@ -146,7 +148,7 @@ function domActionSelector(actionType) {
         return function(htmlTarget, html) {
             setCurrentPageOnNavbar(html);
             $(htmlTarget).hide().html(html).fadeIn();
-
+            registerFormsToValidator();
 
         };
     case "delete":
@@ -225,6 +227,12 @@ $(document).on("mouseenter touchstart ",
         });
     });
 
+$(document).on("click",
+    "#change-password-btn",
+    function() {
+        $("#change-password-tbody").toggle();
+        $(this).hide();
+    });
 
 function errorHandler(xhr, textStatus, error) {
     console.log(xhr.statusText);
@@ -242,3 +250,10 @@ function checkBeforeSubmit() {
     }
     return false;
 }
+
+
+function registerFormsToValidator() {
+    $(document).find("form").removeData("validator").removeData("unobtrusiveValidation");
+    $.validator.unobtrusive.parse("form");      
+
+};

@@ -130,7 +130,7 @@ namespace Data.Migrations
                 b.HasOne("Domain.Entities.User", "Creator")
                     .WithMany()
                     .HasForeignKey("CreatorId")
-                    .OnDelete(DeleteBehavior.Cascade);
+                    .OnDelete(DeleteBehavior.Restrict);
             });
 
             modelBuilder.Entity("Domain.Entities.User", b =>
@@ -138,7 +138,7 @@ namespace Data.Migrations
                 b.HasOne("Domain.Entities.Address", "Address")
                     .WithMany("Users")
                     .HasForeignKey("AddressId")
-                    .OnDelete(DeleteBehavior.Cascade);
+                    .OnDelete(DeleteBehavior.Restrict);
             });
 
             modelBuilder.Entity("Domain.Entities.UserTraningAttendance", b =>

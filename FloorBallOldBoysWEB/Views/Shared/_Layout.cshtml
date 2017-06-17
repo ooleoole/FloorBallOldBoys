@@ -4,53 +4,54 @@
 <head>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
-    <meta name="viewport" content="width=device-width"/>
+    <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
-    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet"/>
-    <link href="~/Css/Style.css" rel="stylesheet"/>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Css/Style.css" rel="stylesheet" />
 
 </head>
 <body id="bootstrap-overrides">
 
-@if (ViewBag.HideNavBar == null)
-{
-    <div>
-        @await Component.InvokeAsync("MenuBar")
+    @if (ViewBag.HideNavBar == null)
+    {
+        <div>
+            @await Component.InvokeAsync("MenuBar")
+        </div>
+    }
+    <div class="container">
+        @if (ViewBag.ContentSpacingTop == null)
+        {
+            <div class="contentSpacingTop"></div>
+        }
+
+        <div id="main-content">
+            @RenderBody()
+        </div>
+        @if (ViewBag.CenterFooter == true)
+        {
+            <footer id="footer">
+                @RenderSection("footer", false)
+                @await Component.InvokeAsync("Messages")
+            </footer>
+        }
+        else
+        {
+            <footer>
+                @RenderSection("footer", false)
+                @await Component.InvokeAsync("Messages")
+            </footer>
+        }
+
     </div>
-}
-<div class="container">
-    @if (ViewBag.ContentSpacingTop == null)
-    {
-        <div class="contentSpacingTop"></div>
-    }
-
-    <div id="main-content">
-        @RenderBody()
-    </div>
-    @if (ViewBag.CenterFooter == true)
-    {
-        <footer id="footer">
-            @RenderSection("footer", false)
-            @await Component.InvokeAsync("Messages")
-        </footer>
-    }
-    else
-    {
-        <footer>
-            @RenderSection("footer", false)
-            @await Component.InvokeAsync("Messages")
-        </footer>
-    }
-
-</div>
 
 
-<script src="~/lib/jQuery/dist/jquery.js"></script>
-<script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-<script src="~/lib/jquery-ui/jquery-ui.js"></script>
-<script src="~/lib/Bootstrap-Confirmation/bootstrap-confirmation.js"></script>
-<script src="~/Scripts/Script.js"></script>
-
+    <script src="~/lib/jQuery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/lib/jquery-ui/jquery-ui.js"></script>
+    <script src="~/lib/Bootstrap-Confirmation/bootstrap-confirmation.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/Script.js"></script>
 
 </body>
 </html>

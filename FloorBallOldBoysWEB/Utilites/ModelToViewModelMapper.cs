@@ -40,7 +40,8 @@ namespace FloorBallOldBoysWEB.Utilites
                 City = user.Address.City,
                 Street = user.Address.Street,
                 ZipCode = user.Address.ZipCode,
-                SocialSecurityNumber = user.SocialSecurityNumber
+                SocialSecurityNumber = user.SocialSecurityNumber,
+                
             };
         }
 

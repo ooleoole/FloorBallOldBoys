@@ -12,30 +12,35 @@
                 <label class="control-label col-sm-1" for="location-input" asp-for="Location"></label>
                 <div class="col-sm-6">
                     <input type="text" class="form-control" id="location-input" placeholder="Plats" asp-for="Location">
+                    <span class="text-danger" asp-validation-for="Location"></span>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-1" for="starttime-input" asp-for="StartTime"></label>
                 <div class="col-sm-6">
                     <input class="form-control" id="starttime-input" asp-for="StartTime">
+                    <span class="text-danger" asp-validation-for="StartTime"></span>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-1" for="endtime-input" asp-for="EndTime"></label>
                 <div class="col-sm-6">
                     <input class="form-control" id="endtime-input" asp-for="EndTime">
+                    <span class="text-danger" asp-validation-for="EndTime"></span>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-1" for="date-input" asp-for="Date"></label>
                 <div class="col-sm-6">
-                    <input class="form-control" id="date-input" asp-for="Date"/>
+                    <input class="form-control" id="date-input" asp-for="Date" />
+                    <span class="text-danger" asp-validation-for="Date"></span>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-1" for="info-input" asp-for="Info"></label>
                 <div class="col-sm-6">
                     <textarea rows="4" cols="50" type="text" class="form-control" id="info-input" asp-for="Info"></textarea>
+                    <span class="text-danger" asp-validation-for="Info"></span>
                 </div>
             </div>
             <div class="form-group">
@@ -44,7 +49,7 @@
                        data-form="#create-training-form"
                        data-html-target="#main-content"
                        data-url="/api/training/createTraining"
-                       data-action-type="add">
+                       data-action-type="add-toggle-training">
                         Spara
                     </a>
                     <a id="reset-create-training-form" class="btn btn-default"
