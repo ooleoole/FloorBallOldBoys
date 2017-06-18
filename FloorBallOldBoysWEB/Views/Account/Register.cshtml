@@ -19,24 +19,7 @@
         <div asp-validation-summary="ModelOnly"></div>
         <form method="post" asp-antiforgery="true" asp-controller="Account" asp-action="Register">
             <div asp-validation-summary="ModelOnly"></div>
-            <div class="text-danger">
-                <span asp-validation-for="Email"></span><br/>
-                <span asp-validation-for="Password"></span>
-                <span asp-validation-for="ConfirmPassword"></span>
-            </div>
-            <div class="panel-body">
-                <div class="input-lg">
-                    <input asp-for="Email" placeholder="Email"/>
-
-                </div>
-                <div class="input-lg">
-
-                    <input asp-for="Password" placeholder="Lösenord"/>
-                </div>
-                <div class="input-lg">
-                    <input asp-for="ConfirmPassword" placeholder="Bekräfta lösenord"/>
-                </div>
-            </div>
+            
             <div class="text-danger">
                 <span asp-validation-for="Firstname"></span><br/>
                 <span asp-validation-for="Lastname"></span><br/>
@@ -67,6 +50,24 @@
                 </div>
                 <div class="input-lg">
                     <input asp-for="ZipCode" placeholder="Postnummer"/>
+                </div>
+            </div>
+            <div class="text-danger">
+                <span asp-validation-for="Email"></span><br />
+                <span asp-validation-for="Password"></span>
+                <span asp-validation-for="ConfirmPassword"></span>
+            </div>
+            <div class="panel-body">
+                <div class="input-lg">
+                    <input asp-for="Email" placeholder="Email" />
+
+                </div>
+                <div class="input-lg">
+
+                    <input asp-for="Password" placeholder="Lösenord" />
+                </div>
+                <div class="input-lg">
+                    <input asp-for="ConfirmPassword" placeholder="Bekräfta lösenord" />
                 </div>
             </div>
             <div id="loginBtn">

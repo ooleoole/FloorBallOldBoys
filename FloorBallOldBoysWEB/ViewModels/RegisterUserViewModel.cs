@@ -9,12 +9,15 @@ namespace FloorBallOldBoysWEB.ViewModels
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
         [DataType(DataType.Password)]
+        [MinLength(6, ErrorMessage = "Lösenordet måste vara minst 6 tecken")]
+        [Display(Name = "Nytt lösenord:")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Compare(nameof(Password))]
+        [Compare(nameof(Password), ErrorMessage = "Lösenorden matchar inte")]
+        [MinLength(6, ErrorMessage = "Lösenordet måste vara minst 6 tecken")]
+        [Display(Name = "Bekräfta lösenord:")]
         public string ConfirmPassword { get; set; }
 
         [Required(ErrorMessage = "Vänligen fyll i förnamn")]
@@ -23,7 +26,7 @@ namespace FloorBallOldBoysWEB.ViewModels
         [Display(Name = "Förnamn")]
         public string Firstname { get; set; }
 
-        [Required(ErrorMessage = "Vänligen fyll i förnamn")]
+        [Required(ErrorMessage = "Vänligen fyll i efternamn")]
         [MinLength(2, ErrorMessage = "Använd 2-35 tecken")]
         [MaxLength(35, ErrorMessage = "Använd 2-35 tecken")]
         [Display(Name = "Efternamn")]
