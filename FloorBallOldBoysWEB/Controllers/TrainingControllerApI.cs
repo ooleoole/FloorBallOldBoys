@@ -15,14 +15,13 @@ namespace FloorBallOldBoysWEB.Controllers
         private readonly ISession _session;
         private readonly ITrainingService _trainingService;
         private User _loggedInUser;
+        private User LoggedInUser => _loggedInUser ?? (_loggedInUser = _session.GetLoggedInUser(User.Identity.Name));
 
         public TrainingControllerApi(ITrainingService trainingService, ISession session)
         {
             _session = session;
             _trainingService = trainingService;
         }
-
-        private User LoggedInUser => _loggedInUser ?? (_loggedInUser = _session.GetLoggedInUser(User.Identity.Name));
 
         [HttpGet]
         [Route("createTraining")]
@@ -56,10 +55,8 @@ namespace FloorBallOldBoysWEB.Controllers
             var todaysTranings = _trainingService.GetTodaysTrainings();
             var model = Mapper.ModelToViewModelMapping
                 .TrainingsToTrainingsViewModel(todaysTranings, LoggedInUser);
-
             if (isStartPage)
                 return View("TodayTranings", model);
-
 
             return PartialView("TodayTranings", model);
         }
