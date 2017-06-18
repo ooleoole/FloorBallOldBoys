@@ -9,7 +9,7 @@ namespace Domain.Interfaces
     {
         void Add(Training training);
         IEnumerable<Training> GetAll();
-        Training Find(int id);
+        //Training Find(int id);
         IEnumerable<Training> FindAll(Expression<Func<Training, bool>> predicate);
 
         IEnumerable<Training> FindAll(Expression<Func<Training, bool>> predicate,
@@ -23,5 +23,6 @@ namespace Domain.Interfaces
         IEnumerable<Training> AllInclude(params string[] includeProperties);
         IEnumerable<Training> AllInclude(params Expression<Func<Training, object>>[] predicate);
         IEnumerable<Training> GetTodaysTrainings();
+        Training Find(int id, params string[] includeProperties);
     }
 }

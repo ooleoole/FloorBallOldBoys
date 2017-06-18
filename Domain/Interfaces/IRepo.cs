@@ -8,7 +8,7 @@ namespace Domain.Interfaces
     {
         void Add(TEntity entity);
         IEnumerable<TEntity> GetAll();
-        TEntity Find(int id);
+        TEntity Find(Expression<Func<TEntity, bool>> predicate, params string[] includeProperties);
         void Delete(TEntity entity);
         IEnumerable<TEntity> AllInclude(params Expression<Func<TEntity, object>>[] includeProperties);
         IEnumerable<TEntity> AllInclude(params string[] includeProperties);

@@ -35,9 +35,10 @@ namespace Domain.Services
             return _repo.GetAll();
         }
 
-        public User Find(int id)
+        public User Find(int id, params string[] includeProperties)
         {
-            return _repo.Find(id);
+            return _repo.Find(u => u.Id == id, includeProperties);
+
         }
 
         public IEnumerable<User> FindAll(Expression<Func<User, bool>> predicate)

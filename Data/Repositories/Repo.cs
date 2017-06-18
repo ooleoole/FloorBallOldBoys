@@ -31,9 +31,10 @@ namespace Data.Repositories
             return _set.ToList();
         }
 
-        public TEntity Find(int id)
+        public TEntity Find(Expression<Func<TEntity, bool>> predicate, params string[]includeProperties)
         {
-            return _set.Find(id);
+            return GetAllIncluding(includeProperties).Where(predicate).ToList().FirstOrDefault()
+                   ?? throw new KeyNotFoundException($"Entity not found");
         }
 
         public IEnumerable<TEntity> FindAll(Expression<Func<TEntity, bool>> predicate)

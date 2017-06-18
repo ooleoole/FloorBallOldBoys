@@ -80,7 +80,7 @@ namespace FloorBallOldBoysWEB.Controllers
         [Authorize]
         public IActionResult GetTraining(int trainingId)
         {
-            var training = _trainingService.AllInclude("EnrolledUsers.User").FirstOrDefault(t => t.Id == trainingId);
+            var training = _trainingService.Find(trainingId, "EnrolledUsers.User", "ActualAttendance.User");
             var trainingSummaryViewModel =
                 Mapper.ModelToViewModelMapping.TrainingToTrainingSummaryViewModel(training, LoggedInUser);
             return PartialView("_TrainingSummary", trainingSummaryViewModel);
@@ -98,7 +98,7 @@ namespace FloorBallOldBoysWEB.Controllers
                 UserId = LoggedInUser.Id
             });
             _trainingService.Update(training);
-            training = _trainingService.AllInclude("EnrolledUsers.User").FirstOrDefault(t => t.Id == trainingId);
+            training = _trainingService.Find(trainingId, "EnrolledUsers.User", "ActualAttendance.User");
             var trainingSummaryViewModel =
                 Mapper.ModelToViewModelMapping.TrainingToTrainingSummaryViewModel(training, LoggedInUser);
             return PartialView("_TrainingSummary", trainingSummaryViewModel);
@@ -109,7 +109,7 @@ namespace FloorBallOldBoysWEB.Controllers
         [Authorize]
         public IActionResult DismissTraining(int trainingId)
         {
-            var training = _trainingService.AllInclude("EnrolledUsers.User").FirstOrDefault(t => t.Id == trainingId);
+            var training = _trainingService.Find(trainingId, "EnrolledUsers.User", "ActualAttendance.User");
             var deleteEnrollments = training.EnrolledUsers.Where(ute => ute.UserId == LoggedInUser.Id).ToList();
             deleteEnrollments.ForEach(userTraningEnrollment => training.EnrolledUsers.Remove(userTraningEnrollment));
             _trainingService.Update(training);
@@ -153,8 +153,7 @@ namespace FloorBallOldBoysWEB.Controllers
         {
             if (ModelState.IsValid)
             {
-                var training = _trainingService.AllInclude("EnrolledUsers.User")
-                    .FirstOrDefault(t => t.Id == model.TrainingId);
+                var training = _trainingService.Find(model.TrainingId, "EnrolledUsers.User", "ActualAttendance.User");
                 training = Mapper.ViewModelToModelMapping.EditTrainingViewModelToTraining(model, training);
                 _trainingService.Update(training);
                 var trainingSummaryViewModel =
@@ -170,8 +169,7 @@ namespace FloorBallOldBoysWEB.Controllers
         [Authorize]
         public IActionResult ToggleTrainingStatus(int trainingId, bool isCancelled)
         {
-            var training = _trainingService.AllInclude("EnrolledUsers.User")
-                .FirstOrDefault(t => t.Id == trainingId);
+            var training = _trainingService.Find(trainingId, "EnrolledUsers.User", "ActualAttendance.User");
             training.IsCancelled = isCancelled;
             _trainingService.Update(training);
             var trainingSummaryViewModel =

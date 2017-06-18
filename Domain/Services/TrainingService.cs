@@ -28,9 +28,15 @@ namespace Domain.Services
             return _repo.GetAll();
         }
 
-        public Training Find(int id)
+        //public Training Find(int id)
+        //{
+        //    return _repo.Find(id);
+        //}
+
+        public Training Find(int id, params string[] includeProperties)
         {
-            return _repo.Find(id);
+            return _repo.Find(t => t.Id == id, includeProperties);
+
         }
 
         public IEnumerable<Training> FindAll(Expression<Func<Training, bool>> predicate)
@@ -70,7 +76,6 @@ namespace Domain.Services
         public IEnumerable<Training> AllInclude(params string[] includeProperties)
         {
             NullCheck.ThrowArgumentNullEx(includeProperties);
-
             return _repo.AllInclude(includeProperties);
         }
 

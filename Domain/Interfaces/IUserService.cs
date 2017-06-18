@@ -9,7 +9,7 @@ namespace Domain.Interfaces
     {
         void Add(User user);
         IEnumerable<User> GetAll();
-        User Find(int id);
+        User Find(int id, params string [] includeProperties);
         IEnumerable<User> FindAll(Expression<Func<User, bool>> predicate);
 
         IEnumerable<User> FindAll(Expression<Func<User, bool>> predicate,
