@@ -34,9 +34,9 @@
 
 .panelTopMargin100 { margin-top: 50px; }
 
-.lrPaddingOverride {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
+#bootstrap-overrides .lrPaddingOverride {
+    padding-left: 0;
+    padding-right: 0;
 }
 
 .borderOverride { border: none; }
@@ -117,9 +117,13 @@
 }
 
 
-#bootstrap-overrides [id^="toggle-training-glyph-"] { top: 20px; }
+#bootstrap-overrides [id^="toggle-training-glyph-"] { 
+    top: 20px; 
+}
 
-#bootstrap-overrides .toggle-row { margin-right: -7px; }
+#bootstrap-overrides .toggle-row { 
+    margin-right: -7px; 
+}
 
 #bootstrap-overrides .btn-pressed {
     background-color: rgb(60, 76, 135);
