@@ -1,29 +1,24 @@
 ﻿
-$(function() {
+$(function () {
     $("body").on("submit", checkBeforeSubmit);
 });
 
 
 //--------------AJAX------------------------------------//
-$(document).on("click", "#edit-account", modelRequest);
-$(document).on("click", ".enroll", modelRequest);
-$(document).on("click", ".dismiss", modelRequest);
-$(document).on("click", "#delete-training", modelRequest);
-$(document).on("click", ".reset-edit-training-form", modelRequest);
-$(document).on("click", ".edit-training", modelRequest);
+$(document).on("click", "#edit-account, #delete-training," +
+    ".enroll, .dismiss, #delete-training," +
+    ".reset-edit-training-form, .edit-training," +
+    ".uncancel, .cancel", modelRequest);
 
-$(document).on("click", "#edit-account-post", formRequest);
-$(document).on("click", ".post-edit-training", formRequest);
-$(document).on("click", "#create-training-post", formRequest);
 
-$(document).on("click", "#cancel-account-post-btn", basicGetRequest);
-$(document).on("click", "#email", basicGetRequest);
-$(document).on("click", "#logo", basicGetRequest);
-$(document).on("click", "#my-account-btn", basicGetRequest);
-$(document).on("click", "#reset-create-training-form", basicGetRequest);
-$(document).on("click", "#todays-trainings-btn", basicGetRequest);
-$(document).on("click", "#create-training-btn", basicGetRequest);
-$(document).on("click", "#all-trainings-btn", basicGetRequest);
+$(document).on("click", "#edit-account-post, #create-training-post," +
+    ".post-edit-training", formRequest);
+
+
+$(document).on("click", "#cancel-account-post-btn, #email, #logo," +
+    "#my-account-btn, #reset-create-training-form, #todays-trainings-btn," +
+    "#create-training-btn, #all-trainings-btn", basicGetRequest);
+
 
 
 function basicGetRequest(event) {
@@ -38,17 +33,17 @@ function basicGetRequest(event) {
     $.ajax(url,
         {
             type: "GET",
-            success: function(result) {
+            success: function (result) {
                 console.log(result);
                 var action = domActionSelector(actionType);
                 actionType === "delete" ? action(htmlTarget) : action(htmlTarget, result);
             },
-            error: function(xhr, textStatus, error) {
+            error: function (xhr, textStatus, error) {
                 errorHandler(xhr, textStatus, error);
                 element.removeClass("requestRunning");
 
             },
-            complete: function() {
+            complete: function () {
 
                 element.removeClass("requestRunning");
 
@@ -74,16 +69,16 @@ function formRequest(event) {
         {
             type: "POST",
             data: $(form).serialize(),
-            success: function(result) {
+            success: function (result) {
                 console.log(result);
                 var action = domActionSelector(actionType);
                 actionType === "delete" ? action(htmlTarget) : action(htmlTarget, result);
             },
-            error: function(xhr, textStatus, error) {
+            error: function (xhr, textStatus, error) {
                 errorHandler(xhr, textStatus, error);
                 element.removeClass("requestRunning");
             },
-            complete: function() {
+            complete: function () {
 
                 element.removeClass("requestRunning");
             }
@@ -107,17 +102,17 @@ function modelRequest(event) {
         {
             type: method,
             data: JSON.parse(modelJsValue),
-            success: function(result) {
+            success: function (result) {
                 console.log(result);
                 var action = domActionSelector(actionType);
                 actionType === "delete" ? action(htmlTarget) : action(htmlTarget, result);
             },
-            error: function(xhr, textStatus, error) {
+            error: function (xhr, textStatus, error) {
                 errorHandler(xhr, textStatus, error);
                 element.removeClass("requestRunning");
 
             },
-            complete: function() {
+            complete: function () {
 
                 element.removeClass("requestRunning");
             }
@@ -128,39 +123,39 @@ function modelRequest(event) {
 function domActionSelector(actionType) {
 
     switch (actionType) {
-    case "add":
-        return function(htmlTarget, html) {
-            $(htmlTarget).html(html);
-            setCurrentPageOnNavbar(html);
-            registerFormsToValidator();
-        };
-    case "add-toggle-training":
-        return function(htmlTarget, html) {
-            $(htmlTarget).html(html);
-            setCurrentPageOnNavbar(html);
-            registerFormsToValidator();
-            $(".panel-footer").hide().siblings(".main-panel-body").hide().parent().find(".glyphicon")
-                .removeClass("glyphicon-chevron-up")
-                .addClass("glyphicon-chevron-down");
+        case "add":
+            return function (htmlTarget, html) {
+                $(htmlTarget).html(html);
+                setCurrentPageOnNavbar(html);
+                registerFormsToValidator();
+            };
+        case "add-toggle-training":
+            return function (htmlTarget, html) {
+                $(htmlTarget).html(html);
+                setCurrentPageOnNavbar(html);
+                registerFormsToValidator();
+                $(".panel-footer").hide().siblings(".main-panel-body").hide().parent().find(".glyphicon")
+                    .removeClass("glyphicon-chevron-up")
+                    .addClass("glyphicon-chevron-down");
 
-        };
-    case "addSmooth":
-        return function(htmlTarget, html) {
-            setCurrentPageOnNavbar(html);
-            $(htmlTarget).hide().html(html).fadeIn();
-            registerFormsToValidator();
+            };
+        case "addSmooth":
+            return function (htmlTarget, html) {
+                setCurrentPageOnNavbar(html);
+                $(htmlTarget).hide().html(html).fadeIn();
+                registerFormsToValidator();
 
-        };
-    case "delete":
-        return function(htmlTarget) {
-            $(htmlTarget).fadeOut("slow",
-                function() {
-                    $(this).remove();
-                });
-        };
+            };
+        case "delete":
+            return function (htmlTarget) {
+                $(htmlTarget).fadeOut("slow",
+                    function () {
+                        $(this).remove();
+                    });
+            };
 
-    default:
-        throw "Invalid action-type";
+        default:
+            throw "Invalid action-type";
     }
 
 };
@@ -168,11 +163,11 @@ function domActionSelector(actionType) {
 //------------------------styling---------------------------------//
 $(document).on("click",
     ".panel-heading-training",
-    function() {
+    function () {
         $(this).siblings(".main-panel-body").toggle("slow",
-            function() {
+            function () {
                 $(this).siblings(".panel-footer").toggle("slow",
-                    function() {
+                    function () {
                         $(this).parent().find(".glyphicon")
                             .toggleClass("glyphicon-chevron-down").toggleClass("glyphicon-chevron-up");
                     });
@@ -195,7 +190,7 @@ function shake() {
             direction: "down"
         },
         500,
-        function() {
+        function () {
             element.removeClass("effectRunning");
         });
 };
@@ -221,7 +216,7 @@ function setCurrentPageOnNavbar(html) {
 
 $(document).on("mouseenter touchstart ",
     "#delete-training",
-    function() {
+    function () {
         $("[data-toggle=confirmation]").confirmation({
             rootSelector: "[data-toggle=confirmation]"
         });
@@ -229,11 +224,11 @@ $(document).on("mouseenter touchstart ",
 
 $(document).on("click",
     "#change-password-btn",
-    function() {
+    function () {
         $("#change-password-tbody").toggle();
         $(this).hide();
     });
-
+//---------------------------misc-------------------------------//
 function errorHandler(xhr, textStatus, error) {
     console.log(xhr.statusText);
     console.log(textStatus);
@@ -254,6 +249,6 @@ function checkBeforeSubmit() {
 
 function registerFormsToValidator() {
     $(document).find("form").removeData("validator").removeData("unobtrusiveValidation");
-    $.validator.unobtrusive.parse("form");      
+    $.validator.unobtrusive.parse("form");
 
 };

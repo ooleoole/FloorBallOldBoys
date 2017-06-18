@@ -1,7 +1,7 @@
 ﻿@model TrainingSummaryViewModel
 
 
-<section class="panel panel-primary panelTopMargin100 training-panel">
+<section class="panel @(Model.IsCancelled?"panel-default":"panel-primary") panelTopMargin100 training-panel">
     <div id="training-heading-@Model.TrainingId" class="panel-heading panel-heading-training">
         <h2>@Model.Location</h2>
         <h4>@Model.Date.DayOfWeek @Model.StartTime.ToString("HH:mm") - @Model.EndTime.ToString("HH:mm")</h4>
@@ -28,65 +28,79 @@
         </div>
     </div>
     <div class="panel-footer">
-        <table>
-            <tr>
-                <th>
-                    @if (Model.EnrolledUsers.Any(ute => ute.User.Email == User.Identity.Name))
-                    {
-                        <a id="dismiss_@Model.TrainingId" class="btn btn-primary dismiss"
-                           data-html-target="#training_summary_@Model.TrainingId"
-                           data-method="POST"
-                           data-url="/api/training/dismissTraining"
-                           data-action-type="add"
-                           data-model='{"trainingId":"@Model.TrainingId"}'>
-                            Ångra anmälan
-                        </a>
-                    }
-                    else
-                    {
-                        <a id="dismiss_@Model.TrainingId" class="btn btn-primary enroll"
-                           data-html-target="#training_summary_@Model.TrainingId"
-                           data-method="POST"
-                           data-url="/api/training/enrollTraining"
-                           data-action-type="add"
-                           data-model='{"trainingId":"@Model.TrainingId"}'>
-                            Kommer
-                        </a>
-                    }
-                </th>
-                <th>
-                    <div class="col-xs-12">
-                        @if (Model.IsAdmin)
-                        {
-                            <a id="edit-training-@Model.TrainingId" class="cursor-pointer edit-training"
-                               data-html-target="#training_summary_@Model.TrainingId"
-                               data-method="GET"
-                               data-url="/api/training/editTraining"
-                               data-action-type="add"
-                               data-model='{"trainingId":"@Model.TrainingId"}'>
-                                Ändra
-                            </a>
+        @if (Model.EnrolledUsers.Any(ute => ute.User.Email == User.Identity.Name))
+            {
+            <a id="dismiss_@Model.TrainingId" class="btn btn-primary dismiss @(Model.IsCancelled?"disabled":"")"
+               data-html-target="#training_summary_@Model.TrainingId"
+               data-method="POST"
+               data-url="/api/training/dismissTraining"
+               data-action-type="add"
+               data-model='{"trainingId":"@Model.TrainingId"}'>
+                Ångra anmälan
+            </a>
+        }
+        else
+        {
+            <a id="enroll_@Model.TrainingId" class="btn btn-primary enroll @(Model.IsCancelled?"disabled":"")"
+               data-html-target="#training_summary_@Model.TrainingId"
+               data-method="POST"
+               data-url="/api/training/enrollTraining"
+               data-action-type="add"
+               data-model='{"trainingId":"@Model.TrainingId"}'>
+                Kommer
+            </a>
+        }
 
-                            <a id="delete-training" class="cursor-pointer"
-                               data-html-target="#training_summary_@Model.TrainingId"
-                               data-method="DELETE"
-                               data-url="/api/training/deleteTraining"
-                               data-action-type="delete"
-                               data-model='{"trainingId":"@Model.TrainingId"}'
+        <div class="admin-controlls btn-group" style="float: right">
+            @if (Model.IsAdmin)
+            {
+                <a id="edit-training-@Model.TrainingId" class="btn btn-sm btn-info edit-training admin-controll"
+                   data-html-target="#training_summary_@Model.TrainingId"
+                   data-method="GET"
+                   data-url="/api/training/editTraining"
+                   data-action-type="add"
+                   data-model='{"trainingId":"@Model.TrainingId"}'>
+                    Ändra
+                </a>
 
-                               data-toggle="confirmation"
-                               data-btn-ok-label="Ja" data-btn-ok-icon="glyphicon glyphicon-share-alt"
-                               data-btn-ok-class="btn-success"
-                               data-btn-cancel-label="Nej" data-btn-cancel-icon="glyphicon glyphicon-ban-circle"
-                               data-btn-cancel-class="btn-danger"
-                               data-title="Bekräfta borttagning" data-content="Vill du ta bort träningen?">
-                                Ta bort
-                            </a>
-                        }
-                    </div>
-                </th>
-            </tr>
-        </table>
+                <a id="delete-training" class="btn btn-sm btn-danger admin-controll"
+                   data-html-target="#training_summary_@Model.TrainingId"
+                   data-method="DELETE"
+                   data-url="/api/training/deleteTraining"
+                   data-action-type="delete"
+                   data-model='{"trainingId":"@Model.TrainingId"}'
+                   data-toggle="confirmation"
+                   data-btn-ok-label="Ja" data-btn-ok-icon="glyphicon glyphicon-share-alt"
+                   data-btn-ok-class="btn-success"
+                   data-btn-cancel-label="Nej" data-btn-cancel-icon="glyphicon glyphicon-ban-circle"
+                   data-btn-cancel-class="btn-danger"
+                   data-title="Bekräfta borttagning" data-content="Vill du ta bort träningen?">
+                    Ta bort
+                </a>
+                if (Model.IsCancelled)
+                {
+                    <a id="toggle-training-status-@Model.TrainingId" class="btn btn-sm btn-success uncancel admin-controll"
+                       data-html-target="#training_summary_@Model.TrainingId"
+                       data-method="POST"
+                       data-url="/api/training/toggleTrainingStatus"
+                       data-action-type="addSmooth"
+                       data-model='{"trainingId":"@Model.TrainingId","isCancelled":"@false"}'>
+                        Öppna
+                    </a>
+                }
+                else
+                {
+                    <a id="toggle-training-status-@Model.TrainingId" class="btn btn-sm btn-warning cancel admin-controll"
+                       data-html-target="#training_summary_@Model.TrainingId"
+                       data-method="POST"
+                       data-url="/api/training/toggleTrainingStatus"
+                       data-action-type="addSmooth"
+                       data-model='{"trainingId":"@Model.TrainingId","isCancelled":"@true"}'>
+                        Ställ in
+                    </a>
+                }
+            }
+        </div>
     </div>
 </section>
 <script>

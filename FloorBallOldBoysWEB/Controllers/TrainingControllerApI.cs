@@ -164,5 +164,20 @@ namespace FloorBallOldBoysWEB.Controllers
 
             return PartialView(model);
         }
+
+        [HttpPost]
+        [Route("toggleTrainingStatus")]
+        [Authorize]
+        public IActionResult ToggleTrainingStatus(int trainingId, bool isCancelled)
+        {
+            var training = _trainingService.AllInclude("EnrolledUsers.User")
+                .FirstOrDefault(t => t.Id == trainingId);
+            training.IsCancelled = isCancelled;
+            _trainingService.Update(training);
+            var trainingSummaryViewModel =
+                Mapper.ModelToViewModelMapping.TrainingToTrainingSummaryViewModel(training, LoggedInUser);
+            return PartialView("_TrainingSummary", trainingSummaryViewModel);
+
+        }
     }
 }

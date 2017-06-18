@@ -159,3 +159,15 @@
 #bootstrap-overrides .input-validation-error {
     color: red;
 }
+
+#bootstrap-overrides .admin-controlls {
+    margin-left: 10px;
+    padding-right: 0px;
+    margin-top: 1.5px;
+   
+}
+#bootstrap-overrides .admin-controll {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
